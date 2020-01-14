@@ -38,3 +38,7 @@
 .text_theme_white {
   color: #fff;
 }
+
+.text_transform_uppercase{
+  text-transform: uppercase;
+}

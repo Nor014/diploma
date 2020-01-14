@@ -3,12 +3,16 @@ import React from 'react';
 export default class Input extends React.Component {
 
   render() {
-    let { className, placeholder } = this.props;
+    let { className, placeholder, iconClass, withLabel } = this.props;
 
-    return (
-      <span className={`input ${className}`}>
-        <input type="text" className='input-form' placeholder={placeholder} />
-      </span>
-    )
+    if (iconClass) {
+      return (
+        <div className={`input-wrap ${className}`}>
+          <input type="text" className={`input ${iconClass}`} placeholder={placeholder} />
+          <label></label>
+        </div>
+      )
+    }
+
   }
 }
