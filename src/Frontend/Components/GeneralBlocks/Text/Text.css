@@ -1,0 +1,40 @@
+.text_level_first {
+  font-size: 72px;
+  line-height: 84px;
+}
+
+.text_level_second {
+  font-size: 36px;
+  line-height: 42px;
+}
+
+.text_level_third {
+  font-size: 30px;
+  line-height: 35px;
+}
+
+.text_level_fourth {
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.text_level_fifth {
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.text_weight_200 {
+  font-weight: 200;
+}
+
+.text_weight_300 {
+  font-weight: 300;
+}
+
+.text_weight_500 {
+  font-weight: 500;
+}
+
+.text_theme_white {
+  color: #fff;
+}

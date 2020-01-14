@@ -1,0 +1,32 @@
+.header {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.header__logo-inner {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.header__nav {
+  background: #292929;
+}
+
+.header__nav-list {
+  list-style: none;
+  display: flex;
+}
+
+.header__nav-list-item {
+  padding: 25px 0;
+}
+
+.header__nav-list-item:not(:last-child) {
+  margin-right: 80px;
+}
+
+.header__link {
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 35px;
+}

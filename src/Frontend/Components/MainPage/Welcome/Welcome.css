@@ -1,0 +1,16 @@
+.welcome {
+  background: url('./wellcome__img1.jpg') no-repeat center/cover;
+  min-height: 985px;
+}
+
+.welcome__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 350px;
+}
+
+.welcome__title {
+  max-width: 510px;
+  margin-left: 95px;
+}

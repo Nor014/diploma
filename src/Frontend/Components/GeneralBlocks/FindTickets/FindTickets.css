@@ -1,0 +1,31 @@
+.find-tickets {
+  display: flex;
+  background: rgba(41, 41, 41, 0.8);
+  padding: 28px 24px 60px 21px;
+}
+
+.find-tickets_column-direction {
+  flex-direction: column;
+  flex: 1 1 auto;
+  max-width: 730px;
+}
+
+.find-tickets__label {
+  margin-bottom: 20px;
+}
+
+.find-tickets__input-group {
+  display: flex;
+}
+
+.find-tickets_column-direction .find-tickets__inner {
+  margin-bottom: 61px;
+}
+
+.find-tickets__input {
+  flex: 0 1 325px;
+}
+
+.find-tickets__input:not(:last-child) {
+  margin-right: 40px;
+}
