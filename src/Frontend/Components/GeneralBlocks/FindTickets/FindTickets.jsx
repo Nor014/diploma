@@ -1,5 +1,6 @@
 import React from 'react';
 import DateInput from '../DateInput/DateInput';
+import DirectionInput from '../DirectionInput/DirectionInput';
 
 export default class FindTickets extends React.Component {
   constructor(props) {
@@ -37,18 +38,19 @@ export default class FindTickets extends React.Component {
           <div className="find-tickets__content">
             <p className="find-tickets__label text text_theme_white text_level_third text_weight_300">Направление</p>
             <div className="find-tickets__input-group">
-              <div className='find-tickets__input-wrap'>
-                <input type="text" className='input find-tickets__input input_type_direction' placeholder='Откуда' />
-                <label></label>
-              </div>
+              <DirectionInput
+                parentClass='find-tickets__direction-input'
+                inputClass='find-tickets__input input_type_direction'
+                placeholder='Откуда'
+                value={this.state.direction.fromLocation} />
               <button className='btn find-tickets__change-direction-btn' />
-              <div className='find-tickets__input-wrap'>
-                <input type="text" className='input find-tickets__input input_type_direction' placeholder='Куда' />
-                <label></label>
-              </div>
+              <DirectionInput
+                parentClass='find-tickets__direction-input'
+                inputClass='find-tickets__input input_type_direction'
+                placeholder='Куда'
+                value={this.state.direction.toLocation} />
             </div>
           </div>
-
           <div className="find-tickets__content">
             <p className="find-tickets__label text text_theme_white text_level_third text_weight_300">Дата</p>
             <div className="find-tickets__input-group">
@@ -57,7 +59,6 @@ export default class FindTickets extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="find-tickets__btn-inner">
           <button className="btn btn_size_big btn_theme_yellow text text_transform_uppercase" type='button'>Найти билеты</button>
         </div>

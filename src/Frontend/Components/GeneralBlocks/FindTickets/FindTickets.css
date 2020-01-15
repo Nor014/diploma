@@ -13,16 +13,16 @@
   position: relative;
 }
 
-.find-tickets__input-wrap {
-  flex: 0 1 325px;
-  position: relative;
-}
-
 .find-tickets__input {
   padding: 20px;
 }
 
-.find-tickets__input-wrap:not(:last-child) {
+.find-tickets__direction-input {
+  flex: 0 1 325px;
+  position: relative;
+}
+
+.find-tickets__direction-input:not(:last-child) {
   margin-right: 40px;
 }
 

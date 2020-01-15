@@ -3,6 +3,7 @@
 @import './GeneralBlocks/Btn`s/Btn`s.css';
 @import './GeneralBlocks/Input/Input.css';
 @import './GeneralBlocks/DateInput/DateInput.css';
+@import './GeneralBlocks/DirectionInput/DirectionInput.css';
 @import './GeneralBlocks/Logo/Logo.css';
 @import './Header/Header.css';
 @import './MainPage/MainPage-index.css';
