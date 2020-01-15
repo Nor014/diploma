@@ -12,10 +12,6 @@ export default class Welcome extends React.Component {
           <h1 className='welcome__title text text_level_first text_theme_white'><span className='text text_weight_200'>Вся жизнь -</span> путешествие!</h1>
           <FindTickets fromComponent='Welcome' />
         </div>
-
-        <div className="">
-          <DateInput />
-        </div>
       </div>
     )
   }

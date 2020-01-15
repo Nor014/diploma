@@ -1,0 +1,26 @@
+.react-datepicker__input-container::before {
+  content: '';
+  width: 30px;
+  height: 34px;
+  background: url('./input_type_data.svg') no-repeat center;
+  position: absolute;
+  top: 50%;
+  right: 17px;
+  transform: translateY(-50%);
+}
+
+.react-datepicker__input-container:hover input::placeholder {
+  color: #2D2B2F;
+}
+
+.react-datepicker__day--weekend {
+  font-weight: 600;
+}
+
+.react-datepicker__day.react-datepicker__day--disabled {
+  color: #808080;
+}
+
+.react-datepicker__day.react-datepicker__day--outside-month {
+  color: #e6e6e6;
+}

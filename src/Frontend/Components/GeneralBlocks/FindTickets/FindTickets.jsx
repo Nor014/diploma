@@ -1,7 +1,29 @@
 import React from 'react';
-import Input from '../Input/Input';
+import DateInput from '../DateInput/DateInput';
 
 export default class FindTickets extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      direction: {
+        fromLocation: '',
+        toLocation: ''
+      },
+      date: {
+        fromDate: null,
+        toDate: null
+      }
+    }
+  }
+
+  changeDate = (data) => {
+    let { inputTargetValue, date } = data;
+
+    this.setState(prevState => {
+      let newDate = { ...prevState.date, [inputTargetValue]: date };
+      return { ...prevState, date: newDate }
+    }, () => console.log(this.state))
+  }
 
   render() {
     let { fromComponent } = this.props;
@@ -15,17 +37,23 @@ export default class FindTickets extends React.Component {
           <div className="find-tickets__content">
             <p className="find-tickets__label text text_theme_white text_level_third text_weight_300">Направление</p>
             <div className="find-tickets__input-group">
-              <Input className='find-tickets__input-wrap' placeholder='Откуда' withLabel='false' iconClass='input_type_direction' />
+              <div className='find-tickets__input-wrap'>
+                <input type="text" className='input find-tickets__input input_type_direction' placeholder='Откуда' />
+                <label></label>
+              </div>
               <button className='btn find-tickets__change-direction-btn' />
-              <Input className='find-tickets__input-wrap' placeholder='Куда' withLabel='false' iconClass='input_type_direction' />
+              <div className='find-tickets__input-wrap'>
+                <input type="text" className='input find-tickets__input input_type_direction' placeholder='Куда' />
+                <label></label>
+              </div>
             </div>
           </div>
 
           <div className="find-tickets__content">
             <p className="find-tickets__label text text_theme_white text_level_third text_weight_300">Дата</p>
             <div className="find-tickets__input-group">
-              <Input className='find-tickets__input-wrap' placeholder='ДД/ММ/ГГ' withLabel='false' iconClass='input_type_data' />
-              <Input className='find-tickets__input-wrap' placeholder='ДД/ММ/ГГ' withLabel='false' iconClass='input_type_data' />
+              <DateInput inputClass='find-tickets__input' changeDate={this.changeDate} inputTargetValue='fromDate' />
+              <DateInput inputClass='find-tickets__input' changeDate={this.changeDate} inputTargetValue='toDate' />
             </div>
           </div>
         </div>
