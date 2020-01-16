@@ -1,0 +1,20 @@
+.input {
+  border: none;
+  padding: 12px 15px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 21px;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: #E5E5E5;
+}
+
+.input:hover::placeholder, .input:focus::placeholder {
+  color: #2D2B2F;
+}
+
+.input_size_big {
+  padding: 20px;
+}

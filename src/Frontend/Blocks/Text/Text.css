@@ -35,6 +35,9 @@
   font-weight: 500;
 }
 
+.text_weight_600 {
+  font-weight: 600;
+}
 .text_theme_white {
   color: #fff;
 }

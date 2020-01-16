@@ -1,6 +1,5 @@
 import React from 'react';
 import FindTickets from '../../GeneralBlocks/FindTickets/FindTickets';
-import DateInput from '../../GeneralBlocks/DateInput/DateInput';
 
 
 export default class Welcome extends React.Component {

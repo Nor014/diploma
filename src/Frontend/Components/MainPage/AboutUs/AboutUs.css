@@ -1,0 +1,22 @@
+.about-us {
+  padding-top: 144px;
+  padding-bottom: 115px;
+  scroll-behavior: smooth;
+}
+
+.about-us__title {
+  margin-bottom: 33px;
+}
+
+.about-us__text {
+  max-width: 1140px;
+}
+
+.about-us__text:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.about-us__content {
+  border-left: 9px solid #FFA800;
+  padding: 0 10px 15px 20px;
+}

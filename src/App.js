@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from './Frontend/Components/Header/Header';
 import MainPage from './Frontend/Components/MainPage/MainPage';
 
-import './Frontend/Components/index.css';
+import './Frontend/index.css';
 
 
 function App() {

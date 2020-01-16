@@ -1,10 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,900&display=swap&subset=cyrillic');
-@import './GeneralBlocks/Text/Text.css';
-@import './GeneralBlocks/Btn`s/Btn`s.css';
-@import './GeneralBlocks/Input/Input.css';
 @import './GeneralBlocks/DateInput/DateInput.css';
 @import './GeneralBlocks/DirectionInput/DirectionInput.css';
 @import './GeneralBlocks/Logo/Logo.css';
 @import './Header/Header.css';
 @import './MainPage/MainPage-index.css';
 @import './GeneralBlocks/FindTickets/FindTickets.css';
+@import './MainPage/AboutUs/AboutUs.css';

@@ -13,10 +13,6 @@
   position: relative;
 }
 
-.find-tickets__input {
-  padding: 20px;
-}
-
 .find-tickets__direction-input {
   flex: 0 1 325px;
   position: relative;

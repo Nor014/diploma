@@ -1,5 +1,6 @@
 import React from 'react';
 import Welcome from './Welcome/Welcome';
+import AboutUs from './AboutUs/AboutUs';
 
 
 export default class MainPage extends React.Component {
@@ -8,6 +9,7 @@ export default class MainPage extends React.Component {
     return (
       <div className="main-page">
         <Welcome />
+        <AboutUs />
       </div>
     )
   }

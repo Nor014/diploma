@@ -6,24 +6,46 @@ export default class FindTickets extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      direction: {
-        fromLocation: '',
-        toLocation: ''
-      },
-      date: {
-        fromDate: null,
-        toDate: null
-      }
+      direction: { fromLocation: '', toLocation: '' },
+      date: { fromDate: null, toDate: null }
     }
   }
 
   changeDate = (data) => {
-    let { inputTargetValue, date } = data;
+    let { name, value } = data;
 
     this.setState(prevState => {
-      let newDate = { ...prevState.date, [inputTargetValue]: date };
+      let newDate = { ...prevState.date, [name]: value };
       return { ...prevState, date: newDate }
-    }, () => console.log(this.state))
+    })
+  }
+
+  changeDirection = (event) => {
+    const { name, value } = event.target
+
+    this.setState(prevState => {
+      let newDirection = { ...prevState.direction, [name]: value }
+      return { ...prevState, direction: newDirection }
+    })
+  }
+
+  changeDirectionValues = () => {
+    this.setState(prevState => {
+      let newFromLocation = prevState.direction.toLocation,
+        newToLocation = prevState.direction.fromLocation,
+        changedDirection = { ...prevState.direction, fromLocation: newFromLocation, toLocation: newToLocation };
+
+      return { ...prevState, direction: changedDirection };
+    })
+  }
+
+  selectDirectionFromList = (event) => {
+    const { name, value } = event.target;
+
+    this.setState(prevState => {
+      let newDirection = { ...prevState.direction, [name]: value }
+      return { ...prevState, direction: newDirection }
+    })
   }
 
   render() {
@@ -40,25 +62,35 @@ export default class FindTickets extends React.Component {
             <div className="find-tickets__input-group">
               <DirectionInput
                 parentClass='find-tickets__direction-input'
-                inputClass='find-tickets__input input_type_direction'
+                inputClass='input_size_big input_type_direction'
                 placeholder='Откуда'
-                value={this.state.direction.fromLocation} />
-              <button className='btn find-tickets__change-direction-btn' />
+                name='fromLocation'
+                value={this.state.direction.fromLocation}
+                onChange={this.changeDirection}
+                selectFromList={this.selectDirectionFromList} />
+
+              <button className='btn find-tickets__change-direction-btn' type='button' onClick={this.changeDirectionValues} />
+
               <DirectionInput
                 parentClass='find-tickets__direction-input'
-                inputClass='find-tickets__input input_type_direction'
+                inputClass='input_size_big input_type_direction'
                 placeholder='Куда'
-                value={this.state.direction.toLocation} />
+                name='toLocation'
+                value={this.state.direction.toLocation}
+                onChange={this.changeDirection}
+                selectFromList={this.selectDirectionFromList} />
             </div>
           </div>
+
           <div className="find-tickets__content">
             <p className="find-tickets__label text text_theme_white text_level_third text_weight_300">Дата</p>
             <div className="find-tickets__input-group">
-              <DateInput inputClass='find-tickets__input' changeDate={this.changeDate} inputTargetValue='fromDate' />
-              <DateInput inputClass='find-tickets__input' changeDate={this.changeDate} inputTargetValue='toDate' />
+              <DateInput inputClass='input_size_big' changeDate={this.changeDate} name='fromDate' />
+              <DateInput inputClass='input_size_big' changeDate={this.changeDate} name='toDate' fromDate={this.state.date.fromDate} />
             </div>
           </div>
         </div>
+        
         <div className="find-tickets__btn-inner">
           <button className="btn btn_size_big btn_theme_yellow text text_transform_uppercase" type='button'>Найти билеты</button>
         </div>

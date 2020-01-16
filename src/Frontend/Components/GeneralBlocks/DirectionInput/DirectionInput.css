@@ -2,6 +2,17 @@
   position: relative;
 }
 
+.direction-input::before {
+  content: '';
+  width: 21px;
+  height: 30px;
+  background: url('./input_type_direction.svg') no-repeat center;
+  position: absolute;
+  top: 50%;
+  right: 17px;
+  transform: translateY(-50%);
+}
+
 .direction-input__list {
   list-style: none;
   position: absolute;
@@ -29,6 +40,6 @@
   border-radius: 0;
 }
 
-.direction-input__list-btn:hover {
+.direction-input__list-btn:hover, .direction-input__list-btn:focus {
   background: #FFA800;
 }

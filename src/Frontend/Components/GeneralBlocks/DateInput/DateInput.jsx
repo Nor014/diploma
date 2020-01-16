@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker";
-import moment from 'moment';
+// import moment from 'moment';
 
 import "react-datepicker/dist/react-datepicker.css";
 import ru from 'date-fns/locale/ru';
@@ -12,17 +12,15 @@ export default class DateInput extends React.Component {
 
   onDateChange = (date) => {
     this.setState({ date });
-
     let formattedDate = {
-      inputTargetValue: this.props.inputTargetValue === 'fromDate' ? 'fromDate' : 'toDate',
-      date: moment(date).format('DD.MM.YYYY')
+      name: this.props.name === 'fromDate' ? 'fromDate' : 'toDate',
+      value: date
     }
-
     this.props.changeDate(formattedDate)
   }
 
   render() {
-    const { inputClass } = this.props;
+    const { inputClass, fromDate } = this.props;
 
     return (
       <DatePicker
@@ -33,7 +31,7 @@ export default class DateInput extends React.Component {
         selected={this.state.date}
         onChange={date => this.onDateChange(date)}
         value={this.state.date}
-        minDate={new Date()}
+        minDate={fromDate !== undefined ? new Date(fromDate) : new Date()}
       />
     );
   }
