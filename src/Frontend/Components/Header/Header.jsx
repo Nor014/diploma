@@ -6,13 +6,11 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="header">
-        <div className="header__logo-inner">
-          <Logo />
-        </div>
+        <div className="header__logo-inner"><Logo /></div>
         <nav className="header__nav">
           <ul className="header__nav-list container">
             <li className="header__nav-list-item"><a href="#about-us" className='link header__link'>О нас</a></li>
-            <li className="header__nav-list-item"><a href="#" className='link header__link'>Как это работает</a></li>
+            <li className="header__nav-list-item"><a href="#how-it-works" className='link header__link'>Как это работает</a></li>
             <li className="header__nav-list-item"><a href="#" className='link header__link'>Отзывы</a></li>
             <li className="header__nav-list-item"><a href="#" className='link header__link'>Контакты</a></li>
           </ul>

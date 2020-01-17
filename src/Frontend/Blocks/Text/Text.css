@@ -38,10 +38,15 @@
 .text_weight_600 {
   font-weight: 600;
 }
+
 .text_theme_white {
   color: #fff;
 }
 
-.text_transform_uppercase{
+.text_theme_grey {
+  color: #918F94
+}
+
+.text_transform_uppercase {
   text-transform: uppercase;
 }

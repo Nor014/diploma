@@ -1,0 +1,46 @@
+.review {
+  display: flex;
+  align-items: center;
+  max-width: 630px;
+}
+
+.review__avatar {
+  flex: 0 0 206px;
+  width: 206px;
+  height: 206px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 35px;
+}
+
+.review__img {
+  width: 100%;
+}
+
+.review__name {
+  margin-bottom: 20px;
+}
+
+.review__text {
+  font-style: italic;
+  font-size: 18px;
+  position: relative;
+}
+
+.review__text::before, .review__text::after {
+  content: '';
+  display: inline-block;
+  width: 13px;
+  height: 10px;
+  background: url('./review__quotes.svg') no-repeat center;
+}
+
+.review__text::before {
+  vertical-align: text-top;
+}
+
+.review__text::after {
+  transform: rotate(180deg);
+  vertical-align: text-bottom;
+  margin-left: 10px;
+}
