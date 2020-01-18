@@ -1,0 +1,45 @@
+.contacts {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.contacts__title {
+  margin-bottom: 35px;
+}
+
+.contacts__list {
+  list-style: none;
+  color: #E5E5E5;
+}
+
+.contacts__list-item {
+  display: flex;
+}
+
+.contacts__list-item:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.contacts__list-item::before {
+  content: '';
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  margin-right: 36px;
+}
+
+.contacts_icon_phone::before {
+  background: url('./contacts_icon_phone.svg') no-repeat center;
+}
+
+.contacts_icon_mail::before {
+  background: url('./contacts_icon_mail.svg') no-repeat center;
+}
+
+.contacts_icon_skape::before {
+  background: url('./contacts_icon_skape.svg') no-repeat center;
+}
+
+.contacts_icon_location::before {
+  background: url('./contacts_icon_location.svg') no-repeat center;
+}

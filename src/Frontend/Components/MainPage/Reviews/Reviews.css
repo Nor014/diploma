@@ -7,3 +7,27 @@
   margin-bottom: 80px;
 }
 
+.reviews__slider .carousel {
+  padding-bottom: 120px;
+}
+
+.reviews__slider .slide {
+  background: none;
+  text-align: left;
+}
+
+.reviews__slider .slide-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reviews__slider .carousel .control-dots .dot {
+  background: #E5E5E5;
+  width: 20px;
+  height: 20px;
+  opacity: 1;
+}
+
+.reviews__slider .carousel .control-dots .dot.selected, .carousel .control-dots .dot:hover {
+  background: #C4C4C4;
+}

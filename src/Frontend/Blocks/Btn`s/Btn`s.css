@@ -39,3 +39,7 @@
   max-width: 323px;
   width: 100%;
 }
+
+.btn_size_small {
+  padding: 15px 15px;
+}

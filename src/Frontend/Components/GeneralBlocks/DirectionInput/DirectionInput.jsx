@@ -43,6 +43,7 @@ export default class DirectionInput extends React.Component {
 
     return (
       <div className={parentClassName} ref={(element) => { this.directionInput = element; }} >
+        
         <input type="text"
           className={inputClassName}
           placeholder={placeholder}

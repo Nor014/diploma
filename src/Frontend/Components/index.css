@@ -2,6 +2,7 @@
 @import './GeneralBlocks/DirectionInput/DirectionInput.css';
 @import './GeneralBlocks/Logo/Logo.css';
 @import './Header/Header.css';
+@import './Footer/Footer.css';
 @import './MainPage/MainPage-index.css';
 @import './GeneralBlocks/FindTickets/FindTickets.css';
 @import './GeneralBlocks/Review/Review.css';

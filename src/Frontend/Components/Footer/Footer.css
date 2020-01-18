@@ -1,0 +1,39 @@
+@import './Subscription/Subscription.css';
+@import './Contacts/Contacts.css';
+
+.footer {
+  background: #2D2B2F;
+  color: #E5E5E5;
+}
+
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 20px;
+}
+
+.footer__top-content {
+  flex: 1 1 auto;
+}
+
+.footer__bottom {
+  border-top: 1px solid #E5E5E5;
+  padding: 10px 0;
+}
+
+.footer__bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__to-header-link {
+  width: 36px;
+  height: 36px;
+  background: url('./footer__back-link.svg') no-repeat center;
+}
+
+
+
+
+
