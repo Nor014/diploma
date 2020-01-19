@@ -1,8 +1,10 @@
 import React from 'react';
 import DateInput from '../DateInput/DateInput';
 import DirectionInput from '../DirectionInput/DirectionInput';
+import { connect } from 'react-redux';
+import { changeListsValues } from '../../../Redux/actions/actions';
 
-export default class FindTickets extends React.Component {
+class FindTickets extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -30,6 +32,8 @@ export default class FindTickets extends React.Component {
   }
 
   changeDirectionValues = () => {
+    this.props.changeListsValues();
+
     this.setState(prevState => {
       let newFromLocation = prevState.direction.toLocation,
         newToLocation = prevState.direction.fromLocation,
@@ -90,7 +94,7 @@ export default class FindTickets extends React.Component {
             </div>
           </div>
         </div>
-        
+
         <div className="find-tickets__btn-inner">
           <button className="btn btn_size_big btn_theme_yellow text text_transform_uppercase" type='button'>Найти билеты</button>
         </div>
@@ -98,3 +102,18 @@ export default class FindTickets extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  const { directionState } = state
+  return {
+    directionState: directionState
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeListsValues: () => dispatch(changeListsValues())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FindTickets)

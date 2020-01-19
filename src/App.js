@@ -1,7 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Provider } from 'react-redux';
+import store from './Frontend/Redux/store/store';
 
 import Header from './Frontend/Components/Header/Header';
 import Footer from './Frontend/Components/Footer/Footer';
@@ -12,17 +13,19 @@ import './Frontend/index.css';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <main className='main'>
-          <Switch>
-            <Route exact path='/' component={MainPage} />
-          </Switch>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Header />
+          <main className='main'>
+            <Switch>
+              <Route exact path='/' component={MainPage} />
+            </Switch>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
