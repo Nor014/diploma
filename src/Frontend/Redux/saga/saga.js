@@ -8,7 +8,7 @@ function* getDataSaga(action) {
   
   try {
     const data = yield call(fetchData, url);
-    
+    // console.log(data)
     if (fromComponent === 'directionInput') {
       yield put(setDirectionList(data, action.payload.name))
     }

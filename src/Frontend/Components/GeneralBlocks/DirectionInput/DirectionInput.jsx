@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getLocations, clearDirectionList, setCity, setDirectionInputValue } from '../../../Redux/actions/actions';
+import { getLocations, clearDirectionList, setCity, setDirectionInputValue, clearDirectionInput } from '../../../Redux/actions/actions';
 
 class DirectionInput extends React.Component {
   constructor(props) {
@@ -19,11 +19,13 @@ class DirectionInput extends React.Component {
     if (!this.directionInput.contains(event.target)) {
       this.setState(prevState => ({ ...prevState, listState: 'hidden' }),
         () => document.removeEventListener('mousedown', this.closeList))
+
+      this.setFirstLocationInList();
     }
   }
 
-  selectFromList = (event, id) => {
-    const { name, value } = event.target;
+  selectFromList = (value, id) => {
+    const name = this.props.name;
 
     this.props.setCity(id, name === 'fromLocation' ? 'from_city_id' : 'to_city_id');
     this.props.setInputValue(value, name);
@@ -36,6 +38,8 @@ class DirectionInput extends React.Component {
   onListBlur = () => {
     this.setState(prevState => ({ ...prevState, listState: 'hidden' }),
       () => document.removeEventListener('mousedown', this.closeList))
+
+    this.setFirstLocationInList();
   }
 
   onInputChange = (event) => {
@@ -46,7 +50,7 @@ class DirectionInput extends React.Component {
 
     if (value.length > 0) {
       let fromComponent = 'directionInput';
-      let url = `https://netology-trainbooking.herokuapp.com/routes/cities?name=${value}`;
+      let url = `https://netology-trainbooking.herokuapp.com/routes/cities?name=${value.toLowerCase()}`;
 
       this.props.getLocations(fromComponent, url, name);
     } else {
@@ -54,8 +58,15 @@ class DirectionInput extends React.Component {
     }
   }
 
-  // checkInList = () => {
-  // }
+  setFirstLocationInList = () => {
+    const firstLocation = this.props.directionState[this.props.name].list[0];
+
+    if (firstLocation !== undefined) {
+      this.selectFromList(firstLocation.name, firstLocation._id)
+    } else {
+      this.props.clearDirectionInput(this.props.name)
+    }
+  }
 
   render() {
     const { parentClass, inputClass, placeholder, name } = this.props;
@@ -85,10 +96,11 @@ class DirectionInput extends React.Component {
               <li className="direction-input__list-item" key={el._id}>
                 {index === directionList.length - 1
                   ? <button className='btn direction-input__list-btn'
-                    type='button' onClick={(event) => this.selectFromList(event, el._id)} name={name} value={el.name}
+                    type='button' onClick={(event) => this.selectFromList(event.target.value, el._id)} name={name} value={el.name}
                     onBlur={this.onListBlur}>{el.name}</button>
                   : <button className='btn direction-input__list-btn'
-                    type='button' onClick={(event) => this.selectFromList(event, el._id)} name={name} value={el.name}>{el.name}</button>}
+                    type='button' onClick={(event) => this.selectFromList(event.target.value, el._id)} name={name}
+                    value={el.name}>{el.name}</button>}
               </li>)}
           </ul>}
       </div>
@@ -107,6 +119,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getLocations: (fromComponent, url, name) => dispatch(getLocations(fromComponent, url, name)),
     clearList: (name) => dispatch(clearDirectionList(name)),
+    clearDirectionInput: (name) => dispatch(clearDirectionInput(name)),
     setCity: (id, paramsName) => dispatch(setCity(id, paramsName)),
     setInputValue: (value, name) => dispatch(setDirectionInputValue(value, name))
   }

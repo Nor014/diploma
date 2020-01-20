@@ -31,9 +31,9 @@ export function setDirectionList(list, name) {
   }
 }
 
-export function changeListsValues() {
+export function changeDirectionValues() {
   return {
-    type: 'CHANGE_LISTS_VALUES'
+    type: 'CHANGE_DIRECTION_VALUES'
   }
 }
 
@@ -51,6 +51,13 @@ export function setCity(id, paramsName) {
       id: id,
       paramsName: paramsName
     }
+  }
+}
+
+export function clearDirectionInput(name) {
+  return {
+    type: 'CLEAR_DIRECTION_INPUT',
+    payload: name
   }
 }
 

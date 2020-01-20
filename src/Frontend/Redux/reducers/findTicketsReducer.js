@@ -39,5 +39,17 @@ export default function findTicketsReducer(state = initState, action) {
     return { ...state, [paramsName]: id }
   }
 
+  if (action.type === 'CLEAR_DIRECTION_INPUT') {
+    const name = action.payload === 'fromLocation' ? 'from_city_id' : 'to_city_id';
+    return { ...state, [name]: null }
+  }
+
+  if (action.type === 'CHANGE_DIRECTION_VALUES') {
+    const changedFromLocation = state.to_city_id;
+    const changedToLocation = state.from_city_id;
+
+    return { ...state, from_city_id: changedFromLocation, to_city_id: changedToLocation };
+  }
+
   return state
 }
