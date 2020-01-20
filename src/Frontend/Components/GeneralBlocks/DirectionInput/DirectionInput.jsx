@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getLocations, clearDirectionList } from '../../../Redux/actions/actions';
+import { getLocations, clearDirectionList, setCity, setDirectionInputValue } from '../../../Redux/actions/actions';
 
 class DirectionInput extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      listState: 'hidden',
+      listState: 'hidden'
     }
   }
 
@@ -18,30 +18,31 @@ class DirectionInput extends React.Component {
   closeList = (event) => {
     if (!this.directionInput.contains(event.target)) {
       this.setState(prevState => ({ ...prevState, listState: 'hidden' }),
-        () => document.removeEventListener('mousedown', this.clickDetect))
+        () => document.removeEventListener('mousedown', this.closeList))
     }
   }
 
-  selectFromList = (event) => {
-    this.props.selectFromList(event);
+  selectFromList = (event, id) => {
+    const { name, value } = event.target;
 
-    const { name } = event.target;
+    this.props.setCity(id, name === 'fromLocation' ? 'from_city_id' : 'to_city_id');
+    this.props.setInputValue(value, name);
     this.props.clearList(name);
 
     this.setState(prevState => ({ ...prevState, listState: 'hidden' }),
-      () => document.removeEventListener('mousedown', this.clickDetect))
+      () => document.removeEventListener('mousedown', this.closeList))
   }
 
-  onListBlur = (event) => {
+  onListBlur = () => {
     this.setState(prevState => ({ ...prevState, listState: 'hidden' }),
-      () => document.removeEventListener('mousedown', this.clickDetect))  
+      () => document.removeEventListener('mousedown', this.closeList))
   }
 
   onInputChange = (event) => {
-    this.props.onChange(event);
-
     let { value } = event.target;
     let { name } = this.props;
+
+    this.props.setInputValue(value, name);
 
     if (value.length > 0) {
       let fromComponent = 'directionInput';
@@ -53,9 +54,14 @@ class DirectionInput extends React.Component {
     }
   }
 
+  // checkInList = () => {
+  // }
+
   render() {
-    const { parentClass, inputClass, placeholder, value, name } = this.props;
-    const directionList = this.props.directionState[name];
+    const { parentClass, inputClass, placeholder, name } = this.props;
+    const directionList = this.props.directionState[name].list;
+    const inputValue = this.props.directionState[name].value;
+
     const parentClassName = parentClass ? `direction-input ${parentClass}` : 'direction-input';
     const inputClassName = inputClass ? `input ${inputClass}` : 'input';
     const listClassName = this.state.listState === 'visible'
@@ -64,11 +70,10 @@ class DirectionInput extends React.Component {
 
     return (
       <div className={parentClassName} ref={(element) => { this.directionInput = element; }} >
-
         <input type="text"
           className={inputClassName}
           placeholder={placeholder}
-          value={value}
+          value={inputValue}
           name={name}
           onFocus={this.inputOnFocus}
           onChange={(event) => this.onInputChange(event)}
@@ -80,10 +85,10 @@ class DirectionInput extends React.Component {
               <li className="direction-input__list-item" key={el._id}>
                 {index === directionList.length - 1
                   ? <button className='btn direction-input__list-btn'
-                    type='button' onClick={(event) => this.selectFromList(event)} name={name} value={el.name}
+                    type='button' onClick={(event) => this.selectFromList(event, el._id)} name={name} value={el.name}
                     onBlur={this.onListBlur}>{el.name}</button>
                   : <button className='btn direction-input__list-btn'
-                    type='button' onClick={(event) => this.selectFromList(event)} name={name} value={el.name}>{el.name}</button>}
+                    type='button' onClick={(event) => this.selectFromList(event, el._id)} name={name} value={el.name}>{el.name}</button>}
               </li>)}
           </ul>}
       </div>
@@ -92,7 +97,7 @@ class DirectionInput extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { directionState } = state
+  const { directionState } = state;
   return {
     directionState: directionState
   }
@@ -101,7 +106,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getLocations: (fromComponent, url, name) => dispatch(getLocations(fromComponent, url, name)),
-    clearList: (name) => dispatch(clearDirectionList(name))
+    clearList: (name) => dispatch(clearDirectionList(name)),
+    setCity: (id, paramsName) => dispatch(setCity(id, paramsName)),
+    setInputValue: (value, name) => dispatch(setDirectionInputValue(value, name))
   }
 }
 
