@@ -1,0 +1,23 @@
+.list-preloader::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 50px;
+  width: 28px;
+  height: 28px;
+  border-top: 3px solid #FFA800;
+  border-right: 3px solid transparent;
+  border-radius: 100%;
+  animation: listPreloader .8s infinite forwards;
+}
+
+.list-preloader_hidden::after {
+  visibility: hidden;
+}
+
+@keyframes listPreloader {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}

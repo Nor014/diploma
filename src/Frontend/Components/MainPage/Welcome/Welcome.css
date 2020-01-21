@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 350px;
-  zoom: 0.9;
+  /* zoom: 0.9; */
 }
 
 .welcome__title {

@@ -8,7 +8,7 @@ export default class Footer extends React.Component {
 
   render() {
     return (
-      <div className="footer">
+      <footer className="footer">
         <div className="footer__top container">
           <div className="footer__top-content ">
             <Contacts />
@@ -25,7 +25,7 @@ export default class Footer extends React.Component {
             <p className='footer__year'>2020 WEB</p>
           </div>
         </div>
-      </div>
+      </footer>
     )
   }
 }

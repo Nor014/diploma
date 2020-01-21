@@ -40,6 +40,13 @@
   border-radius: 0;
 }
 
+.direction-input__hint {
+  padding: 7px 22px 5px 28px;
+  font-size: 18px;
+  line-height: 21px;
+  font-variant: small-caps;
+}
+
 .direction-input__list-btn:hover, .direction-input__list-btn:focus {
   background: #FFA800;
 }

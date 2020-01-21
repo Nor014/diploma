@@ -1,15 +1,26 @@
 const initState = {
   fromLocation: {
     value: '',
-    list: []
+    list: [],
+    loading: false,
+    error: null
   },
   toLocation: {
     value: '',
-    list: []
+    list: [],
+    loading: false,
+    error: null
   }
 }
 
 export default function directionInputReducer(state = initState, action) {
+  if (action.type === 'GET_LOCATIONS') {
+    const { name } = action.payload
+    const newState = { ...state[name], loading: true }
+
+    return { ...state, [name]: newState }
+  }
+
   if (action.type === 'SET_DIRECTION_INPUT_VALUE') {
     const { value, inputName } = action.payload;
     const newState = { ...state[inputName], value: value }
@@ -20,6 +31,11 @@ export default function directionInputReducer(state = initState, action) {
   if (action.type === 'SET_LOCATIONS') {
     const { directionList, name } = action.payload;
 
+    if (!Array.isArray(directionList)) {
+      const newState = { ...state[name], list: [], loading: false }
+      return { ...state, [name]: newState };
+    }
+
     const sortedList = directionList
       .filter(el => el.name.substring(0, state[name].value.length) === state[name].value.toLowerCase())
       .map(el => {
@@ -27,7 +43,7 @@ export default function directionInputReducer(state = initState, action) {
         return el;
       })
 
-    const newState = { ...state[name], list: sortedList }
+    const newState = { ...state[name], list: sortedList, loading: false }
     return { ...state, [name]: newState };
   }
 
@@ -47,7 +63,7 @@ export default function directionInputReducer(state = initState, action) {
 
   if (action.type === 'CLEAR_DIRECTION_INPUT') {
     const name = action.payload;
-    const newState = { ...state[name], value: [] }
+    const newState = { ...state[name], value: '' }
 
     return { ...state, [name]: newState }
   }

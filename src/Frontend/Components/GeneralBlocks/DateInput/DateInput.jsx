@@ -12,6 +12,15 @@ class DateInput extends React.Component {
     date: null
   };
 
+  componentDidUpdate = () => {
+    const startDate = this.props.findTicketsState.date_start;
+
+    if (this.props.name === 'toDate'
+      && this.state.date !== null && this.state.date < startDate) {
+      this.onDateChange(startDate)
+    }
+  }
+
   onDateChange = (date) => {
     this.setState({ date });
 
@@ -21,7 +30,7 @@ class DateInput extends React.Component {
 
   render() {
     const { inputClass, name } = this.props;
-    const startDate = this.props.findTicketsStore.date_start;
+    const startDate = this.props.findTicketsState.date_start;
 
     return (
       <DatePicker
@@ -38,9 +47,9 @@ class DateInput extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { findTicketsStore } = state;
+  const { findTicketsState } = state;
   return {
-    findTicketsStore: findTicketsStore
+    findTicketsState: findTicketsState
   }
 }
 

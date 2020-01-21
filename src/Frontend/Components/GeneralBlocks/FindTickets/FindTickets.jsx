@@ -11,7 +11,7 @@ class FindTickets extends React.Component {
       ? 'find-tickets_direction_column'
       : 'find-tickets_direction_row'}`
 
-    // console.log(this.props)
+    console.log(this.props)
 
     return (
       <form className={componentClass}>
@@ -23,7 +23,8 @@ class FindTickets extends React.Component {
                 parentClass='find-tickets__direction-input'
                 inputClass='input_size_big input_type_direction'
                 placeholder='Откуда'
-                name='fromLocation' />
+                name='fromLocation'
+                paramsName='from_city_id' />
 
               <button className='btn find-tickets__change-direction-btn' type='button'
                 onClick={() => this.props.changeDirectionValues()} />
@@ -32,7 +33,8 @@ class FindTickets extends React.Component {
                 parentClass='find-tickets__direction-input'
                 inputClass='input_size_big input_type_direction'
                 placeholder='Куда'
-                name='toLocation' />
+                name='toLocation'
+                paramsName='to_city_id' />
             </div>
           </div>
 
@@ -54,9 +56,9 @@ class FindTickets extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { directionState, findTicketsStore } = state;
+  const { findTicketsState } = state;
   return {
-    findTicketsStore: findTicketsStore
+    findTicketsState: findTicketsState
   }
 }
 

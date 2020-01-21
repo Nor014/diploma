@@ -44,9 +44,9 @@ export function clearDirectionList(name) {
   }
 }
 
-export function setCity(id, paramsName) {
+export function setCityParams(id, paramsName) {
   return {
-    type: 'SET_CITY',
+    type: 'SET_CITY_PARAMS',
     payload: {
       id: id,
       paramsName: paramsName
@@ -61,7 +61,12 @@ export function clearDirectionInput(name) {
   }
 }
 
-
+export function clearCityParams(name) {
+  return {
+    type: 'CLEAR_CITY_PARAMS',
+    payload: name
+  }
+}
 // dateInput
 
 export function setDate(date, paramsName) {
@@ -73,3 +78,6 @@ export function setDate(date, paramsName) {
     }
   }
 }
+
+// errors
+

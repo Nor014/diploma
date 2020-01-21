@@ -5,7 +5,7 @@ export default class Header extends React.Component {
 
   render() {
     return (
-      <div className="header" id='header'>
+      <header className="header" id='header'>
         <div className="header__logo-inner container"><Logo /></div>
         <nav className="header__nav">
           <ul className="header__nav-list container">
@@ -15,7 +15,7 @@ export default class Header extends React.Component {
             <li className="header__nav-list-item"><a href="#contacts" className='link header__link'>Контакты</a></li>
           </ul>
         </nav>
-      </div>
+      </header>
     )
   }
 }

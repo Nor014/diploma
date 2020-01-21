@@ -6,7 +6,7 @@ import findTicketsReducer from '../reducers/findTicketsReducer';
 
 const generalReducer = combineReducers({
   directionState: directionInputReducer,
-  findTicketsStore: findTicketsReducer
+  findTicketsState: findTicketsReducer
 })
 
 const sagaMiddleware = createSagaMiddleware();

@@ -34,13 +34,13 @@ export default function findTicketsReducer(state = initState, action) {
     return { ...state, [paramsName]: date }
   }
 
-  if (action.type === 'SET_CITY') {
+  if (action.type === 'SET_CITY_PARAMS') {
     const { id, paramsName } = action.payload;
     return { ...state, [paramsName]: id }
   }
 
-  if (action.type === 'CLEAR_DIRECTION_INPUT') {
-    const name = action.payload === 'fromLocation' ? 'from_city_id' : 'to_city_id';
+  if (action.type === 'CLEAR_CITY_PARAMS') {
+    const name = action.payload;
     return { ...state, [name]: null }
   }
 
