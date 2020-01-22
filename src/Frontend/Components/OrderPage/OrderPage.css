@@ -1,11 +1,12 @@
 @import './OrderSteps/OrderSteps.css';
-
-
-.order-page {
+@import './OrderFilters/OrderFilters.css';
+.order-page__head {
+  padding-top: 265px;
   background: url('./order-page__img.jpg') no-repeat center/cover;
 }
 
-.order-page__head {
-  padding-top: 265px;
+.order-page__body {
+  padding-top: 95px;
+  padding-bottom: 150px;
+  background: #E5E5E5;
 }
-

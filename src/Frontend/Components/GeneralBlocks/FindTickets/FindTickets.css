@@ -13,11 +13,6 @@
   position: relative;
 }
 
-.find-tickets__direction-input {
-  flex: 0 1 325px;
-  position: relative;
-}
-
 .find-tickets__direction-input:not(:last-child) {
   margin-right: 40px;
 }
@@ -45,24 +40,25 @@
 
 .find-tickets_direction_column {
   flex: 1 1 auto;
-  max-width: 730px;
-  padding-top: 79px;
+  max-width: 600px;
+  padding-top: 60px;
+}
+
+.find-tickets_direction_column.input {
+  flex: 0 1 250px;
+  position: relative;
 }
 
 .find-tickets_direction_column .find-tickets__inner {
-  margin-bottom: 92px;
+  margin-bottom: 60px;
 }
 
 .find-tickets_direction_column .find-tickets__content:not(:last-child) {
-  margin-bottom: 61px;
+  margin-bottom: 45px;
 }
 
 /* row-direction */
 
-.find-tickets_direction_row {
-  margin-right: -42px;
-  margin-left: -42px;
-}
 
 .find-tickets_direction_row .find-tickets__inner {
   display: flex;

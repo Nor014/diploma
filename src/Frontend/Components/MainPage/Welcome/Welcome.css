@@ -1,6 +1,6 @@
 .welcome {
-  background: url('./wellcome__img3.jpg') no-repeat center/cover;
-  min-height: 985px;
+  background: url('./wellcome__img4.jpg') no-repeat center/cover;
+  min-height: 920px;
   position: relative;
 }
 
@@ -8,13 +8,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 350px;
-  /* zoom: 0.9; */
+  padding-top: 300px;
 }
 
 .welcome__title {
   max-width: 510px;
-  margin-left: 95px;
+  margin-left: 65px;
 }
 
 .welcome__progress-bar {

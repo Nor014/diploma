@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class MainPage extends React.Component {
+export default class OrderSteps extends React.Component {
 
   render() {
     return (

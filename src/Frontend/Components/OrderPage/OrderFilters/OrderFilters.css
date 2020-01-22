@@ -1,0 +1,22 @@
+.order-filters {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  background: #3E3C41;
+  padding: 0 35px 0 30px;
+}
+
+.order-filters__direction {
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+.order-filters__lable {
+  margin-bottom: 15px;
+}
+
+.order-filters .react-datepicker-wrapper {
+  width: 100%;
+  margin-bottom: 26px;
+}
+
