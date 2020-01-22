@@ -9,6 +9,13 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
+.header .logo {
+  max-width: 1440px;
+  min-width: 1300px;
+  margin: 0 auto;
+  padding: 15px 20px;
+}
+
 .header__nav {
   background: #292929;
 }

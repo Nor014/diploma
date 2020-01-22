@@ -1,0 +1,11 @@
+@import './OrderSteps/OrderSteps.css';
+
+
+.order-page {
+  background: url('./order-page__img.jpg') no-repeat center/cover;
+}
+
+.order-page__head {
+  padding-top: 265px;
+}
+

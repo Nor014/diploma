@@ -1,0 +1,65 @@
+.order-steps {
+  display: flex;
+  counter-reset: section;
+  max-width: 1920px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.order-step__item {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: #3E3C41;
+  position: relative;
+}
+
+.order-step__item:not(:last-child)::after {
+  content: '';
+  width: 71px;
+  height: 71px;
+  position: absolute;
+  background: #3E3C41;
+  top: 50%;
+  right: -36px;
+  transform: translateY(-50%) rotate(45deg);
+  z-index: 5;
+  border-right: 1px solid #E5E5E5;
+  border-top: 1px solid #E5E5E5;
+}
+
+.order-step__text {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.order-step__text::before {
+  content: counter(section);
+  counter-increment: section;
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+  border: 3px solid #FFFFFF;
+  text-align: center;
+  line-height: 56px;
+  margin-right: 28px;
+}
+
+.order-steps_size_big {
+  flex: 1 1 570px;
+}
+
+.order-steps_size_small {
+  flex: 1 1 410px;
+}
+
+.order-steps_active {
+  background: #FFA800;
+}
+
+.order-steps_active.order-step__item::after {
+  background: #FFA800;
+}

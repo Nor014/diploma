@@ -75,7 +75,7 @@ class FindTickets extends React.Component {
         </div>
 
         <div className="find-tickets__btn-inner">
-          <button className="btn btn_size_big btn_theme_yellow text text_transform_uppercase" type='submit' >Найти билеты</button>
+          <button className="btn find-tickets__btn btn_size_big btn_theme_yellow text text_transform_uppercase" type='submit' >Найти билеты</button>
         </div>
       </form>
     )
