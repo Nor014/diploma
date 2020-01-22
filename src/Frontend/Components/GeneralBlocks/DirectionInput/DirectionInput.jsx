@@ -84,7 +84,8 @@ class DirectionInput extends React.Component {
           name={name}
           onFocus={this.inputOnFocus}
           onChange={(event) => this.onInputChange(event)}
-          autoComplete='off' />
+          autoComplete='off'
+          required />
 
         <ul className='direction-input__list'>
           {directionList.length > 0

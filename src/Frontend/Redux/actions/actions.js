@@ -79,5 +79,15 @@ export function setDate(date, paramsName) {
   }
 }
 
-// errors
+// findTickets
+
+export function findTickets(url, fromComponent) {
+  return {
+    type: 'FIND_TICKETS',
+    payload: {
+      url: url,
+      fromComponent: fromComponent
+    }
+  }
+}
 

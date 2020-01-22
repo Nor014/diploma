@@ -2,9 +2,36 @@ import React from 'react';
 import DateInput from '../DateInput/DateInput';
 import DirectionInput from '../DirectionInput/DirectionInput';
 import { connect } from 'react-redux';
-import { changeDirectionValues } from '../../../Redux/actions/actions';
+import { changeDirectionValues, findTickets } from '../../../Redux/actions/actions';
+
+import moment from 'moment';
 
 class FindTickets extends React.Component {
+
+  onFindTicketsSubmit = (event) => {
+    event.preventDefault();
+
+    let getParams = [];
+
+    for (let [key, value] of Object.entries(this.props.findTicketsState)) {
+      if (value !== null) {
+        if (key.includes('date')) {
+          value = moment(value).format('YYYY-MM-DD');
+        }
+
+        getParams.push({ name: key, value: value });
+      }
+    }
+
+    let url = 'https://netology-trainbooking.herokuapp.com/routes?';
+
+    getParams.forEach(el => {
+      url += el.name + '=' + el.value + '&'
+    })
+
+    this.props.findTickets(url, 'FindTickets')
+  }
+
   render() {
     let { fromComponent } = this.props;
     let componentClass = `find-tickets ${fromComponent === 'Welcome'
@@ -14,7 +41,7 @@ class FindTickets extends React.Component {
     console.log(this.props)
 
     return (
-      <form className={componentClass}>
+      <form onSubmit={this.onFindTicketsSubmit} className={componentClass}>
         <div className='find-tickets__inner'>
           <div className="find-tickets__content">
             <p className="find-tickets__label text text_theme_white text_level_third text_weight_300">Направление</p>
@@ -48,7 +75,7 @@ class FindTickets extends React.Component {
         </div>
 
         <div className="find-tickets__btn-inner">
-          <button className="btn btn_size_big btn_theme_yellow text text_transform_uppercase" type='button'>Найти билеты</button>
+          <button className="btn btn_size_big btn_theme_yellow text text_transform_uppercase" type='submit' >Найти билеты</button>
         </div>
       </form>
     )
@@ -64,7 +91,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeDirectionValues: () => dispatch(changeDirectionValues())
+    changeDirectionValues: () => dispatch(changeDirectionValues()),
+    findTickets: (url, fromComponent) => dispatch(findTickets(url, fromComponent))
   }
 }
 

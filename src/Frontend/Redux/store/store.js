@@ -4,9 +4,12 @@ import saga from '../saga/saga';
 import directionInputReducer from '../reducers/directionInputReducer';
 import findTicketsReducer from '../reducers/findTicketsReducer';
 
+import { loadingBarReducer } from 'react-redux-loading-bar';
+
 const generalReducer = combineReducers({
   directionState: directionInputReducer,
-  findTicketsState: findTicketsReducer
+  findTicketsState: findTicketsReducer,
+  loadingBar: loadingBarReducer,
 })
 
 const sagaMiddleware = createSagaMiddleware();

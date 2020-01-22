@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { setDate } from '../../../Redux/actions/actions';
 import DatePicker from "react-datepicker";
-// import moment from 'moment';
+
 
 import "react-datepicker/dist/react-datepicker.css";
 import ru from 'date-fns/locale/ru';

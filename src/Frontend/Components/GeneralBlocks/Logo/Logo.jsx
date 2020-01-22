@@ -3,7 +3,7 @@ import React from 'react';
 export default class Logo extends React.Component {
   render() {
     return (
-      <div className="logo">Лого</div>
+      <div className="logo">Train Logo</div>
     )
   }
 }

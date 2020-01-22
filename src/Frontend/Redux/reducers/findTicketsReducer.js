@@ -1,4 +1,3 @@
-
 const initState = {
   from_city_id: null,
   to_city_id: null,
