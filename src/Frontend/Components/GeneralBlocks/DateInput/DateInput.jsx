@@ -34,7 +34,7 @@ class DateInput extends React.Component {
     return (
       <React.Fragment>
         {label &&
-          <label className='date-input__label'>{label}</label>}
+          <p className='date-input__label'>{label}</p>}
 
         <DatePicker
           dateFormat="dd.MM.yyyy"

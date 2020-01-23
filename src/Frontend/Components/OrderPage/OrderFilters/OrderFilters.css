@@ -32,5 +32,6 @@
 
 .order-filters__drop-down {
   padding: 33px 37px 34px 32px;
+  border-bottom: 1px solid #E5E5E5;
 }
 

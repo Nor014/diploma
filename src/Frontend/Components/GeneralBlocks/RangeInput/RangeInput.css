@@ -10,11 +10,15 @@
   font-size: 15px;
   line-height: 18px;
   color: #E5E5E5;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .range-input .input-range {
   height: 12px;
+}
+
+.range-input .input-range__label {
+  font-family: 'Roboto', sans-serif;
 }
 
 .range-input .input-range__track {

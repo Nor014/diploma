@@ -36,7 +36,11 @@ export default class OrderFilters extends React.Component {
             }} />
         </div>
 
-        <DropDown headContent={{ title: 'Туда', }} className='order-filters__drop-down'/>
+        <DropDown headContent={{ title: 'Туда', titleClass: 'drop-down_title-type_there' }}
+          className='order-filters__drop-down'><p className="">aaaaaaaaa</p> </DropDown>
+
+        <DropDown headContent={{ title: 'Обратно', titleClass: 'drop-down_title-type_back' }}
+          className='order-filters__drop-down'><p className="">aaaaaaaaa</p> </DropDown>
       </div>
     )
   }
