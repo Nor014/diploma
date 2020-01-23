@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { setDate } from '../../../Redux/actions/actions';
 import DatePicker from "react-datepicker";
 
-
 import "react-datepicker/dist/react-datepicker.css";
 import ru from 'date-fns/locale/ru';
 
@@ -29,19 +28,24 @@ class DateInput extends React.Component {
   }
 
   render() {
-    const { inputClass, name } = this.props;
+    const { inputClass, name, label } = this.props;
     const startDate = this.props.findTicketsState.date_start;
 
     return (
-      <DatePicker
-        dateFormat="dd.MM.yyyy"
-        locale={ru}
-        placeholderText="ДД/ММ/ГГ"
-        className={`input ${inputClass}`}
-        selected={this.state.date}
-        onChange={date => this.onDateChange(date)}
-        value={this.state.date}
-        minDate={startDate !== null && name === 'toDate' ? new Date(startDate) : new Date()} />
+      <React.Fragment>
+        {label &&
+          <label className='date-input__label'>{label}</label>}
+
+        <DatePicker
+          dateFormat="dd.MM.yyyy"
+          locale={ru}
+          placeholderText="ДД/ММ/ГГ"
+          className={`input ${inputClass}`}
+          selected={this.state.date}
+          onChange={date => this.onDateChange(date)}
+          value={this.state.date}
+          minDate={startDate !== null && name === 'toDate' ? new Date(startDate) : new Date()} />
+      </React.Fragment>
     );
   }
 }

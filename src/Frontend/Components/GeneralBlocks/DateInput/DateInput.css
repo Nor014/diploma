@@ -1,3 +1,9 @@
+.date-input__label {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
 .react-datepicker__input-container::before {
   content: '';
   width: 30px;

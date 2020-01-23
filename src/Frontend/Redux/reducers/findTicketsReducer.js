@@ -5,13 +5,13 @@ const initState = {
   date_end: null,
   date_start_arrival: null,
   date_end_arrival: null,
-  have_first_class: null,
-  have_second_class: null,
-  have_third_class: null,
-  have_fourth_class: null,
-  have_wifi: null,
-  have_air_conditioning: null,
-  have_express: null,
+  have_first_class: false,
+  have_second_class: false,
+  have_third_class: false,
+  have_fourth_class: false,
+  have_wifi: false,
+  have_air_conditioning: false,
+  have_express: false,
   price_from: null,
   price_to: null,
   start_departure_hour_from: null,
@@ -48,6 +48,21 @@ export default function findTicketsReducer(state = initState, action) {
     const changedToLocation = state.from_city_id;
 
     return { ...state, from_city_id: changedFromLocation, to_city_id: changedToLocation };
+  }
+
+  if (action.type === 'CHANGE_FILTERS_PARAMS') {
+    const { paramsName } = action;
+    return { ...state, [paramsName]: !state[paramsName] }
+  }
+
+  if (action.type === 'CHANGE_RANGE_PARAMS') {
+    const params = action.payload;
+    const minParamsName = Object.keys(params)[0];
+    const maxParamsName = Object.keys(params)[1];
+    const minParamsValue = Object.values(params)[0];
+    const maxParamsValue = Object.values(params)[1];
+
+    return { ...state, [minParamsName]: minParamsValue, [maxParamsName]: maxParamsValue }
   }
 
   return state

@@ -14,7 +14,7 @@ class FindTickets extends React.Component {
     let getParams = [];
 
     for (let [key, value] of Object.entries(this.props.findTicketsState)) {
-      if (value !== null) {
+      if (value !== null && value !== false) {
         if (key.includes('date')) {
           value = moment(value).format('YYYY-MM-DD');
         }
@@ -28,6 +28,8 @@ class FindTickets extends React.Component {
     getParams.forEach(el => {
       url += el.name + '=' + el.value + '&'
     })
+
+    console.log(url)
 
     this.props.findTickets(url, 'FindTickets')
   }

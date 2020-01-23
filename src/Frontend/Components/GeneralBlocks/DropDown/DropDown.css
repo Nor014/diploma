@@ -1,0 +1,23 @@
+.drop-down__title {
+  color: #fff;
+}
+
+.drop-down__head {
+  display: flex;
+  align-items: center;
+}
+
+.drop-down__body {
+  display: none;
+}
+
+.drop-down__body_active {
+  display: block;
+}
+
+.drop-down__btn {
+  width: 20px;
+  height: 20px;
+  background: url('./drop-down__icon.svg') no-repeat center;
+  margin-left: auto;
+}

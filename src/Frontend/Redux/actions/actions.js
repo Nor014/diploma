@@ -91,3 +91,20 @@ export function findTickets(url, fromComponent) {
   }
 }
 
+// CheckBox
+
+export function changeFiltersParams(paramsName) {
+  return {
+    type: 'CHANGE_FILTERS_PARAMS',
+    paramsName: paramsName
+  }
+}
+
+// RangeInput
+
+export function changeRangeParams(params) {
+  return {
+    type: 'CHANGE_RANGE_PARAMS',
+    payload: params
+  }
+}

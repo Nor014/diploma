@@ -7,3 +7,6 @@
 @import './GeneralBlocks/FindTickets/FindTickets.css';
 @import './GeneralBlocks/Review/Review.css';
 @import './OrderPage/OrderPage.css';
+@import './GeneralBlocks/CheckBox/CheckBox.css';
+@import './GeneralBlocks/RangeInput/RangeInput.css';
+@import './GeneralBlocks/DropDown/DropDown.css';

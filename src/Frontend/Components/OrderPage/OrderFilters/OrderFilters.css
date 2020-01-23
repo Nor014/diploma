@@ -1,14 +1,13 @@
 .order-filters {
   display: flex;
   flex-direction: column;
-  width: 340px;
+  width: 320px;
   background: #3E3C41;
-  padding: 0 35px 0 30px;
 }
 
 .order-filters__direction {
-  padding-top: 40px;
-  padding-bottom: 10px;
+  padding: 40px 35px 10px 30px;
+  border-bottom: 1px solid #E5E5E5;
 }
 
 .order-filters__lable {
@@ -18,5 +17,20 @@
 .order-filters .react-datepicker-wrapper {
   width: 100%;
   margin-bottom: 26px;
+}
+
+.order-filters__params {
+  padding: 25px 35px 25px 55px;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.order-filters__cost {
+  padding: 37px 34px 52px 32px;
+  position: relative;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.order-filters__drop-down {
+  padding: 33px 37px 34px 32px;
 }
 
