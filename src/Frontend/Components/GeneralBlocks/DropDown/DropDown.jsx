@@ -22,13 +22,13 @@ export default class DropDown extends React.Component {
     const dropDownTitleClass = headContent.titleClass ? `drop-down__title ${headContent.titleClass}` : 'drop-down__title';
     const dropBodyClass = this.state.active ? 'drop-down__body drop-down__body_active' : 'drop-down__body';
 
-    console.log(this.props)
-
     return (
       <div className={dropDownClass}>
         <div className="drop-down__head">
           <p className={dropDownTitleClass}>{headContent.title}</p>
-          <button className="btn drop-down__btn" onClick={this.onBtnClick}><OpenIcon className='drop-down__icon' /> </button>
+          <button className="btn drop-down__btn" onClick={this.onBtnClick}>
+            <OpenIcon className='drop-down__icon' />
+          </button>
         </div>
 
         <div className={dropBodyClass}>

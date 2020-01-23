@@ -31,6 +31,7 @@
 .drop-down__body {
   display: none;
   padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .drop-down__body_active {
@@ -51,4 +52,30 @@
 
 .drop-down__btn:hover .drop-down__icon-rect, .drop-down__btn:focus .drop-down__icon-rect {
   stroke: #FFA800;
+}
+
+/* range-input */
+
+.drop-down__range-input:not(:last-child) {
+  margin-bottom: 55px;
+}
+
+.drop-down__range-input .input-range {
+  height: 8px;
+}
+
+.drop-down__range-input .input-range__slider {
+  margin-top: -10px;
+  width: 14px;
+  height: 14px;
+}
+
+.drop-down__range-input .range-input__label {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.drop-down__range-input:nth-child(2n) .range-input__label {
+  display: flex;
+  justify-content: flex-end;
 }

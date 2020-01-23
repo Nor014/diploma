@@ -12,9 +12,11 @@ class RangeInput extends React.Component {
     super(props);
 
     this.state = {
-      value: { min: 3000, max: 5000 },
+      value: { min: this.props.startMin, max: this.props.startMax },
     };
   }
+
+
 
   onRangeChange = (value) => {
     this.setState({ value })
@@ -28,11 +30,13 @@ class RangeInput extends React.Component {
   }
 
   render() {
-    const { label, min, max, hint } = this.props;
+    const { label, min, max, hint, className, step, format } = this.props;
+    const rangeInputClass = className ? `range-input ${className}` : 'range-input'
+
 
     return (
-      <div className="range-input">
-        {label && <label className='range-input__label'>{label}</label>}
+      <div className={rangeInputClass}>
+        {label && <p className='range-input__label'>{label}</p>}
 
         {hint &&
           <div className='range-input__hint'>
@@ -41,9 +45,10 @@ class RangeInput extends React.Component {
           </div>}
 
         <InputRange
+          formatLabel={value => format === 'time' ? `${value}:00` : value}
           minValue={min}
           maxValue={max}
-          step={10}
+          step={step}
           value={this.state.value}
           onChange={value => this.onRangeChange(value)} />
       </div>
