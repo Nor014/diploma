@@ -44,7 +44,7 @@ class DateInput extends React.Component {
           selected={this.state.date}
           onChange={date => this.onDateChange(date)}
           value={this.state.date}
-          minDate={startDate !== null && name === 'toDate' ? new Date(startDate) : new Date()} />
+          minDate={startDate !== null && name === 'toDate' ? new Date(startDate) : new Date(1514764800000)} />
       </React.Fragment>
     );
   }

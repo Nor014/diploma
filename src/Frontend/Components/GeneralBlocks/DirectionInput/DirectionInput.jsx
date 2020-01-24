@@ -40,6 +40,7 @@ class DirectionInput extends React.Component {
     let fromComponent = 'directionInput';
     let url = `https://netology-trainbooking.herokuapp.com/routes/cities?name=${value.toLowerCase()}`;
 
+
     this.props.getLocations(fromComponent, url, name);
   }
 

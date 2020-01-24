@@ -1,5 +1,8 @@
 @import './OrderSteps/OrderSteps.css';
 @import './OrderFilters/OrderFilters.css';
+@import './LastTickets/LastTickets.css';
+/*  */
+
 .order-page__head {
   padding-top: 265px;
   background: url('./order-page__img.jpg') no-repeat center/cover;

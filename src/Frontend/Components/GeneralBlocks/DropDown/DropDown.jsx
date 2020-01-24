@@ -18,9 +18,8 @@ export default class DropDown extends React.Component {
 
   render() {
     const { headContent, className } = this.props;
-    const dropDownClass = className ? `drop-down ${className}` : 'drop-down';
+    const dropDownClass = this.state.active ? `drop-down drop-down_active ${className}` : `drop-down ${className}`;
     const dropDownTitleClass = headContent.titleClass ? `drop-down__title ${headContent.titleClass}` : 'drop-down__title';
-    const dropBodyClass = this.state.active ? 'drop-down__body drop-down__body_active' : 'drop-down__body';
 
     return (
       <div className={dropDownClass}>
@@ -31,8 +30,10 @@ export default class DropDown extends React.Component {
           </button>
         </div>
 
-        <div className={dropBodyClass}>
-          {this.props.children}
+        <div className='drop-down__body'>
+          <div className="drop-down__body-content">
+            {this.props.children}
+          </div>
         </div>
       </div>
     )
