@@ -40,6 +40,10 @@
   width: 100%;
 }
 
+.btn_size_middle {
+  padding: 15px;
+}
+
 .btn_size_small {
-  padding: 15px 15px;
+  padding: 10px ;
 }

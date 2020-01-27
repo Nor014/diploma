@@ -1,5 +1,5 @@
 import { spawn, take, put, fork, call, takeLatest, delay } from 'redux-saga/effects';
-import { setDirectionList, setError } from '../actions/actions';
+import { setDirectionList, setTicketsData } from '../actions/actions';
 import { fetchData } from '../fetchFunctions/fetchFunctions';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
@@ -16,6 +16,8 @@ function* getDataSaga(action) {
 
     if (fromComponent === 'directionInput') {
       yield put(setDirectionList(data, action.payload.name))
+    } else if (fromComponent === 'FindTickets') {
+      yield put(setTicketsData(data))
     }
 
   } catch (error) {

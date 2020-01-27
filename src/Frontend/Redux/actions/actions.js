@@ -108,3 +108,12 @@ export function changeRangeParams(params) {
     payload: params
   }
 }
+
+// OrderTickets
+
+export function setTicketsData(data) {
+  return {
+    type: 'SET_TICKETS_DATA',
+    payload: data
+  }
+}

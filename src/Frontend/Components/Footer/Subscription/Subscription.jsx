@@ -17,7 +17,7 @@ export default class Subscription extends React.Component {
 
         <form action="" className='subscription__form'>
           <input type="text" className='input input_size_big subscription__input' placeholder='email' />
-          <button className="btn subscription__btn btn_theme_transparent btn_size_small" type='button'>отправить</button>
+          <button className="btn subscription__btn btn_theme_transparent btn_size_middle" type='button'>отправить</button>
         </form>
 
         <h2 className="subscription__title text text_level_third text_theme_white">Подписывайтесь на нас</h2>

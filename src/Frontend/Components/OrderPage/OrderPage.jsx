@@ -4,6 +4,7 @@ import FindTickets from '../GeneralBlocks/FindTickets/FindTickets';
 import OrderSteps from './OrderSteps/OrderSteps';
 import OrderFilters from './OrderFilters/OrderFilters';
 import LastTickets from './LastTickets/LastTickets';
+import OrderTickets from './OrderTickets/OrderTickets';
 
 
 export default class OrderPage extends React.Component {
@@ -21,9 +22,13 @@ export default class OrderPage extends React.Component {
 
         <div className="order-page__body ">
           <div className="order-page__inner container">
-            <div className="order-page__content order-page__side-bar">
+            <div className="order-page__aside">
               <OrderFilters />
               <LastTickets />
+            </div>
+
+            <div className="order-page__cards">
+              <OrderTickets />
             </div>
           </div>
         </div>
