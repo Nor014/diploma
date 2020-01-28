@@ -20,18 +20,22 @@ class OrderTickets extends React.Component {
     return `${hours} : ${minutes}`;
   }
 
+  firstLetterToUppercase = (value) => {
+    return value[0].toUpperCase() + value.slice(1);
+  }
+
   render() {
     const { data } = this.props.ticketsData;
     console.log(data.items, moment(355500 * 1000).format("HH:mm"))
 
     return (
       <div className="order-tickets">
-       
+
         <div className="ticket-card">
           <div className="ticket-card__train">
             <div className="ticket-card__inner">
               <p className='ticket-card__train-name'>116С </p>
-              <p className="ticket-card__train-path">Москва → <br /> Санкт-Петербург <br />«Мегаполис»</p>
+              <p className="ticket-card__train-path">{this.firstLetterToUppercase('москва')} → <br /> Санкт-Петербург <br />«Мегаполис»</p>
             </div>
           </div>
 
@@ -72,10 +76,18 @@ class OrderTickets extends React.Component {
 
           <div className="ticket-card__seats">
             <div className="ticket-card__seats-classes">
-              <div className="ticket-card__seats-class">
-                <p className="ticket-card__seats-class-name">Купе</p>
-                <p className="ticket-card__seats-amount">95</p>
-                <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>3000</span> ₽</p>
+              <div className="ticket-card__seats-inner">
+                <div className="ticket-card__seats-class">
+                  <p className="ticket-card__seats-class-name">Купе</p>
+                  <p className="ticket-card__seats-amount">95</p>
+                  <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>3000</span> ₽</p>
+                </div>
+
+                <div className="ticket-card__seats-details">
+                  <p className="">aaa</p>
+                  <p className="">aaa</p>
+                  
+                </div>
               </div>
 
               <div className="ticket-card__seats-class">
@@ -86,6 +98,12 @@ class OrderTickets extends React.Component {
 
               <div className="ticket-card__seats-class">
                 <p className="ticket-card__seats-class-name">Плацкарт</p>
+                <p className="ticket-card__seats-amount">95</p>
+                <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>3000</span> ₽</p>
+              </div>
+
+              <div className="ticket-card__seats-class">
+                <p className="ticket-card__seats-class-name">Люкс</p>
                 <p className="ticket-card__seats-amount">95</p>
                 <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>3000</span> ₽</p>
               </div>
@@ -109,7 +127,8 @@ class OrderTickets extends React.Component {
                 <div className="ticket-card__train">
                   <div className="ticket-card__inner">
                     <p className='ticket-card__train-name'>{el.departure.train.name}</p>
-                    <p className="ticket-card__train-path">{el.departure.from.city.name} → <br /> {el.departure.to.city.name}</p>
+                    <p className="ticket-card__train-path"> {this.firstLetterToUppercase(el.departure.from.city.name)} → <br />
+                      {this.firstLetterToUppercase(el.departure.to.city.name)}</p>
                   </div>
                 </div>
 
@@ -129,6 +148,64 @@ class OrderTickets extends React.Component {
                       <p className="ticket-card__station">{el.departure.to.railway_station_name}</p>
                     </div>
                   </div>
+
+                  {el.arrival &&
+                    <div className="ticket-card__path-details">
+                      <div className="ticket-card__path-item">
+                        <p className="ticket-card__time">{this.secondsToTime(el.arrival.from.datetime)}</p>
+                        <p className="ticket-card__city ">{el.arrival.from.city.name}</p>
+                        <p className="ticket-card__station">{el.arrival.from.railway_station_name}</p>
+                      </div>
+
+                      <p className="ticket-card__duration ticket-card_pointer_arrival">{this.secondsToDuration(el.arrival.duration)}</p>
+
+                      <div className="ticket-card__path-item">
+                        <p className="ticket-card__time">{this.secondsToTime(el.arrival.to.datetime)}</p>
+                        <p className="ticket-card__city">{el.arrival.to.city.name}</p>
+                        <p className="ticket-card__station">{el.arrival.to.railway_station_name}</p>
+                      </div>
+                    </div>}
+                </div>
+
+                <div className="ticket-card__seats">
+                  <div className="ticket-card__seats-classes">
+
+                    {el.departure.have_first_class &&
+                      <div className="ticket-card__seats-class">
+                        <p className="ticket-card__seats-class-name">Люкс</p>
+                        <p className="ticket-card__seats-amount">{el.departure.available_seats_info.first}</p>
+                        <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{el.departure.price_info.first.top_price}</span> ₽</p>
+                      </div>}
+
+                    {el.departure.have_second_class &&
+                      <div className="ticket-card__seats-class">
+                        <p className="ticket-card__seats-class-name">Купе</p>
+                        <p className="ticket-card__seats-amount">{el.departure.available_seats_info.second}</p>
+                        <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{el.departure.price_info.second.top_price}</span> ₽</p>
+                      </div>}
+
+                    {el.departure.have_third_class &&
+                      <div className="ticket-card__seats-class">
+                        <p className="ticket-card__seats-class-name">Плацкарт</p>
+                        <p className="ticket-card__seats-amount">{el.departure.available_seats_info.third}</p>
+                        <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{el.departure.price_info.third.top_price}</span> ₽</p>
+                      </div>}
+
+                    {el.departure.have_fourth_class &&
+                      <div className="ticket-card__seats-class">
+                        <p className="ticket-card__seats-class-name">Сидячий</p>
+                        <p className="ticket-card__seats-amount">{el.departure.available_seats_info.fourth}</p>
+                        <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{el.departure.price_info.fourth.top_price}</span> ₽</p>
+                      </div>}
+                  </div>
+
+                  <div className="ticket-card__seats-services">
+                    {el.departure.have_wifi && <WifiIcon className='ticket-card__seats-service' />}
+                    {el.departure.is_express && <Express className='ticket-card__seats-service' />}
+                    <Eating className='ticket-card__seats-service' />
+                  </div>
+
+                  <button className='ticket-card__btn btn btn_theme_yellow btn_size_small'>Выбрать места</button>
                 </div>
               </div>
             )
