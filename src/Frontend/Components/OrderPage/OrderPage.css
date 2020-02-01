@@ -2,6 +2,7 @@
 @import './OrderFilters/OrderFilters.css';
 @import './LastTickets/LastTickets.css';
 @import './OrderTickets/OrderTickets.css';
+@import './Tickets/Tickets.css';
 /*  */
 
 .order-page__head {
@@ -12,7 +13,7 @@
 .order-page__body {
   padding-top: 95px;
   padding-bottom: 150px;
-  background: #E5E5E5;
+  background: #F7F5F9;
   
 }
 

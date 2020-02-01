@@ -117,3 +117,11 @@ export function setTicketsData(data) {
     payload: data
   }
 }
+
+export function sortTickets(filter) {
+  return {
+    type: 'SORT_TICKETS',
+    payload: filter
+  }
+}
+

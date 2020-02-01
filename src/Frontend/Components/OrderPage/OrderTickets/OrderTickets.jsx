@@ -1,215 +1,73 @@
-import React from "react";
+import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import { sortTickets } from '../../../Redux/actions/actions';
 
-import { ReactComponent as WifiIcon } from './order-tickets_icon-wifi.svg';
-import { ReactComponent as Express } from './order-tickets_icon-express.svg';
-import { ReactComponent as Eating } from './order-tickets__icon-eating.svg';
+import Tickets from '../Tickets/Tickets';
 
-class OrderTickets extends React.Component {
-
-  secondsToTime = (seconds) => {
-    return moment(seconds * 1000).format("HH:mm")
+class OrderPage extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      filters: [
+        {
+          value: 'time',
+          innerText: 'времени',
+          active: true
+        },
+        {
+          value: 'cost',
+          innerText: 'стоимости',
+          active: false
+        },
+        {
+          value: 'duration',
+          innerText: 'длительности',
+          active: false
+        },
+      ]
+    }
   }
 
-  secondsToDuration = (seconds) => {
-    const totalDuration = seconds / 60 / 60;
-    const hours = Math.floor(totalDuration);
-    const minutes = ((totalDuration - hours) * 60).toFixed(0)
+  onFilterBtn = (value) => {
+    let netState = this.state.filters
+      .map(el => {
+        el.active = el.value === value ? true : false;
+        return el
+      })
+      .sort((a, b) => b.active - a.active)
 
-    return `${hours} : ${minutes}`;
+    this.setState(prevState => ({ ...prevState, filters: netState }));
+    this.props.sortTickets(value);
   }
 
-  firstLetterToUppercase = (value) => {
-    return value[0].toUpperCase() + value.slice(1);
-  }
 
   render() {
-    const { data } = this.props.ticketsData;
-    console.log(data.items, moment(355500 * 1000).format("HH:mm"))
+    const { data, loading, error } = this.props.ticketsData;
+    const filterValue = this.state.filters.find(el => el.active).innerText;
+    const items = data.items;
+    console.log(data)
 
     return (
       <div className="order-tickets">
+        {data.items &&
+          <div className="order-tickets__inner">
+            <p className='order-tickets__text'>найдено {data.total_count}</p>
 
-        <div className="ticket-card">
-          <div className="ticket-card__train">
-            <div className="ticket-card__inner">
-              <p className='ticket-card__train-name'>116С </p>
-              <p className="ticket-card__train-path">{this.firstLetterToUppercase('москва')} → <br /> Санкт-Петербург <br />«Мегаполис»</p>
-            </div>
-          </div>
-
-          <div className="ticket-card__details">
-            <div className="ticket-card__path-details">
-              <div className="ticket-card__path-item">
-                <p className="ticket-card__time">00:10</p>
-                <p className="ticket-card__city ">Москва</p>
-                <p className="ticket-card__station">Курский вокзал</p>
-              </div>
-
-              <p className="ticket-card__duration ticket-card_pointer_departure">9:42</p>
-
-              <div className="ticket-card__path-item">
-                <p className="ticket-card__time">09:52</p>
-                <p className="ticket-card__city">Санкт-Питербург</p>
-                <p className="ticket-card__station">Ладожский вокзал</p>
-              </div>
+            <div className="order-tickets__filter">
+              <p className="order-tickets__text order-tickets__filter-text">сортировать по:</p>
+              <div className='psevdo'>
+                <p className='order-tickets__filter-current-value'>{filterValue}</p>
+                <div className='order-tickets__drop-down'>
+                  {this.state.filters.map((el, index) =>
+                    <button key={index} type='button' className="btn order-tickets__drop-down-item" value={el.value}
+                      onClick={(event) => this.onFilterBtn(event.target.value)}>{el.innerText}</button >)}
+                </div>
+              </div >
             </div>
 
-            <div className="ticket-card__path-details">
-              <div className="ticket-card__path-item">
-                <p className="ticket-card__time">00:10</p>
-                <p className="ticket-card__city ">Москва</p>
-                <p className="ticket-card__station">Курский вокзал</p>
-              </div>
+          </div>}
 
-              <p className="ticket-card__duration ticket-card_pointer_arrival">9:42</p>
-
-              <div className="ticket-card__path-item">
-                <p className="ticket-card__time">09:52</p>
-                <p className="ticket-card__city">Санкт-Питербург</p>
-                <p className="ticket-card__station">Ладожский вокзал</p>
-              </div>
-            </div>
-
-          </div>
-
-          <div className="ticket-card__seats">
-            <div className="ticket-card__seats-classes">
-              <div className="ticket-card__seats-inner">
-                <div className="ticket-card__seats-class">
-                  <p className="ticket-card__seats-class-name">Купе</p>
-                  <p className="ticket-card__seats-amount">95</p>
-                  <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>3000</span> ₽</p>
-                </div>
-
-                <div className="ticket-card__seats-details">
-                  <p className="">aaa</p>
-                  <p className="">aaa</p>
-                  
-                </div>
-              </div>
-
-              <div className="ticket-card__seats-class">
-                <p className="ticket-card__seats-class-name">Сидячий</p>
-                <p className="ticket-card__seats-amount">95</p>
-                <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>3000</span> ₽</p>
-              </div>
-
-              <div className="ticket-card__seats-class">
-                <p className="ticket-card__seats-class-name">Плацкарт</p>
-                <p className="ticket-card__seats-amount">95</p>
-                <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>3000</span> ₽</p>
-              </div>
-
-              <div className="ticket-card__seats-class">
-                <p className="ticket-card__seats-class-name">Люкс</p>
-                <p className="ticket-card__seats-amount">95</p>
-                <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>3000</span> ₽</p>
-              </div>
-            </div>
-
-            <div className="ticket-card__seats-services">
-              <WifiIcon className='ticket-card__seats-service' />
-              <Express className='ticket-card__seats-service' />
-              <Eating className='ticket-card__seats-service' />
-            </div>
-
-            <button className='ticket-card__btn btn btn_theme_yellow btn_size_small'>Выбрать места</button>
-
-          </div>
-        </div>
-
-        {data.items !== undefined &&
-          data.items.map(el => {
-            return (
-              <div className="ticket-card">
-                <div className="ticket-card__train">
-                  <div className="ticket-card__inner">
-                    <p className='ticket-card__train-name'>{el.departure.train.name}</p>
-                    <p className="ticket-card__train-path"> {this.firstLetterToUppercase(el.departure.from.city.name)} → <br />
-                      {this.firstLetterToUppercase(el.departure.to.city.name)}</p>
-                  </div>
-                </div>
-
-                <div className="ticket-card__details">
-                  <div className="ticket-card__path-details">
-                    <div className="ticket-card__path-item">
-                      <p className="ticket-card__time">{this.secondsToTime(el.departure.from.datetime)}</p>
-                      <p className="ticket-card__city ">{el.departure.from.city.name}</p>
-                      <p className="ticket-card__station">{el.departure.from.railway_station_name}</p>
-                    </div>
-
-                    <p className="ticket-card__duration ticket-card_pointer_departure">{this.secondsToDuration(el.departure.duration)}</p>
-
-                    <div className="ticket-card__path-item">
-                      <p className="ticket-card__time">{this.secondsToTime(el.departure.to.datetime)}</p>
-                      <p className="ticket-card__city">{el.departure.to.city.name}</p>
-                      <p className="ticket-card__station">{el.departure.to.railway_station_name}</p>
-                    </div>
-                  </div>
-
-                  {el.arrival &&
-                    <div className="ticket-card__path-details">
-                      <div className="ticket-card__path-item">
-                        <p className="ticket-card__time">{this.secondsToTime(el.arrival.from.datetime)}</p>
-                        <p className="ticket-card__city ">{el.arrival.from.city.name}</p>
-                        <p className="ticket-card__station">{el.arrival.from.railway_station_name}</p>
-                      </div>
-
-                      <p className="ticket-card__duration ticket-card_pointer_arrival">{this.secondsToDuration(el.arrival.duration)}</p>
-
-                      <div className="ticket-card__path-item">
-                        <p className="ticket-card__time">{this.secondsToTime(el.arrival.to.datetime)}</p>
-                        <p className="ticket-card__city">{el.arrival.to.city.name}</p>
-                        <p className="ticket-card__station">{el.arrival.to.railway_station_name}</p>
-                      </div>
-                    </div>}
-                </div>
-
-                <div className="ticket-card__seats">
-                  <div className="ticket-card__seats-classes">
-
-                    {el.departure.have_first_class &&
-                      <div className="ticket-card__seats-class">
-                        <p className="ticket-card__seats-class-name">Люкс</p>
-                        <p className="ticket-card__seats-amount">{el.departure.available_seats_info.first}</p>
-                        <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{el.departure.price_info.first.top_price}</span> ₽</p>
-                      </div>}
-
-                    {el.departure.have_second_class &&
-                      <div className="ticket-card__seats-class">
-                        <p className="ticket-card__seats-class-name">Купе</p>
-                        <p className="ticket-card__seats-amount">{el.departure.available_seats_info.second}</p>
-                        <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{el.departure.price_info.second.top_price}</span> ₽</p>
-                      </div>}
-
-                    {el.departure.have_third_class &&
-                      <div className="ticket-card__seats-class">
-                        <p className="ticket-card__seats-class-name">Плацкарт</p>
-                        <p className="ticket-card__seats-amount">{el.departure.available_seats_info.third}</p>
-                        <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{el.departure.price_info.third.top_price}</span> ₽</p>
-                      </div>}
-
-                    {el.departure.have_fourth_class &&
-                      <div className="ticket-card__seats-class">
-                        <p className="ticket-card__seats-class-name">Сидячий</p>
-                        <p className="ticket-card__seats-amount">{el.departure.available_seats_info.fourth}</p>
-                        <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{el.departure.price_info.fourth.top_price}</span> ₽</p>
-                      </div>}
-                  </div>
-
-                  <div className="ticket-card__seats-services">
-                    {el.departure.have_wifi && <WifiIcon className='ticket-card__seats-service' />}
-                    {el.departure.is_express && <Express className='ticket-card__seats-service' />}
-                    <Eating className='ticket-card__seats-service' />
-                  </div>
-
-                  <button className='ticket-card__btn btn btn_theme_yellow btn_size_small'>Выбрать места</button>
-                </div>
-              </div>
-            )
-          })}
+        {data.items ? <Tickets data={items} /> : null}
       </div>
     )
   }
@@ -225,8 +83,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    sortTickets: (filter) => dispatch(sortTickets(filter))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderTickets)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderPage)

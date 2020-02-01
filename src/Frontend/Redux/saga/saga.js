@@ -12,7 +12,7 @@ function* getDataSaga(action) {
     if (action.type === 'FIND_TICKETS') yield put(showLoading());
 
     const data = yield call(fetchData, url);
-    console.log(data)
+    // console.log(data)
 
     if (fromComponent === 'directionInput') {
       yield put(setDirectionList(data, action.payload.name))
