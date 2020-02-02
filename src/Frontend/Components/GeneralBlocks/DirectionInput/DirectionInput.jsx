@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getLocations, clearDirectionList, setCityParams, setDirectionInputValue, clearDirectionInput, clearCityParams } from '../../../Redux/actions/actions';
+import { getLocations, clearDirectionList, setCityParams, setDirectionInputValue, clearDirectionInput, clearCityParams, cancelFetchData } from '../../../Redux/actions/actions';
 
 class DirectionInput extends React.Component {
+  // отслеживаем клик
   inputOnFocus = () => {
     document.addEventListener('mousedown', this.closeList)
   }
 
   closeList = (event) => {
     if (!this.directionInput.contains(event.target)) {
+      // если в инпуте произошли изменения выбираем первый вариант из списка или очищаем инпут при отсутствии списка
       if (this.props.findTicketsState[this.props.paramsName] === null) {
         this.setFirstLocationInList();
       }
-
       document.removeEventListener('mousedown', this.closeList)
     }
   }
@@ -33,6 +34,7 @@ class DirectionInput extends React.Component {
 
     this.props.setInputValue(value, name);
 
+    // удаляем id предыдущего выбранного города, если такой установлен
     if (this.props.findTicketsState[this.props.paramsName] !== null) {
       this.props.clearCityParams(this.props.paramsName);
     }
@@ -40,24 +42,36 @@ class DirectionInput extends React.Component {
     let fromComponent = 'directionInput';
     let url = `https://netology-trainbooking.herokuapp.com/routes/cities?name=${value.toLowerCase()}`;
 
-
-    this.props.getLocations(fromComponent, url, name);
+    if (value.length !== 0) {
+      this.props.getLocations(fromComponent, url, name);
+    } else { // если нет значения инпута, отменяем прошлый запрос, очищаем лист доступных городов
+      this.props.cancelFetchData(name);
+      this.props.clearList(name);
+    }
   }
 
   setFirstLocationInList = () => {
-    const firstLocation = this.props.directionState[this.props.name].list[0];
+    const firstLocationInList = this.props.directionState[this.props.name].list[0];
     const value = this.props.directionState[this.props.name].value;
 
-    if (firstLocation !== undefined) {
-      this.selectFromList(firstLocation.name, firstLocation._id)
+    if (firstLocationInList !== undefined) {
+      this.selectFromList(firstLocationInList.name, firstLocationInList._id)
     } else if (value !== '') {
-      this.props.clearDirectionInput(this.props.name)
+      // если списка нет очищаем инпут, отменяем последний запрос на сервер
+      this.props.clearDirectionInput(this.props.name);
+      this.props.cancelFetchData(this.props.name);
     }
   }
 
   onListBlur = () => {
     this.setFirstLocationInList();
     document.removeEventListener('mousedown', this.closeList)
+  }
+
+  onInputBlur = () => {
+    if (!this.props.directionState[this.props.name].list.length > 0) {
+      this.closeList(false)
+    }
   }
 
   render() {
@@ -86,7 +100,9 @@ class DirectionInput extends React.Component {
           onFocus={this.inputOnFocus}
           onChange={(event) => this.onInputChange(event)}
           autoComplete='off'
-          required />
+          required
+          onBlur={this.onInputBlur}
+        />
 
         <ul className='direction-input__list'>
           {directionList.length > 0
@@ -125,7 +141,8 @@ const mapDispatchToProps = (dispatch) => {
     clearDirectionInput: (name) => dispatch(clearDirectionInput(name)),
     clearCityParams: (name) => dispatch(clearCityParams(name)),
     setCityParams: (id, paramsName) => dispatch(setCityParams(id, paramsName)),
-    setInputValue: (value, name) => dispatch(setDirectionInputValue(value, name))
+    setInputValue: (value, name) => dispatch(setDirectionInputValue(value, name)),
+    cancelFetchData: (params) => dispatch(cancelFetchData(params)),
   }
 }
 

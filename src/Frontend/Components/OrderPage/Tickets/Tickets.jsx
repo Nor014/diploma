@@ -24,13 +24,14 @@ export default class Tickets extends React.Component {
   }
 
   render() {
-    const { data } = this.props
+    const { data, maxTicketsToShow } = this.props;
+    console.log(maxTicketsToShow)
 
     return (
-      <div className="order-tickets">
+      <div className="tickets">
 
-        {data.map(el => {
-          return (
+        {data.map((el, index) =>
+          index + 1 <= maxTicketsToShow && (
             <div className="ticket-card" key={el.departure._id}>
               <div className="ticket-card__train">
                 <div className="ticket-card__train-inner">
@@ -201,7 +202,7 @@ export default class Tickets extends React.Component {
               </div>
             </div>
           )
-        })}
+        )}
       </div>
     )
   }

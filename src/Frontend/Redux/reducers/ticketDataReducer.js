@@ -8,6 +8,10 @@ const initState = {
 
 export default function ticketDataReducer(state = initState, action) {
 
+  if (action.type === 'FIND_TICKETS') {
+    return { ...state, loading: true, data: [] };
+  }
+
   if (action.type === 'SET_TICKETS_DATA') {
     const data = action.payload;
     const sortedData = sortData(data, 'time');

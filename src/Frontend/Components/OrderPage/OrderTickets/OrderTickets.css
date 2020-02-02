@@ -1,8 +1,15 @@
+.order-tickets {
+  overflow: hidden;
+}
+
 .order-tickets__inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
+}
+
+.order-tickets__tital-count {
+  margin-right: auto;
 }
 
 .order-tickets__text {
@@ -14,6 +21,10 @@
 .order-tickets__filter {
   display: flex;
   align-items: center;
+}
+
+.order-tickets__filter:not(:last-child) {
+  margin-right: 40px;
 }
 
 .order-tickets__filter-text {
@@ -69,3 +80,17 @@
   pointer-events: all;
 }
 
+.order-tickets__filter-btn {
+  font-size: 18px;
+  line-height: 21px;
+  color: #928F94;
+  font-weight: 400;
+}
+
+.order-tickets__filter-btn:hover {
+  color: #292929;
+}
+
+.order-tickets__filter-btn:not(:last-child) {
+  margin-right: 5px;
+}

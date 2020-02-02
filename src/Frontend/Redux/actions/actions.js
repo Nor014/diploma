@@ -67,6 +67,14 @@ export function clearCityParams(name) {
     payload: name
   }
 }
+
+export function cancelFetchData(params) {
+  return {
+    type: 'CANCEL_FETCH_DATA',
+    payload: params
+  }
+}
+
 // dateInput
 
 export function setDate(date, paramsName) {
@@ -125,3 +133,21 @@ export function sortTickets(filter) {
   }
 }
 
+// LastTickets
+
+export function getLastTickets(url, fromComponent) {
+  return {
+    type: 'GET_LAST_TICKETS',
+    payload: {
+      url: url,
+      fromComponent: fromComponent
+    }
+  }
+}
+
+export function setLastTickets(data) {
+  return {
+    type: 'SET_LAST_TICKETS',
+    payload: data
+  }
+}

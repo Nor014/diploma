@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 320px;
   background: #3E3C41;
+  margin-bottom: 90px;
 }
 
 .order-filters__direction {
