@@ -60,6 +60,7 @@ class OrderPage extends React.Component {
         {data.items &&
           <div className="order-tickets__inner">
             <p className='order-tickets__text order-tickets__tital-count'>найдено {data.total_count}</p>
+
             <div className="order-tickets__filter">
               <p className="order-tickets__text order-tickets__filter-text">сортировать по:</p>
               <div className='psevdo'>
