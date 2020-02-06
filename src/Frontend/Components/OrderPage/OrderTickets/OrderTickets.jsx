@@ -24,7 +24,6 @@ class OrderTickets extends React.Component {
           active: false
         },
       ],
-      redirect: false,
     }
   }
 
@@ -53,10 +52,6 @@ class OrderTickets extends React.Component {
 
     return (
       <div className="order-tickets">
-        {this.state.redirect
-          ? <Redirect to='/order/seats' />
-          : null}
-
         {loading ? <Preloader /> : null}
 
         {data.items &&

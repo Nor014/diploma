@@ -1,5 +1,6 @@
 import React from "react";
 import moment from 'moment';
+import { Link } from "react-router-dom";
 
 import { ReactComponent as WifiIcon } from './order-tickets_icon-wifi.svg';
 import { ReactComponent as Express } from './order-tickets_icon-express.svg';
@@ -197,7 +198,10 @@ export default class Tickets extends React.Component {
                 </div>
 
                 <div className="ticket-card__btn-wrap">
-                  <button className='ticket-card__btn btn btn_theme_yellow btn_size_small' onClick={this.props.chooseSeats}>Выбрать места</button>
+                  <Link className='ticket-card__btn link btn btn_theme_yellow btn_size_small' to={{
+                    pathname: `/order/${el.departure._id}`,
+                    state: el.departure
+                  }}>Выбрать места</Link>
                 </div>
               </div>
             </div>

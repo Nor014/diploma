@@ -17,7 +17,7 @@ export default class OrderPage extends React.Component {
         <div className="order-page__head">
           <div className="container">
             <FindTickets />
-          </div>
+          </div> 
         </div>
 
         <OrderSteps />
@@ -31,7 +31,7 @@ export default class OrderPage extends React.Component {
             <div className="order-page__content">
               <Switch>
                 <Route exact path='/order' component={OrderTickets} />
-                <Route exact path='/order/seats' component={OrderSeats} />
+                <Route exact path='/order/:id' component={OrderSeats} />
               </Switch>
             </div>
           </div>

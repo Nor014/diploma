@@ -1,5 +1,5 @@
 import { spawn, take, put, fork, call, takeLatest, delay, race } from 'redux-saga/effects';
-import { setDirectionList, setTicketsData, clearDirectionList, setLastTickets } from '../actions/actions';
+import { setDirectionList, setTicketsData, clearDirectionList, setLastTickets, setSeatsData } from '../actions/actions';
 import { fetchData } from '../fetchFunctions/fetchFunctions';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
@@ -15,6 +15,8 @@ function* getDataSaga(action) {
       cancel: take('CANCEL_FETCH_DATA')
     })
 
+    console.log(data)
+
     if (cancel) {
       console.log('canceled', fromComponent)
     }
@@ -25,6 +27,8 @@ function* getDataSaga(action) {
       yield put(setTicketsData(data))
     } else if (fromComponent === 'LastTickets') {
       yield put(setLastTickets(data))
+    } else if (fromComponent === 'OrderSeats') {
+      yield put(setSeatsData(data))
     }
 
   } catch (error) {
@@ -61,9 +65,17 @@ function* lastTicketsWatcher() {
   }
 }
 
+function* seatsWatcher() {
+  while (true) {
+    const action = yield take('GET_SEATS_DATA')
+    yield fork(getDataSaga, action)
+  }
+}
+
 export default function* saga() {
   yield spawn(getDataWatcher)
   yield spawn(getLocationsWatcher)
   yield spawn(findTicketsWatcher)
   yield spawn(lastTicketsWatcher)
+  yield spawn(seatsWatcher)
 }

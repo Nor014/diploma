@@ -213,6 +213,7 @@
 .ticket-card__btn {
   display: block;
   margin: 0 0 0 auto;
+  text-align: center;
 }
 
 .ticket-card__btn-wrap {

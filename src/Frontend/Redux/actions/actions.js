@@ -151,3 +151,22 @@ export function setLastTickets(data) {
     payload: data
   }
 }
+
+// OrderSeats
+
+export function getSeatsData(url, fromComponent) {
+  return {
+    type: 'GET_SEATS_DATA',
+    payload: {
+      url: url,
+      fromComponent: fromComponent
+    }
+  }
+}
+
+export function setSeatsData(data) {
+  return {
+    type: 'SET_SEATS_DATA',
+    payload: data
+  }
+}
