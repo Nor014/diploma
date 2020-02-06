@@ -1,10 +1,12 @@
 import React from 'react';
+import { Switch, Route } from "react-router-dom";
 
 import FindTickets from '../GeneralBlocks/FindTickets/FindTickets';
 import OrderSteps from './OrderSteps/OrderSteps';
 import OrderFilters from './OrderFilters/OrderFilters';
 import LastTickets from './LastTickets/LastTickets';
 import OrderTickets from './OrderTickets/OrderTickets';
+import OrderSeats from './OrderSeats/OrderSeats';
 
 
 export default class OrderPage extends React.Component {
@@ -26,9 +28,11 @@ export default class OrderPage extends React.Component {
               <OrderFilters />
               <LastTickets />
             </div>
-
-            <div className="order-page__cards">
-              <OrderTickets />
+            <div className="order-page__content">
+              <Switch>
+                <Route exact path='/order' component={OrderTickets} />
+                <Route exact path='/order/seats' component={OrderSeats} />
+              </Switch>
             </div>
           </div>
         </div>

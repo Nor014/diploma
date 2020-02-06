@@ -1,72 +1,75 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 import { sortTickets } from '../../../Redux/actions/actions';
 
 import Tickets from '../Tickets/Tickets';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
-class OrderPage extends React.Component {
+class OrderTickets extends React.Component {
   constructor() {
     super()
     this.state = {
-      ticketsToShow: 5,
-      filters: [
+      ticketsToShow: [
         {
-          value: 'time',
-          innerText: 'времени',
+          value: 5,
           active: true
         },
         {
-          value: 'cost',
-          innerText: 'стоимости',
+          value: 4,
           active: false
         },
         {
-          value: 'duration',
-          innerText: 'длительности',
+          value: 2,
           active: false
         },
       ],
+      redirect: false,
     }
   }
 
   onFilterBtn = (value) => {
-    let netState = this.state.filters
-      .map(el => {
-        el.active = el.value === value ? true : false;
-        return el
-      })
-      .sort((a, b) => b.active - a.active)
-
-    this.setState(prevState => ({ ...prevState, filters: netState }));
     this.props.sortTickets(value);
   }
 
   onTicketsToShowBtn = (value) => {
-    this.setState(prevState => ({ ...prevState, ticketsToShow: value }));
+    const newState = this.state.ticketsToShow.map(el => {
+      el.active = el.value === value ? true : false;
+      return el
+    })
+
+    this.setState(prevState => ({ ...prevState, ticketsToShow: newState }));
+  }
+
+  onChooseSeatsBtn = () => {
+    this.setState(prevState => ({ ...prevState, redirect: true }))
   }
 
   render() {
-    const { data, loading, error } = this.props.ticketsData;
-    const filterValue = this.state.filters.find(el => el.active).innerText;
+    const { data, loading, error, filters } = this.props.ticketsData;
+    const filterValue = filters.find(el => el.active).innerText;
     const items = data.items;
-    console.log(data)
+    console.log(data);
 
     return (
       <div className="order-tickets">
+        {this.state.redirect
+          ? <Redirect to='/order/seats' />
+          : null}
 
         {loading ? <Preloader /> : null}
 
         {data.items &&
           <div className="order-tickets__inner">
-            <p className='order-tickets__text order-tickets__tital-count'>найдено {data.total_count}</p>
+            <p className='order-tickets__text order-tickets__total-count'>найдено {data.total_count}</p>
 
             <div className="order-tickets__filter">
               <p className="order-tickets__text order-tickets__filter-text">сортировать по:</p>
               <div className='psevdo'>
                 <p className='order-tickets__filter-current-value'>{filterValue}</p>
                 <div className='order-tickets__drop-down'>
-                  {this.state.filters.map((el, index) =>
+
+                  {filters.map((el, index) =>
                     <button key={index}
                       type='button'
                       className="btn order-tickets__drop-down-item"
@@ -80,19 +83,18 @@ class OrderPage extends React.Component {
             <div className="order-tickets__filter">
               <p className="order-tickets__text order-tickets__filter-text">сортировать по:</p>
               <div className="order-tickets__filter-inner">
-                <button type='button' className="btn order-tickets__filter-btn" value='2'
-                  onClick={(event) => this.onTicketsToShowBtn(event.target.value)}>2</button>
-                <button type='button' className="btn order-tickets__filter-btn" value='4'
-                  onClick={(event) => this.onTicketsToShowBtn(event.target.value)}>4</button>
-                <button type='button' className="btn order-tickets__filter-btn" value='5'
-                  onClick={(event) => this.onTicketsToShowBtn(event.target.value)}>5</button>
+                {this.state.ticketsToShow.map((el, index) =>
+                  <button key={index} type='button'
+                    className={el.active ? "btn order-tickets__filter-btn order-tickets__btn_active" : "btn order-tickets__filter-btn"}
+                    value={el.value} onClick={() => this.onTicketsToShowBtn(el.value)}>{el.value}</button>
+                )}
               </div>
             </div>
           </div>
         }
 
         {data.items
-          ? <Tickets data={items} maxTicketsToShow={this.state.ticketsToShow} />
+          ? <Tickets data={items} maxTicketsToShow={this.state.ticketsToShow.find(el => el.active).value} chooseSeats={this.onChooseSeatsBtn} />
           : null}
       </div>
     )
@@ -113,4 +115,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderPage)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderTickets)

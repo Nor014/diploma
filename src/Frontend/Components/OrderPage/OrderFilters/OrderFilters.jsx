@@ -21,7 +21,7 @@ export default class OrderFilters extends React.Component {
           <CheckBox label='Сидячий' paramsName='have_fourth_class' className='checkbox_type_fourth-class' />
           <CheckBox label='Люкс' paramsName='have_first_class' className='checkbox_type_first-class' />
           <CheckBox label='Wi-Fi' paramsName='have_wifi' className='checkbox_type_wifi' />
-          <CheckBox label='Экспресс' paramsName='have_express' className='checkbox_type_express' />
+          <CheckBox label='Экспресс' paramsName='is_express' className='checkbox_type_express' />
         </div>
 
         <div className="order-filters__cost">

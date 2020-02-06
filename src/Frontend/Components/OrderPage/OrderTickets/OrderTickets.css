@@ -8,7 +8,7 @@
   margin-bottom: 40px;
 }
 
-.order-tickets__tital-count {
+.order-tickets__total-count {
   margin-right: auto;
 }
 
@@ -48,6 +48,7 @@
   font-size: 16px;
   line-height: 21px;
   border-radius: 0;
+  font-weight: 400;
 }
 
 .order-tickets__drop-down-item:not(:last-child) {
@@ -68,6 +69,8 @@
   padding: 7px 10px;
   font-weight: 600;
   min-width: 130px;
+  font-weight: 400;
+  color: #292929;
 }
 
 .order-tickets__filter-current-value:hover~.order-tickets__drop-down {
@@ -85,6 +88,10 @@
   line-height: 21px;
   color: #928F94;
   font-weight: 400;
+}
+
+.order-tickets__btn_active {
+  color: #292929;
 }
 
 .order-tickets__filter-btn:hover {

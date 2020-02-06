@@ -9,7 +9,7 @@
   line-height: 22px;
   transition: 0.1s all;
   cursor: pointer;
-  font-family: inherit;
+  font-family: 'Roboto', sans-serif;
 }
 
 .btn_theme_yellow {

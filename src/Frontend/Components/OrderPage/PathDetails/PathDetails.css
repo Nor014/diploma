@@ -1,0 +1,79 @@
+.path-details {
+  display: flex;
+}
+
+.path-details__item {
+  background: #F7F6F6;
+  padding: 17px 15px 17px 35px;
+  display: flex;
+  align-items: center;
+}
+
+.path-details__item:not(:last-child) {
+  border-right: 1px solid #FFFFFF;
+}
+
+.path-details_type_train {
+  flex: 1 1 240px;
+}
+
+.path-details_type_train .path-details__inner {
+  padding-left: 57px;
+  background: url('./path-datails__train.svg') no-repeat left;
+}
+
+.path-details__train-name {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  color: #3E3C41;
+  margin-bottom: 5px;
+}
+
+.path-details__train-path {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.path-details_type_path {
+  flex: 1 1 420px;
+  padding-right: 40px;
+  justify-content: space-between;
+}
+
+.path-details__direction {
+  max-width: 128px;
+}
+
+.path-details__time {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  margin-bottom: 5px;
+}
+
+.path-details__city {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.path-details__station {
+  font-size: 16px;
+  line-height: 18px;
+  color: #9D9CA0;
+}
+
+.path-details_type_time {
+  flex: 1 1 220px;
+}
+
+.path-details_type_time .path-details__inner {
+  padding-left: 40px;
+  background: url('./path-details__clock.svg') no-repeat left;
+}
+
+.path-details__duration {
+  font-size: 16px;
+  line-height: 18px;
+  color: #000000;
+}

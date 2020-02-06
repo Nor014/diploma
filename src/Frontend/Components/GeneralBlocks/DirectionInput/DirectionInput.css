@@ -24,6 +24,7 @@
   top: 58px;
   z-index: 5;
   overflow: hidden;
+  z-index: 100;
 }
 
 .direction-input__list_hidden {
@@ -37,6 +38,8 @@
   width: 100%;
   text-align: left;
   border-radius: 0;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .direction-input__hint {

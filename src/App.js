@@ -21,7 +21,7 @@ function App() {
           <main className='main'>
             <Switch>
               <Route exact path='/' component={MainPage} />
-              <Route exact path='/order' component={OrderPage} />
+              <Route path='/order' component={OrderPage} />
             </Switch>
           </main>
           <Footer />

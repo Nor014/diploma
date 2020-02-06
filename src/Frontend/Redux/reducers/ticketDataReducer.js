@@ -3,7 +3,24 @@ import moment from 'moment';
 const initState = {
   data: [],
   loading: false,
-  error: null
+  error: null,
+  filters: [
+    {
+      value: 'time',
+      innerText: 'времени',
+      active: true
+    },
+    {
+      value: 'cost',
+      innerText: 'стоимости',
+      active: false
+    },
+    {
+      value: 'duration',
+      innerText: 'длительности',
+      active: false
+    }
+  ]
 }
 
 export default function ticketDataReducer(state = initState, action) {
@@ -14,7 +31,8 @@ export default function ticketDataReducer(state = initState, action) {
 
   if (action.type === 'SET_TICKETS_DATA') {
     const data = action.payload;
-    const sortedData = sortData(data, 'time');
+    const currentFilter = state.filters.find(el => el.active).value;
+    const sortedData = sortData(data, currentFilter);
 
     return { ...state, data: sortedData, loading: false };
   }
@@ -24,7 +42,14 @@ export default function ticketDataReducer(state = initState, action) {
     const data = state.data;
     const sortedData = sortData(data, filter);
 
-    return { ...state, data: sortedData, loading: false };
+    const newFiltersState = state.filters
+      .map(el => {
+        el.active = el.value === filter ? true : false;
+        return el
+      })
+      .sort((a, b) => b.active - a.active)
+
+    return { ...state, data: sortedData, filters: newFiltersState, loading: false };
   }
 
   function sortData(data, filter) {

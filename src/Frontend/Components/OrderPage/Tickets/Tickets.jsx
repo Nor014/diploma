@@ -14,7 +14,7 @@ export default class Tickets extends React.Component {
   secondsToDuration = (seconds) => {
     const totalDuration = seconds / 60 / 60;
     const hours = Math.floor(totalDuration);
-    const minutes = ((totalDuration - hours) * 60).toFixed(0)
+    const minutes = ((totalDuration - hours) * 60).toFixed(0);
 
     return `${hours} : ${minutes}`;
   }
@@ -197,7 +197,7 @@ export default class Tickets extends React.Component {
                 </div>
 
                 <div className="ticket-card__btn-wrap">
-                  <button className='ticket-card__btn btn btn_theme_yellow btn_size_small'>Выбрать места</button>
+                  <button className='ticket-card__btn btn btn_theme_yellow btn_size_small' onClick={this.props.chooseSeats}>Выбрать места</button>
                 </div>
               </div>
             </div>

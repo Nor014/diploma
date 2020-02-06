@@ -11,7 +11,7 @@ const initState = {
   have_fourth_class: false,
   have_wifi: false,
   have_air_conditioning: false,
-  have_express: false,
+  is_express: false,
   price_from: null,
   price_to: null,
   start_departure_hour_from: null,
