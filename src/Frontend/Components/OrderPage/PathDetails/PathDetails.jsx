@@ -5,9 +5,12 @@ import { ReactComponent as DirectionArrow } from '../PathDetails/path-details__p
 export default class PathDetails extends React.Component {
 
   render() {
+    const componentClass = this.props.className
+      ? `path-details ${this.props.className}`
+      : "path-details";
 
     return (
-      <div className="path-details">
+      <div className={componentClass}>
         <div className="path-details__item path-details_type_train">
           <div className="path-details__inner">
             <p className="path-details__train-name">116С</p>

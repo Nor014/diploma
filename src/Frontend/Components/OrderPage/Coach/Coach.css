@@ -1,0 +1,138 @@
+.coach {
+  padding-top: 25px;
+  border-top: 1px dashed #C4C4C4;
+}
+
+.coach__title {
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  color: #292929;
+  padding: 0 20px;
+  margin-bottom: 30px;
+}
+
+/* coach classes */
+
+.coach__classes {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+  margin-bottom: 26px;
+}
+
+.coach__class-btn {
+  font-weight: 400;
+}
+
+.coach__class-btn:hover, .coach__class-btn:focus {
+  opacity: 0.7;
+}
+
+.coach__class-icon {
+  fill: #C4C4C4;
+  margin-bottom: 20px;
+}
+
+.coach__class-name {
+  color: #928F94;
+}
+
+.coach_btn_active .coach__class-name {
+  color: #FFA800;
+}
+
+.coach_btn_active .coach__class-icon {
+  fill: #FFA800;
+}
+
+/* coach wagons */
+
+.coach__wagons {
+  padding: 5px 20px 5px 33px;
+  background: #FFD98F;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.coach__wagons-inner {
+  display: flex;
+  align-items: flex-end;
+}
+
+.coach__wagons-lable {
+  font-size: 16px;
+  line-height: 18px;
+  margin-right: 10px;
+}
+
+.coach__wagons-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 320px;
+}
+
+.coach__wagons-item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.coach__wagons-btn {
+  font-size: 20px;
+  line-height: 25px;
+  color: #fff;
+}
+
+.coach__wagons-btn:hover, .coach__wagons-btn:focus {
+  color: #292929;
+}
+
+.coach__wagons-text {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+/*coach details  */
+
+.coach__details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.coach__details-item {
+  padding: 20px;
+}
+
+.coach__details-wagon {
+  flex: 0 0 200px;
+  min-height: 160px;
+  background: #FFD98F;
+  display: flex;
+  flex-direction: column;
+}
+
+.coach__details-wagon-name {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 45px;
+  color: #292929;
+}
+
+.coach__section-title {
+  font-size: 18px;
+  line-height: 21px;
+  color: #928F94;
+  margin-bottom: 10px;
+}
+
+.coach__seats-amount {
+  color: #292929;
+}
+
+.coach__text {
+  font-size: 18px;
+  line-height: 21px;
+  margin-bottom: 5px;
+}

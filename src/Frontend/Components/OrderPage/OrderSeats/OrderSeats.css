@@ -44,3 +44,7 @@
   margin-right: 10px;
   background: url('./order-seats__arrow.svg') no-repeat center;
 }
+
+.order-seats__path-details {
+  margin-bottom: 40px;
+}

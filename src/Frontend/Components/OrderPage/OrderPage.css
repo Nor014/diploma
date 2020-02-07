@@ -5,6 +5,7 @@
 @import './Tickets/Tickets.css';
 @import './OrderSeats/OrderSeats.css';
 @import './PathDetails/PathDetails.css';
+@import './Coach/Coach.css';
 /*  */
 
 .order-page__head {
