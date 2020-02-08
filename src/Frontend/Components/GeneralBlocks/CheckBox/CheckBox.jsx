@@ -19,7 +19,7 @@ class CheckBox extends React.Component {
         </label>
       </div>
     )
-  }
+  } 
 }
 
 const mapStateToProps = (state) => {

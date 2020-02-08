@@ -1,14 +1,23 @@
 import React from 'react';
+import OptionCheckBox from '../../GeneralBlocks/OptionCheckBox/OptionCheckBox';
 
 import { ReactComponent as FirstClassIcon } from '../Coach/coach_icon_first-class.svg';
 import { ReactComponent as SecondClassIcon } from '../Coach/coach_icon_second-class.svg';
 import { ReactComponent as ThirdClassIcon } from '../Coach/coach_icon_third-class.svg';
 import { ReactComponent as FourthClassIcon } from '../Coach/coach_icon_fourth-class.svg';
+import { ReactComponent as AirIcon } from '../Coach/coach_icon_condi.svg';
+import { ReactComponent as WifiIcon } from '../Coach/coach_icon_wifi.svg';
+import { ReactComponent as LinensIcon } from '../Coach/coach_icon_linens.svg';
+import { ReactComponent as EatingIcon } from '../Coach/coach_icon_eating.svg';
+import { ReactComponent as SecondClassScheme } from '../Coach/coach_scheme_second-class.svg';
 
 
 export default class Coach extends React.Component {
 
+
   render() {
+
+    console.log(document.querySelectorAll('.coach-seat'))
 
     return (
       <div className="coach">
@@ -57,9 +66,41 @@ export default class Coach extends React.Component {
 
           <div className="coach__details-seats coach__details-item">
             <p className="coach__section-title">Места <span className='coach__seats-amount'>11</span></p>
-            <p className="coach__text">Верхние <span className='coach__seats-top-amount'>5</span></p>
-            <p className="coach__text">Нижние <span className='coach__seats-bottom-amount'>6</span></p>
+            <p className="coach__text">Верхние <span className='coach__seats-amount'>5</span></p>
+            <p className="coach__text">Нижние <span className='coach__seats-amount'>6</span></p>
           </div>
+
+          <div className="coach__details-cost coach__details-item">
+            <p className="coach__section-title">Стоимость</p>
+            <p className="coach__text coach__cost-value">2890 <span className='coach__seats-ruble'>₽</span></p>
+            <p className="coach__text coach__cost-value">5500 <span className='coach__seats-ruble'>₽</span></p>
+          </div>
+
+          <div className="coach__details-services coach__details-item">
+            <p className="coach__section-title">Обслуживание</p>
+
+            <div className="coach__details-services-list ">
+              <OptionCheckBox className='coach__details-service-item' hint='кондиционер' disabled={false}>
+                <AirIcon className='option-checkbox__icon' />
+              </OptionCheckBox>
+
+              <OptionCheckBox className='coach__details-service-item' hint='wi-fi' disabled={false}>
+                <WifiIcon className='option-checkbox__icon' />
+              </OptionCheckBox>
+
+              <OptionCheckBox className='coach__details-service-item' hint='белье' disabled={false}>
+                <LinensIcon className='option-checkbox__icon' />
+              </OptionCheckBox>
+
+              <OptionCheckBox className='coach__details-service-item' hint='питание' disabled={true}>
+                <EatingIcon className='option-checkbox__icon' />
+              </OptionCheckBox>
+            </div>
+          </div>
+        </div>
+
+        <div className="coach__scheme-wrap">
+          <SecondClassScheme className='coach-scheme'/>
         </div>
       </div>
     )

@@ -99,6 +99,8 @@
 .coach__details {
   display: flex;
   justify-content: space-between;
+  padding-right: 60px;
+  margin-bottom: 50px;
 }
 
 .coach__details-item {
@@ -129,10 +131,44 @@
 
 .coach__seats-amount {
   color: #292929;
+  font-weight: 600;
 }
 
 .coach__text {
-  font-size: 18px;
-  line-height: 21px;
-  margin-bottom: 5px;
+  font-size: 21px;
+  line-height: 25px;
+  margin-bottom: 10px;
+}
+
+.coach__cost-value {
+  font-weight: 600;
+}
+
+.coach__seats-ruble {
+  color: #928F94;
+  font-weight: 400;
+}
+
+/* services */
+
+.coach__details-services-list {
+  display: flex;
+}
+
+.coach__details-service-item:not(:last-child) {
+  margin-right: 10px;
+}
+
+/* coach__scheme */
+
+.coach__scheme-wrap {
+  padding: 0 20px;
+}
+
+.coach-scheme {
+  width: 100%;
+}
+
+.coach-seat:hover rect {
+  fill: aqua;
 }
