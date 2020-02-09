@@ -158,17 +158,3 @@
 .coach__details-service-item:not(:last-child) {
   margin-right: 10px;
 }
-
-/* coach__scheme */
-
-.coach__scheme-wrap {
-  padding: 0 20px;
-}
-
-.coach-scheme {
-  width: 100%;
-}
-
-.coach-seat:hover rect {
-  fill: aqua;
-}

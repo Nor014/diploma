@@ -4,11 +4,30 @@ import { connect } from 'react-redux';
 
 class CoachScheme extends React.Component {
 
-  render() {
+  // componentDidUpdate = () => {
    
+  //   let schemeSeats = document.querySelectorAll('.coach-seat');
+  //   let seatsData = this.props.seatsData.length > 0 ? this.props.seatsData[1].seats : null;
+
+  //   // console.log(schemeSeats, seatsData)
+
+  //   if (this.props.seatsData.length > 0) {
+
+  //     seatsData.forEach((el, index) => {
+  //       if (el.available && schemeSeats[el.index - 1] !== undefined) {
+         
+  //       }
+  //     })
+  //   }
+
+  // }
+
+  render() {
+    // console.log(this.props)
+
     return (
       <div className='coach-scheme'>
-
+        {this.props.children}
       </div>
     )
   }

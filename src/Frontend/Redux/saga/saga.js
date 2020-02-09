@@ -15,7 +15,7 @@ function* getDataSaga(action) {
       cancel: take('CANCEL_FETCH_DATA')
     })
 
-    console.log(data)
+    // console.log(data)
 
     if (cancel) {
       console.log('canceled', fromComponent)

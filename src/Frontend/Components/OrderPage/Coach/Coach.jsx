@@ -1,5 +1,6 @@
 import React from 'react';
 import OptionCheckBox from '../../GeneralBlocks/OptionCheckBox/OptionCheckBox';
+import CoachScheme from '../CoachScheme/CoachScheme';
 
 import { ReactComponent as FirstClassIcon } from '../Coach/coach_icon_first-class.svg';
 import { ReactComponent as SecondClassIcon } from '../Coach/coach_icon_second-class.svg';
@@ -14,35 +15,39 @@ import { ReactComponent as SecondClassScheme } from '../Coach/coach_scheme_secon
 
 export default class Coach extends React.Component {
 
-
   render() {
+    const seatsData = this.props.seatsData;
 
-    console.log(document.querySelectorAll('.coach-seat'))
+    console.log(seatsData)
 
     return (
       <div className="coach">
         <h2 className="coach__title">Тип вагона</h2>
 
         <div className="coach__classes">
-          <button className="coach__class-btn btn ">
-            <FourthClassIcon className='coach__class-icon' />
-            <p className="coach__class-name">Сидячий</p>
-          </button>
+          {seatsData.map((el, index) => {
+            return (
+              <button className="coach__class-btn btn " key={index}>
+                {el.class === 'fourth'
+                  ? <FourthClassIcon className='coach__class-icon' />
+                  : null}
 
-          <button className="coach__class-btn btn">
-            <ThirdClassIcon className='coach__class-icon' />
-            <p className="coach__class-name">Плацкарт</p>
-          </button>
+                {el.class === 'third'
+                  ? <ThirdClassIcon className='coach__class-icon' />
+                  : null}
 
-          <button className="coach__class-btn btn coach_btn_active">
-            <SecondClassIcon className='coach__class-icon' />
-            <p className="coach__class-name">Купе</p>
-          </button>
+                {el.class === 'second'
+                  ? <SecondClassIcon className='coach__class-icon' />
+                  : null}
 
-          <button className="coach__class-btn btn">
-            <FirstClassIcon className='coach__class-icon' />
-            <p className="coach__class-name">Люкс</p>
-          </button>
+                {el.class === 'first'
+                  ? <FirstClassIcon className='coach__class-icon' />
+                  : null}
+
+                <p className="coach__class-name">{el.name}</p>
+              </button>
+            )
+          })}
         </div>
 
         <div className="coach__wagons">
@@ -99,9 +104,10 @@ export default class Coach extends React.Component {
           </div>
         </div>
 
-        <div className="coach__scheme-wrap">
-          <SecondClassScheme className='coach-scheme'/>
-        </div>
+        <CoachScheme seatsData={seatsData}>
+          <SecondClassScheme className='coach-scheme__svg' />
+        </CoachScheme>
+
       </div>
     )
   }

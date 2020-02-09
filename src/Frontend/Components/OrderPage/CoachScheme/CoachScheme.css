@@ -1,0 +1,16 @@
+.coach-scheme {
+  padding: 0 20px;
+}
+
+.coach-scheme__svg {
+  width: 100%;
+}
+
+.coach-seat:hover rect {
+  fill: aqua;
+}
+
+.available rect {
+  fill: red;
+  pointer-events: all;
+}

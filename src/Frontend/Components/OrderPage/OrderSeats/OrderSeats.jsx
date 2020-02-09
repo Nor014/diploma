@@ -38,7 +38,7 @@ class OrderSeats extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
 
     return (
       <div className="order-seats" ref={this.seatsRef}>
@@ -50,7 +50,7 @@ class OrderSeats extends React.Component {
           </div>
 
           <PathDetails className='order-seats__path-details' />
-          <Coach data={this.props.seatsData} />
+          <Coach seatsData={this.props.seatsData.data} />
 
         </div>
       </div>

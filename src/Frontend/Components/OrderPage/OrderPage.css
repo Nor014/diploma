@@ -6,6 +6,7 @@
 @import './OrderSeats/OrderSeats.css';
 @import './PathDetails/PathDetails.css';
 @import './Coach/Coach.css';
+@import './CoachScheme/CoachScheme.css';
 /*  */
 
 .order-page__head {
