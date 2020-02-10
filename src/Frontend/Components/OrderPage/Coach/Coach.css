@@ -75,18 +75,26 @@
   max-width: 320px;
 }
 
+.coach__wagons-item {
+  line-height: 0;
+}
+
 .coach__wagons-item:not(:last-child) {
   margin-right: 10px;
 }
 
 .coach__wagons-btn {
-  font-size: 20px;
-  line-height: 25px;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000;
+}
+
+.coach_wagon_active .coach__wagons-btn {
   color: #fff;
 }
 
 .coach__wagons-btn:hover, .coach__wagons-btn:focus {
-  color: #292929;
+  opacity: 0.8;
 }
 
 .coach__wagons-text {

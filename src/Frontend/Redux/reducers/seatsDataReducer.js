@@ -69,5 +69,16 @@ export default function seatsDataReducer(state = initState, action) {
     return { ...state, data: classes, error: null, loading: false }
   }
 
+  if (action.type === 'CHANGE_COACH_CLASS') {
+    const coachClass = action.payload;
+    
+    const newData = state.data.map(el => {
+      el.active = el.class === coachClass ? !el.active : false;
+      return el
+    })
+
+    return { ...state, data: newData }
+  }
+
   return state
 }

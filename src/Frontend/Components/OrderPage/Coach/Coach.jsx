@@ -1,6 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import OptionCheckBox from '../../GeneralBlocks/OptionCheckBox/OptionCheckBox';
 import CoachScheme from '../CoachScheme/CoachScheme';
+
+import { changeCoachClass } from '../../../Redux/actions/actions';
 
 import { ReactComponent as FirstClassIcon } from '../Coach/coach_icon_first-class.svg';
 import { ReactComponent as SecondClassIcon } from '../Coach/coach_icon_second-class.svg';
@@ -13,10 +17,16 @@ import { ReactComponent as EatingIcon } from '../Coach/coach_icon_eating.svg';
 import { ReactComponent as SecondClassScheme } from '../Coach/coach_scheme_second-class.svg';
 
 
-export default class Coach extends React.Component {
+class Coach extends React.Component {
+
+  onChangeClassBtn = (event) => {
+    const coachClass = event.currentTarget.dataset.class;
+    this.props.changeCoachClass(coachClass)
+  }
 
   render() {
     const seatsData = this.props.seatsData;
+    const activeCoachClass = seatsData.find(el => el.active);
 
     console.log(seatsData)
 
@@ -27,7 +37,12 @@ export default class Coach extends React.Component {
         <div className="coach__classes">
           {seatsData.map((el, index) => {
             return (
-              <button className="coach__class-btn btn " key={index}>
+              <button
+                className={el.active ? 'coach__class-btn btn coach_btn_active' : 'coach__class-btn btn'}
+                key={index}
+                onClick={this.onChangeClassBtn}
+                data-class={el.class} >
+
                 {el.class === 'fourth'
                   ? <FourthClassIcon className='coach__class-icon' />
                   : null}
@@ -50,16 +65,25 @@ export default class Coach extends React.Component {
           })}
         </div>
 
-        <div className="coach__wagons">
-          <div className="coach__wagons-inner">
-            <p className="coach__wagons-lable">Вагоны</p>
-            <ul className="coach__wagons-list">
-              <li className="coach__wagons-item"><button className='btn coach__wagons-btn'>ГОБЛ-33</button></li>
-              <li className="coach__wagons-item"><button className='btn coach__wagons-btn'>UTNF-152</button></li>
-            </ul>
+
+        {activeCoachClass && activeCoachClass.data.length > 0
+          ? <div className="coach__wagons">
+            <div className="coach__wagons-inner">
+              <p className="coach__wagons-lable">Вагоны</p>
+              <ul className="coach__wagons-list">
+                {activeCoachClass.data.map((el, index) => {
+                  return <li key={index} className={index === 0 ? 'coach__wagons-item coach_wagon_active' : 'coach__wagons-item'}>
+                    <button className='btn coach__wagons-btn'>{el.coach.name}</button>
+                  </li>
+                })}
+              </ul>
+            </div>
+            <p className="coach__wagons-text">Нумерация вагонов начинается с головы поезда</p>
           </div>
-          <p className="coach__wagons-text">Нумерация вагонов начинается с головы поезда</p>
-        </div>
+          : null
+        }
+
+        
 
         <div className="coach__details">
           <div className="coach__details-wagon coach__details-item">
@@ -108,7 +132,22 @@ export default class Coach extends React.Component {
           <SecondClassScheme className='coach-scheme__svg' />
         </CoachScheme>
 
-      </div>
+      </div >
     )
   }
 }
+
+const mapStateToProps = (state) => {
+
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeCoachClass: (coachClass) => dispatch(changeCoachClass(coachClass))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Coach)

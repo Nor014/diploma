@@ -170,3 +170,12 @@ export function setSeatsData(data) {
     payload: data
   }
 }
+
+// Coach
+
+export function changeCoachClass(coachClass) {
+  return {
+    type: 'CHANGE_COACH_CLASS',
+    payload: coachClass
+  }
+}
