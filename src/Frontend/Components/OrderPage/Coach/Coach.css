@@ -49,7 +49,7 @@
 /* coach wagons */
 
 .coach__wagons {
-  padding: 5px 20px 5px 33px;
+  padding: 5px 20px;
   background: #FFD98F;
   display: flex;
   align-items: center;
@@ -117,7 +117,7 @@
 
 .coach__details-wagon {
   flex: 0 0 200px;
-  min-height: 160px;
+  /* min-height: 160px; */
   background: #FFD98F;
   display: flex;
   flex-direction: column;
@@ -125,8 +125,8 @@
 
 .coach__details-wagon-name {
   font-weight: bold;
-  font-size: 40px;
-  line-height: 45px;
+  font-size: 30px;
+  line-height: 35px;
   color: #292929;
 }
 

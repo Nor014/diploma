@@ -12,8 +12,8 @@ export default function seatsDataReducer(state = initState, action) {
   if (action.type === 'SET_SEATS_DATA') {
     const data = action.payload;
 
-    // преобразовываем данные мест в вагоне
     const formatedData = data.map(el => {
+      // преобразовываем данные мест для работы со схемой вагона
       el.seats.forEach(seat => {
         if (el.coach.class_type === 'second' || el.coach.class_type === 'third') {
           if (seat.index <= 32) {
@@ -36,33 +36,81 @@ export default function seatsDataReducer(state = initState, action) {
         seat.selected = false;
       })
 
+      // данные для рендера
+      let info = [];
+
+      if (el.coach.class_type === 'second' || el.coach.class_type === 'third') {
+        info.push(
+          {
+            name: 'Верхнее',
+            amount: el.seats.filter(el => el.type === 'верхнее').length,
+            cost: el.coach.top_price
+          },
+          {
+            name: 'Нижнее',
+            amount: el.seats.filter(el => el.type === 'нижнее').length,
+            cost: el.coach.bottom_price
+          })
+      } else if (el.coach.class_type === 'third') {
+        info.push({
+          name: 'Боковое',
+          amount: el.seats.filter(el => el.type === 'боковое').length,
+          cost: el.coach.side_price
+        })
+      } else if (el.coach.class_type === 'fourth') {
+        info.push({
+          name: 'Сидячее',
+          amount: el.seats.length,
+          cost: el.coach.top_price
+        })
+      } else if (el.coach.class_type === 'first') {
+        info.push({
+          name: 'Люкс',
+          amount: el.seats.length,
+          cost: el.coach.price
+        })
+      }
+
+      el.seatsInfo = info;
+      
       return el
     })
+
+    // функция разбивки данных по классам
+    function filterDataByClass(coachClass) {
+      return formatedData
+        .filter(el => el.coach.class_type === coachClass)
+        .map((el, index) => {
+          // добавляем флаг для определения активного вагона
+          el.coach.active = index === 0 ? true : false;
+          return el
+        })
+    }
 
     const classes = [
       {
         class: 'fourth',
         name: 'Сидячий',
         active: false,
-        data: formatedData.filter(el => el.coach.class_type === 'fourth')
+        data: filterDataByClass('fourth')
       },
       {
         class: 'third',
         name: 'Плацкарт',
         active: false,
-        data: formatedData.filter(el => el.coach.class_type === 'third')
+        data: filterDataByClass('third')
       },
       {
         class: 'second',
         name: 'Купе',
         active: false,
-        data: formatedData.filter(el => el.coach.class_type === 'second')
+        data: filterDataByClass('second')
       },
       {
         class: 'first',
         name: 'Люкс',
         active: false,
-        data: formatedData.filter(el => el.coach.class_type === 'first')
+        data: filterDataByClass('first')
       },
     ]
 
@@ -71,10 +119,27 @@ export default function seatsDataReducer(state = initState, action) {
 
   if (action.type === 'CHANGE_COACH_CLASS') {
     const coachClass = action.payload;
-    
+
     const newData = state.data.map(el => {
       el.active = el.class === coachClass ? !el.active : false;
       return el
+    })
+
+    return { ...state, data: newData }
+  }
+
+  if (action.type === 'CHANGE_COACH_WAGONE') {
+    const coachId = action.payload;
+
+    const newData = state.data.map(coachClass => {
+      if (coachClass.active) {
+        coachClass.data.map(el => {
+          el.coach.active = el.coach._id === coachId ? true : false
+          return el
+        })
+      }
+
+      return coachClass
     })
 
     return { ...state, data: newData }

@@ -179,3 +179,10 @@ export function changeCoachClass(coachClass) {
     payload: coachClass
   }
 }
+
+export function changeCoachWagon(id) {
+  return {
+    type: 'CHANGE_COACH_WAGONE',
+    payload: id
+  }
+}
