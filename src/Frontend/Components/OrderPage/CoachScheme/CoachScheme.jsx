@@ -29,7 +29,7 @@ class CoachScheme extends React.Component {
       <div className='coach-scheme'>
         {this.props.children}
       </div>
-    )
+    ) 
   }
 }
 

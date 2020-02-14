@@ -1,8 +1,10 @@
 import React from 'react';
-import PathDetails from '../PathDetails/PathDetails';
-import Coach from '../Coach/Coach';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+
+import PathDetails from '../PathDetails/PathDetails';
+import Coach from '../Coach/Coach';
+import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
 import { getSeatsData } from '../../../Redux/actions/actions';
 
@@ -38,7 +40,13 @@ class OrderSeats extends React.Component {
   }
 
   render() {
-    // console.log(this.props)
+    console.log(this.props)
+    const pathData = this.props.location.state;
+    const { data, loading, error } = this.props.seatsData;
+
+    if (loading) {
+      return <Preloader />
+    }
 
     return (
       <div className="order-seats" ref={this.seatsRef}>
@@ -49,9 +57,8 @@ class OrderSeats extends React.Component {
             <Link to='/order' className="link order-seats__cahnge-train-link">Выбрать другой поезд</Link>
           </div>
 
-          <PathDetails className='order-seats__path-details' />
+          <PathDetails className='order-seats__path-details' pathData={pathData} />
           <Coach seatsData={this.props.seatsData.data} />
-
         </div>
       </div>
     )

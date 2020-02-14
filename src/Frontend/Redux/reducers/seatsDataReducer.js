@@ -36,7 +36,7 @@ export default function seatsDataReducer(state = initState, action) {
         seat.selected = false;
       })
 
-      // данные для рендера
+      // данные для рендера информации по местам
       let info = [];
 
       if (el.coach.class_type === 'second' || el.coach.class_type === 'third') {
@@ -51,19 +51,25 @@ export default function seatsDataReducer(state = initState, action) {
             amount: el.seats.filter(el => el.type === 'нижнее').length,
             cost: el.coach.bottom_price
           })
-      } else if (el.coach.class_type === 'third') {
+      }
+
+      if (el.coach.class_type === 'third') {
         info.push({
           name: 'Боковое',
           amount: el.seats.filter(el => el.type === 'боковое').length,
           cost: el.coach.side_price
         })
-      } else if (el.coach.class_type === 'fourth') {
+      }
+
+      if (el.coach.class_type === 'fourth') {
         info.push({
           name: 'Сидячее',
           amount: el.seats.length,
           cost: el.coach.top_price
         })
-      } else if (el.coach.class_type === 'first') {
+      }
+
+      if (el.coach.class_type === 'first') {
         info.push({
           name: 'Люкс',
           amount: el.seats.length,
@@ -71,12 +77,45 @@ export default function seatsDataReducer(state = initState, action) {
         })
       }
 
+      // данные об услугах
+      const services = [
+        {
+          name: 'air-conditioning',
+          hint: 'кондиционер',
+          available: el.coach.have_air_conditioning,
+          price: 0,
+          inTicketCost: true
+        },
+        {
+          name: 'wifi',
+          hint: 'wi-fi',
+          available: el.coach.have_wifi,
+          price: el.coach.wifi_price,
+          inTicketCost: false
+        },
+        {
+          name: 'linens',
+          hint: 'белье',
+          available: el.coach.class_type !== 'fourth' ? true : false,
+          price: el.coach.linens_price,
+          inTicketCost: el.coach.is_linens_included
+        },
+        {
+          name: 'eating',
+          hint: 'питание',
+          available: true,
+          price: 0,
+          inTicketCost: true
+        }
+      ]
+
       el.seatsInfo = info;
-      
+      el.servicesInfo = services;
+
       return el
     })
 
-    // функция разбивки данных по классам
+    // функция разбивки данных по классам вагонов
     function filterDataByClass(coachClass) {
       return formatedData
         .filter(el => el.coach.class_type === coachClass)
@@ -91,24 +130,28 @@ export default function seatsDataReducer(state = initState, action) {
       {
         class: 'fourth',
         name: 'Сидячий',
+        icon: 'fourth-coach-class',
         active: false,
         data: filterDataByClass('fourth')
       },
       {
         class: 'third',
         name: 'Плацкарт',
+        icon: 'third-coach-class',
         active: false,
         data: filterDataByClass('third')
       },
       {
         class: 'second',
         name: 'Купе',
+        icon: 'second-coach-class',
         active: false,
         data: filterDataByClass('second')
       },
       {
         class: 'first',
         name: 'Люкс',
+        icon: 'first-coach-class',
         active: false,
         data: filterDataByClass('first')
       },

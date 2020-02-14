@@ -1,3 +1,6 @@
+@import './CoachClassBtn/CoachClassBtn.css';
+@import './CoachWagons/CoachWagons.css';
+@import './CoachDetails/CoachDetails.css';
 .coach {
   padding-top: 25px;
   border-top: 1px dashed #C4C4C4;
@@ -12,157 +15,9 @@
   margin-bottom: 30px;
 }
 
-/* coach classes */
-
 .coach__classes {
   display: flex;
   justify-content: space-around;
   padding: 0 20px;
   margin-bottom: 26px;
-}
-
-.coach__class-btn {
-  font-weight: 400;
-}
-
-.coach__class-btn:hover, .coach__class-btn:focus {
-  opacity: 0.7;
-}
-
-.coach__class-icon {
-  fill: #C4C4C4;
-  margin-bottom: 20px;
-}
-
-.coach__class-name {
-  color: #928F94;
-}
-
-.coach_btn_active .coach__class-name {
-  color: #FFA800;
-}
-
-.coach_btn_active .coach__class-icon {
-  fill: #FFA800;
-}
-
-/* coach wagons */
-
-.coach__wagons {
-  padding: 5px 20px;
-  background: #FFD98F;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.coach__wagons-inner {
-  display: flex;
-  align-items: flex-end;
-}
-
-.coach__wagons-lable {
-  font-size: 16px;
-  line-height: 18px;
-  margin-right: 10px;
-}
-
-.coach__wagons-list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  max-width: 320px;
-}
-
-.coach__wagons-item {
-  line-height: 0;
-}
-
-.coach__wagons-item:not(:last-child) {
-  margin-right: 10px;
-}
-
-.coach__wagons-btn {
-  font-size: 18px;
-  line-height: 22px;
-  color: #000;
-}
-
-.coach_wagon_active .coach__wagons-btn {
-  color: #fff;
-}
-
-.coach__wagons-btn:hover, .coach__wagons-btn:focus {
-  opacity: 0.8;
-}
-
-.coach__wagons-text {
-  font-size: 16px;
-  line-height: 18px;
-}
-
-/*coach details  */
-
-.coach__details {
-  display: flex;
-  justify-content: space-between;
-  padding-right: 60px;
-  margin-bottom: 50px;
-}
-
-.coach__details-item {
-  padding: 20px;
-}
-
-.coach__details-wagon {
-  flex: 0 0 200px;
-  /* min-height: 160px; */
-  background: #FFD98F;
-  display: flex;
-  flex-direction: column;
-}
-
-.coach__details-wagon-name {
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 35px;
-  color: #292929;
-}
-
-.coach__section-title {
-  font-size: 18px;
-  line-height: 21px;
-  color: #928F94;
-  margin-bottom: 10px;
-}
-
-.coach__seats-amount {
-  color: #292929;
-  font-weight: 600;
-}
-
-.coach__text {
-  font-size: 21px;
-  line-height: 25px;
-  margin-bottom: 10px;
-}
-
-.coach__cost-value {
-  font-weight: 600;
-}
-
-.coach__seats-ruble {
-  color: #928F94;
-  font-weight: 400;
-}
-
-/* services */
-
-.coach__details-services-list {
-  display: flex;
-}
-
-.coach__details-service-item:not(:last-child) {
-  margin-right: 10px;
 }

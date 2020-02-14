@@ -1,0 +1,61 @@
+.coach__details {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 60px;
+  margin-bottom: 50px;
+}
+
+.coach__details-item {
+  padding: 20px;
+}
+
+.coach__details-wagon {
+  flex: 0 0 200px;
+  background: #FFD98F;
+  display: flex;
+  flex-direction: column;
+}
+
+.coach__details-wagon-name {
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 35px;
+  color: #292929;
+}
+
+.coach__section-title {
+  font-size: 18px;
+  line-height: 21px;
+  color: #928F94;
+  margin-bottom: 10px;
+}
+
+.coach__seats-amount {
+  color: #292929;
+  font-weight: 600;
+}
+
+.coach__text {
+  font-size: 18px;
+  line-height: 22px;
+  margin-bottom: 10px;
+}
+
+.coach__cost-value {
+  font-weight: 600;
+}
+
+.coach__seats-ruble {
+  color: #928F94;
+  font-weight: 400;
+}
+
+/* services */
+
+.coach__details-services-list {
+  display: flex;
+}
+
+.coach__details-service-item:not(:last-child) {
+  margin-right: 10px;
+}

@@ -1,0 +1,53 @@
+.coach__wagons {
+  padding: 5px 20px;
+  background: #FFD98F;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.coach__wagons-inner {
+  display: flex;
+  align-items: flex-end;
+}
+
+.coach__wagons-lable {
+  font-size: 16px;
+  line-height: 18px;
+  margin-right: 10px;
+}
+
+.coach__wagons-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 320px;
+}
+
+.coach__wagons-item {
+  line-height: 0;
+}
+
+.coach__wagons-item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.coach__wagons-btn {
+  font-size: 18px;
+  line-height: 22px;
+  color: #000;
+}
+
+.coach_wagon_active .coach__wagons-btn {
+  color: #fff;
+}
+
+.coach__wagons-btn:hover, .coach__wagons-btn:focus {
+  opacity: 0.8;
+}
+
+.coach__wagons-text {
+  font-size: 16px;
+  line-height: 18px;
+}

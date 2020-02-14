@@ -1,0 +1,24 @@
+.coach__class-btn {
+  font-weight: 400;
+}
+
+.coach__class-btn:hover, .coach__class-btn:focus {
+  opacity: 0.7;
+}
+
+.coach__class-icon {
+  fill: #C4C4C4;
+  margin-bottom: 20px;
+}
+
+.coach__class-name {
+  color: #928F94;
+}
+
+.coach_btn_active .coach__class-name {
+  color: #FFA800;
+}
+
+.coach_btn_active .coach__class-icon {
+  fill: #FFA800;
+}

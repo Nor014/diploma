@@ -40,10 +40,6 @@ class OrderTickets extends React.Component {
     this.setState(prevState => ({ ...prevState, ticketsToShow: newState }));
   }
 
-  onChooseSeatsBtn = () => {
-    this.setState(prevState => ({ ...prevState, redirect: true }))
-  }
-
   render() {
     const { data, loading, error, filters } = this.props.ticketsData;
     const filterValue = filters.find(el => el.active).innerText;
@@ -63,7 +59,6 @@ class OrderTickets extends React.Component {
               <div className='psevdo'>
                 <p className='order-tickets__filter-current-value'>{filterValue}</p>
                 <div className='order-tickets__drop-down'>
-
                   {filters.map((el, index) =>
                     <button key={index}
                       type='button'
@@ -89,7 +84,7 @@ class OrderTickets extends React.Component {
         }
 
         {data.items
-          ? <Tickets data={items} maxTicketsToShow={this.state.ticketsToShow.find(el => el.active).value} chooseSeats={this.onChooseSeatsBtn} />
+          ? <Tickets data={items} maxTicketsToShow={this.state.ticketsToShow.find(el => el.active).value} />
           : null}
       </div>
     )

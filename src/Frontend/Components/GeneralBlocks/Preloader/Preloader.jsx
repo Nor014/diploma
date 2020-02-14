@@ -8,8 +8,12 @@ export default class Preloader extends React.Component {
   render() {
     return (
       <div className="preloader">
-        <Train className='preloader__train'/>
-        <Line className='preloader__line'/>
+        <p className="preloader__text">Идет поиск</p>
+
+        <div className="">
+          <Train className='preloader__train' />
+          <Line className='preloader__line' />
+        </div>
       </div>
     )
   }
