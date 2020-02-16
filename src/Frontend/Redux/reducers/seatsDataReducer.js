@@ -84,28 +84,32 @@ export default function seatsDataReducer(state = initState, action) {
           hint: 'кондиционер',
           available: el.coach.have_air_conditioning,
           price: 0,
-          inTicketCost: true
+          inTicketCost: true,
+          checked: false
         },
         {
           name: 'wifi',
           hint: 'wi-fi',
           available: el.coach.have_wifi,
           price: el.coach.wifi_price,
-          inTicketCost: false
+          inTicketCost: false,
+          checked: false
         },
         {
           name: 'linens',
           hint: 'белье',
           available: el.coach.class_type !== 'fourth' ? true : false,
           price: el.coach.linens_price,
-          inTicketCost: el.coach.is_linens_included
+          inTicketCost: el.coach.is_linens_included,
+          checked: false
         },
         {
           name: 'eating',
           hint: 'питание',
           available: true,
           price: 0,
-          inTicketCost: true
+          inTicketCost: true,
+          checked: false
         }
       ]
 
@@ -179,6 +183,50 @@ export default function seatsDataReducer(state = initState, action) {
         coachClass.data.map(el => {
           el.coach.active = el.coach._id === coachId ? true : false
           return el
+        })
+      }
+
+      return coachClass
+    })
+
+    return { ...state, data: newData }
+  }
+
+
+  if (action.type === 'CHOOSE_SEAT') {
+    const seatIndex = action.payload;
+
+    const newData = state.data.map(coachClass => {
+      if (coachClass.active) {
+        coachClass.data.map(wagon => {
+          if (wagon.coach.active) {
+            let seat = wagon.seats.find(el => el.index === Number(seatIndex));
+            seat.selected = !seat.selected
+          }
+
+          return wagon
+        })
+      }
+
+      return coachClass
+    })
+
+    console.log(newData)
+    return { ...state, data: newData }
+  }
+
+  if (action.type === 'CHECK_SERVICE') {
+    const serviceToCheck = action.payload;
+
+    const newData = state.data.map(coachClass => {
+      if (coachClass.active) {
+        coachClass.data.map(wagon => {
+          if (wagon.coach.active) {
+            let service = wagon.servicesInfo.find(service => service.name === serviceToCheck);
+            service.checked = !service.checked;
+          }
+
+          return wagon
         })
       }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import SvgIcon from '../../../GeneralBlocks/SvgIcon/SvgIcon';
+import SvgIcon from '../../../../../../GeneralBlocks/SvgIcon/SvgIcon';
 
 export default class CoachClassBtn extends React.Component {
   render() {

@@ -10,14 +10,18 @@ import OrderSeats from './OrderSeats/OrderSeats';
 
 
 export default class OrderPage extends React.Component {
+  constructor() {
+    super();
+    this.contentRef = React.createRef();
+  }
 
   render() {
     return (
       <div className="order-page">
         <div className="order-page__head">
           <div className="container">
-            <FindTickets />
-          </div> 
+            <FindTickets scrollTo={this.contentRef} />
+          </div>
         </div>
 
         <OrderSteps />
@@ -28,7 +32,7 @@ export default class OrderPage extends React.Component {
               <OrderFilters />
               <LastTickets />
             </div>
-            <div className="order-page__content">
+            <div className="order-page__content" ref={this.contentRef}>
               <Switch>
                 <Route exact path='/order' component={OrderTickets} />
                 <Route exact path='/order/:id' component={OrderSeats} />

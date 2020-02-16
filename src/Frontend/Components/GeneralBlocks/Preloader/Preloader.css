@@ -1,70 +1,76 @@
 .preloader {
   position: relative;
   min-height: 100vh;
+  overflow: hidden;
+}
+
+.preloader__inner {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.preloader__text {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 50px;
 }
 
 .preloader__train {
-  position: absolute;
-  top: 50%;
-  left: 0;
   opacity: 0;
-  transform: translateY(-50%);
   animation: trainAnimation 2s ease-in-out 0.5s infinite;
 }
 
 .preloader__line {
-  position: absolute;
-  top: calc(50% + 10px);
-  right: 0;
   opacity: 0;
-  transform: translateY(calc(50% + 10px));
   animation: lineAnimation 2s ease-in-out 0.5s infinite;
 }
 
 @keyframes trainAnimation {
   0% {
     opacity: 0;
-    left: 0;
-    transform: translateY(-50%) scale(0.7);
+    margin-left: 0;
+    transform: translateX(-50%) scale(0.7);
   }
   25% {
     opacity: 1;
   }
   50% {
     opacity: 1;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%) scale(1);
+    margin-left: 50%;
+    transform: translateX(-50%) scale(1);
   }
   75% {
     opacity: 0.7;
   }
   100% {
     opacity: 0;
-    left: 100%;
-    transform: translateY(-50%) translateX(-50%) scale(0.7);
+    margin-left: 100%;
+    transform: translateX(-50%) scale(0.7);
   }
 }
 
 @keyframes lineAnimation {
   0% {
     opacity: 0;
-    right: 0;
-    transform: translateY(calc(50% + 10px)) scale(0.7);
+    margin-left: 100%;
+    transform: translateX(-50%) scale(0.7);
   }
   25% {
     opacity: 1;
   }
   50% {
     opacity: 1;
-    right: 50%;
-    transform: translateY(calc(50% + 10px)) translateX(50%) scale(1);
+    margin-left: 50%;
+    transform: translateX(-50%) scale(1);
   }
   75% {
     opacity: 0.7;
   }
   100% {
     opacity: 0;
-    right: 100%;
-    transform: translateY(calc(50% + 10px)) translateX(50%) scale(0.7);
+    margin-left: 0;
+    transform: translateX(-50%) scale(0.7);
   }
 }

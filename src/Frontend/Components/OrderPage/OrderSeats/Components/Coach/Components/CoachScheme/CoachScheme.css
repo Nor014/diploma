@@ -1,0 +1,55 @@
+.coach-scheme {
+  padding: 0 20px;
+}
+
+.coach-scheme__svg {
+  width: 100%;
+}
+
+.coach-seat {
+  pointer-events: none;
+}
+
+.coach-seat:hover {
+  cursor: pointer;
+}
+
+.coach-seat:hover rect {
+  fill: #FFA800;
+}
+
+.disabled-seat {
+  pointer-events: none;
+}
+
+.available-seat {
+  pointer-events: all;
+}
+
+.coach-seat.selected-seat rect {
+  fill: #FFA800;
+}
+
+.available-seat rect {
+  fill: #f2f2f2;
+}
+
+.available-seat path {
+  fill: #000;
+}
+
+/* hint */
+
+.coach-scheme__hint {
+  position: absolute;
+  display: none;
+  font-size: 13px;
+  line-height: 15px;
+  color: #292929;
+  padding: 8px 10px;
+  min-width: 85px;
+  background: #F5F4F6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  transform: translateX(-50%);
+}

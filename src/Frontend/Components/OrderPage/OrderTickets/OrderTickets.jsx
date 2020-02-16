@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import { sortTickets } from '../../../Redux/actions/actions';
 
-import Tickets from '../Tickets/Tickets';
+import Tickets from './Components/Tickets/Tickets';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
 class OrderTickets extends React.Component {
@@ -50,6 +50,7 @@ class OrderTickets extends React.Component {
       <div className="order-tickets">
         {loading ? <Preloader /> : null}
 
+        {/* <Preloader /> */}
         {data.items &&
           <div className="order-tickets__inner">
             <p className='order-tickets__text order-tickets__total-count'>найдено {data.total_count}</p>

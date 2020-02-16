@@ -186,3 +186,21 @@ export function changeCoachWagon(id) {
     payload: id
   }
 }
+
+// CoachScheme
+
+export function chooseSeat(seatIndex) {
+  return {
+    type: 'CHOOSE_SEAT',
+    payload: seatIndex
+  }
+}
+
+// OptionCheckBox
+
+export function checkService(serviceName) {
+  return {
+    type: 'CHECK_SERVICE',
+    payload: serviceName
+  }
+}

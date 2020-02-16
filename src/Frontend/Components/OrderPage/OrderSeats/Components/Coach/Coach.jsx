@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import CoachClassBtn from './CoachClassBtn/CoachClassBtn';
-import CoachWagons from './CoachWagons/CoachWagons';
-import CoachDetails from './CoachDetails/CoachDetails';
-import SvgIcon from '../../GeneralBlocks/SvgIcon/SvgIcon';
-import OptionCheckBox from '../../GeneralBlocks/OptionCheckBox/OptionCheckBox';
-import CoachScheme from '../CoachScheme/CoachScheme';
+import CoachClassBtn from './Components/CoachClassBtn/CoachClassBtn';
+import CoachWagons from './Components/CoachWagons/CoachWagons';
+import CoachDetails from './Components/CoachDetails/CoachDetails';
 
-import { changeCoachClass, changeCoachWagon } from '../../../Redux/actions/actions';
-
-import { ReactComponent as SecondClassScheme } from '../Coach/coach_scheme_second-class.svg';
+import { changeCoachClass, changeCoachWagon } from '../../../../../Redux/actions/actions';
 
 
 class Coach extends React.Component {
@@ -36,28 +31,26 @@ class Coach extends React.Component {
     return (
       <div className="coach">
         <h2 className="coach__title">Тип вагона</h2>
+
         {/* выбор класса */}
         <div className="coach__classes">
           {seatsData.map((el, index) => {
             return <CoachClassBtn key={index} data={el} onClick={this.onChangeClassBtn} />
           })}
         </div>
+
         {/* выбор вагона */}
         {renderCoachCondition
           ? <CoachWagons activeCoachClass={activeCoachClass} onClick={this.onChangeWagonBtn} />
           : null
         }
-        {/* информация о вагоне */}
+
+        {/* информация о вагоне, выбор мест */}
         {activeCoach
           ? <CoachDetails activeCoach={activeCoach} />
           : null
         }
-
-        <CoachScheme seatsData={seatsData}>
-          <SecondClassScheme className='coach-scheme__svg' />
-        </CoachScheme>
       </div>
-
     )
   }
 }

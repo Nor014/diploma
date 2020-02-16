@@ -7,6 +7,7 @@ import findTicketsReducer from '../reducers/findTicketsReducer';
 import ticketDataReducer from '../reducers/ticketDataReducer';
 import lastTicketsReducer from '../reducers/lastTicketsReducer';
 import seatsDataReducer from '../reducers/seatsDataReducer';
+import orderDetailsReducer from '../reducers/orderDetailsReducer';
 
 import { loadingBarReducer } from 'react-redux-loading-bar';
 
@@ -17,6 +18,7 @@ const generalReducer = combineReducers({
   ticketsData: ticketDataReducer,
   lastTicketsData: lastTicketsReducer,
   seatsData: seatsDataReducer,
+  orderDetailsData: orderDetailsReducer
 })
 
 const sagaMiddleware = createSagaMiddleware();

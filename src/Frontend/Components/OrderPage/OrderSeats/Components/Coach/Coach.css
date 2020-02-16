@@ -1,6 +1,7 @@
-@import './CoachClassBtn/CoachClassBtn.css';
-@import './CoachWagons/CoachWagons.css';
-@import './CoachDetails/CoachDetails.css';
+@import './Components/CoachClassBtn/CoachClassBtn.css';
+@import './Components/CoachWagons/CoachWagons.css';
+@import './Components/CoachDetails/CoachDetails.css';
+@import './Components/CoachScheme/CoachScheme.css';
 .coach {
   padding-top: 25px;
   border-top: 1px dashed #C4C4C4;

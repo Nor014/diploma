@@ -2,11 +2,11 @@
 @import './OrderFilters/OrderFilters.css';
 @import './LastTickets/LastTickets.css';
 @import './OrderTickets/OrderTickets.css';
-@import './Tickets/Tickets.css';
+@import './OrderTickets/Components/Tickets/Tickets.css';
 @import './OrderSeats/OrderSeats.css';
-@import './PathDetails/PathDetails.css';
-@import './Coach/Coach.css';
-@import './CoachScheme/CoachScheme.css';
+@import './OrderSeats/Components/PathDetails/PathDetails.css';
+@import './OrderSeats/Components/Passengers/Passengers.css';
+@import './OrderSeats/Components/Coach/Coach.css';
 /*  */
 
 .order-page__head {
@@ -18,7 +18,6 @@
   padding-top: 95px;
   padding-bottom: 150px;
   background: #F7F5F9;
-  
 }
 
 .order-page__inner {

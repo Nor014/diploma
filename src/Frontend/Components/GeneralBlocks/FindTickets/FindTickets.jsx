@@ -31,7 +31,15 @@ class FindTickets extends React.Component {
 
     console.log(url)
 
-    this.props.findTickets(url, 'FindTickets')
+    this.props.findTickets(url, 'FindTickets');
+
+    // scroll to block
+    if (this.props.scrollTo) {
+      this.props.scrollTo.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
   }
 
   render() {
