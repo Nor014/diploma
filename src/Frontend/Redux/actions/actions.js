@@ -204,3 +204,22 @@ export function checkService(serviceName) {
     payload: serviceName
   }
 }
+
+// Passengers
+
+export function changePassengersNumber(number, category) {
+  return {
+    type: 'CHANGE_PASSENGERS_NUMBER',
+    payload: {
+      number: number,
+      category: category
+    }
+  }
+}
+
+export function changePassengersCategory(category) {
+  return {
+    type: 'CHANGE_PASSENGERS_CATEGORY',
+    payload: category
+  }
+}

@@ -2,9 +2,9 @@ import React from "react";
 import { getLastTickets } from '../../../Redux/actions/actions';
 import { connect } from 'react-redux';
 
-import { ReactComponent as WifiIcon } from '../Tickets/order-tickets_icon-wifi.svg';
-import { ReactComponent as Express } from '../Tickets/order-tickets_icon-express.svg';
-import { ReactComponent as Eating } from '../Tickets/order-tickets__icon-eating.svg';
+import { ReactComponent as WifiIcon } from '../OrderTickets/Components/Tickets/order-tickets_icon-wifi.svg';
+import { ReactComponent as Express } from '../OrderTickets/Components/Tickets/order-tickets_icon-express.svg';
+import { ReactComponent as Eating } from '../OrderTickets/Components/Tickets/order-tickets__icon-eating.svg';
 
 class LastTickets extends React.Component {
 

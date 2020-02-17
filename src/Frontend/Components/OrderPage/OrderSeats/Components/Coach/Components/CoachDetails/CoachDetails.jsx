@@ -8,7 +8,7 @@ import CoachScheme from '../CoachScheme/CoachScheme';
 export default class CoachDetails extends React.Component {
   render() {
     const { activeCoach } = this.props;
-    // console.log(activeCoach.seats)
+    console.log(activeCoach.seats)
 
     return (
       <React.Fragment>
@@ -58,7 +58,8 @@ export default class CoachDetails extends React.Component {
         <CoachScheme
           seatsData={activeCoach}
           coachClass={activeCoach.coach.class_type}
-          changes={activeCoach.seats.filter(el => el.selected)} />
+          changes={activeCoach.seats.filter(el => el.selected)} 
+          />
 
       </React.Fragment>
     )

@@ -19,6 +19,7 @@ class CoachScheme extends React.Component {
       el.classList.remove('available-seat');
       el.classList.remove('selected-seat')
       el.removeEventListener('click', this.selectSeat);
+      
     })
   }
 
@@ -36,11 +37,11 @@ class CoachScheme extends React.Component {
 
         if (seat.selected) {
           schemeSeats[seat.index - 1].classList.add('selected-seat');
+        } else {
+          // подсказка при наведении
+          schemeSeats[seat.index - 1].addEventListener('mouseenter', (event) => this.showHint(event));
+          schemeSeats[seat.index - 1].addEventListener('mouseleave', (event) => this.hideHint(event));
         }
-
-        // подсказка при наведении
-        schemeSeats[seat.index - 1].addEventListener('mouseenter', (event) => this.showHint(event));
-        schemeSeats[seat.index - 1].addEventListener('mouseleave', (event) => this.hideHint(event));
 
         // выбор места
         schemeSeats[seat.index - 1].addEventListener('click', this.selectSeat);
@@ -56,9 +57,10 @@ class CoachScheme extends React.Component {
   showHint = (event) => {
     const type = event.target.dataset.type;
     const price = event.target.dataset.price;
+    const ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active).categoryHint;
     const hint = document.querySelector('.coach-scheme__hint');
 
-    hint.innerHTML = `место - ${type} <br> цена - ${price} ₽`;
+    hint.innerHTML = `место - ${type} <br> категория - ${ticketCategory} <br> цена - ${price}₽`;
     hint.style.left = event.pageX + 'px';
     hint.style.top = event.pageY + 25 + 'px';
     hint.style.display = 'block';
@@ -86,9 +88,9 @@ class CoachScheme extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-
+  const { orderDetailsData } = state;
   return {
-
+    orderDetailsData: orderDetailsData
   }
 }
 

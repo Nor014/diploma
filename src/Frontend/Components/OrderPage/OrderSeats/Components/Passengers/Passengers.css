@@ -18,7 +18,7 @@
 
 .passengers__form-item {
   flex: 0 1 310px;
-  padding: 20px 36px 50px 36px;
+  padding: 20px 36px;
 }
 
 .form-item_active {
@@ -26,16 +26,22 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
+.form-item_disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .passengers__input {
   background: #FFFFFF;
   border: 1px solid #928F94;
   border-radius: 5px;
   padding: 12px 17px;
-  width: 100%;
   font-size: 16px;
   line-height: 18px;
   color: #292929;
   margin-bottom: 20px;
+  outline: none;
+  cursor: pointer;
 }
 
 .passengers__form-hint {
@@ -47,4 +53,8 @@
 
 .form-item_active .passengers__form-hint {
   opacity: 1;
+}
+
+.input_type_children~.passengers__form-hint {
+  color: #928F94;
 }
