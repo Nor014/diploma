@@ -33,7 +33,20 @@ export default function seatsDataReducer(state = initState, action) {
           seat.price = el.coach.bottom_price;
         }
 
-        seat.selected = false;
+        // seat.selected = false;
+        // добавление информации по категориям билетов (взрослые, дети)
+
+        if (seat.available) {
+          seat.available = {
+            adult: true,
+            children: true
+          }
+        }
+
+        seat.selected = {
+          adult: false,
+          children: false
+        }
       })
 
       // данные для рендера информации по местам
@@ -194,20 +207,25 @@ export default function seatsDataReducer(state = initState, action) {
 
 
   if (action.type === 'CHOOSE_SEAT') {
-    const seatIndex = action.payload;
+    const { seatIndex, ticketCategory } = action.payload;
 
     const newData = state.data.map(coachClass => {
       if (coachClass.active) {
         coachClass.data.map(wagon => {
           if (wagon.coach.active) {
             let seat = wagon.seats.find(el => el.index === Number(seatIndex));
-            seat.selected = !seat.selected
+            // выбор или снятие выбора места в зависимости от категории
+            seat.selected[ticketCategory] = !seat.selected[ticketCategory];
+            // disable/active выбранного места для другой категории
+            if (ticketCategory === 'adult') {
+              seat.available.children = !seat.available.children
+            } else if (ticketCategory === 'children') {
+              seat.available.adult = !seat.available.adult
+            }
           }
-
           return wagon
         })
       }
-
       return coachClass
     })
 

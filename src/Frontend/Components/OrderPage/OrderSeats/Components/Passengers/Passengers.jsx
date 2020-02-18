@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changePassengersNumber, changePassengersCategory } from '../../../../../Redux/actions/actions';
+import { changePassengersCategory } from '../../../../../Redux/actions/actions';
 
 class Passengers extends React.Component {
 
@@ -15,7 +15,7 @@ class Passengers extends React.Component {
     const adultCategory = ticketCategories.find(category => category.categoryName === 'adult');
     const childrenCategory = ticketCategories.find(category => category.categoryName === 'children');
 
-    console.log(ticketCategories, activeCategory)
+    // console.log(ticketCategories, activeCategory)
 
     return (
       <div className="passengers">
@@ -73,7 +73,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changePassengersNumber: (number, category) => dispatch(changePassengersNumber(number, category)),
     changePassengersCategory: (category) => dispatch(changePassengersCategory(category))
   }
 }

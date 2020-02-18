@@ -189,10 +189,13 @@ export function changeCoachWagon(id) {
 
 // CoachScheme
 
-export function chooseSeat(seatIndex) {
+export function chooseSeat(seatIndex, ticketCategory) {
   return {
     type: 'CHOOSE_SEAT',
-    payload: seatIndex
+    payload: {
+      seatIndex: seatIndex,
+      ticketCategory: ticketCategory
+    }
   }
 }
 

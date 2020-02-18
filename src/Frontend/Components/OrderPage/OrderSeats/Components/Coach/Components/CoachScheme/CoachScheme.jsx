@@ -6,7 +6,7 @@ import { ReactComponent as SecondClassScheme } from '../CoachScheme/coach_scheme
 
 class CoachScheme extends React.Component {
   componentDidMount = () => {
-    this.setSvgSchemeData()
+    this.setSvgSchemeData(true)
   }
 
   componentDidUpdate = () => {
@@ -14,44 +14,99 @@ class CoachScheme extends React.Component {
   }
 
   componentWillUpdate = () => {
+    // очищаем svg 
     let schemeSeats = document.querySelectorAll('.coach-seat');
     schemeSeats.forEach(el => {
       el.classList.remove('available-seat');
-      el.classList.remove('selected-seat')
+      el.classList.remove('selected-seat_by_adult');
+      el.classList.remove('selected-seat_by_children');
+      el.classList.remove('disabled-seat');
+      el.dataset.selected = false;
+
       el.removeEventListener('click', this.selectSeat);
-      
     })
   }
 
-  setSvgSchemeData = () => {
+  setSvgSchemeData = (firstInit = false) => {
     let schemeSeats = document.querySelectorAll('.coach-seat');
-    let seatsData = this.props.seatsData.seats;
+    let seatsData = this.props.seatsData;
+
+    // присваеваем каждому месту показатель selected
+    if (firstInit) {
+      schemeSeats.forEach(seat => seat.dataset.selected = false);
+    }
 
     seatsData.forEach(seat => {
       // закидываем данные в svg для выбора места
       if (seat.index === Number(schemeSeats[seat.index - 1].dataset.number) && seat.available) {
-        schemeSeats[seat.index - 1].dataset.type = seat.type;
-        schemeSeats[seat.index - 1].dataset.price = seat.price;
+        const currentTicketCategory = this.props.orderDetailsData.ticketCategories
+          .find(category => category.active).categoryName;
 
-        schemeSeats[seat.index - 1].classList.add('available-seat');
+        if (seat.available[currentTicketCategory]) {
+          schemeSeats[seat.index - 1].dataset.type = seat.type;
+          schemeSeats[seat.index - 1].dataset.price = seat.price;
 
-        if (seat.selected) {
-          schemeSeats[seat.index - 1].classList.add('selected-seat');
-        } else {
+          schemeSeats[seat.index - 1].classList.add('available-seat');
+
+          if (seat.selected.adult) {
+            schemeSeats[seat.index - 1].classList.add('selected-seat_by_adult');
+            schemeSeats[seat.index - 1].dataset.selected = true;
+          }
+
+          if (seat.selected.children) {
+            schemeSeats[seat.index - 1].classList.add('selected-seat_by_children')
+            schemeSeats[seat.index - 1].dataset.selected = true;
+          };
+
           // подсказка при наведении
           schemeSeats[seat.index - 1].addEventListener('mouseenter', (event) => this.showHint(event));
           schemeSeats[seat.index - 1].addEventListener('mouseleave', (event) => this.hideHint(event));
+          // выбор места
+          schemeSeats[seat.index - 1].addEventListener('click', this.selectSeat);
+        } else {
+          schemeSeats[seat.index - 1].classList.add('disabled-seat')
         }
-
-        // выбор места
-        schemeSeats[seat.index - 1].addEventListener('click', this.selectSeat);
       }
     })
   }
 
   selectSeat = (event) => {
-    const index = event.currentTarget.dataset.number;
-    this.props.chooseSeat(index);
+    const seat = event.currentTarget;
+    const index = seat.dataset.number;
+    const ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active).categoryName;
+    const selectedSeat = seat.dataset.selected;
+
+    if (selectedSeat === false) {
+      // dispatch всех данных о билете
+      const ticketPrice = ticketCategory === 'children' ? Math.floor(seat.dataset.price * 0.4) : Number(seat.dataset.price)
+      let totalCost = ticketPrice;
+
+      this.props.selectedServises.forEach(service => {
+        totalCost += service.price;
+      })
+
+      const ticketDetails = {
+        ticketCategory: ticketCategory,
+        coachClass: this.props.coachClassName,
+        wagonName: this.props.wagonName,
+        seatNumber: seat.dataset.number,
+        seatType: seat.dataset.type,
+        ticketPrice: ticketPrice,
+        services: this.props.selectedServises,
+        totalCost: totalCost,
+      }
+
+      console.log(ticketDetails, 1111)
+    } else {
+      // убираем ранее выбранное место из reducer
+      console.log(1111)
+    }
+
+    console.log(selectedSeat);
+
+    //меняем стейт-данные 
+    this.props.chooseSeat(index, ticketCategory);
+
   }
 
   showHint = (event) => {
@@ -72,7 +127,7 @@ class CoachScheme extends React.Component {
   }
 
   render() {
-    const { seatsData, coachClass } = this.props;
+    const { coachClass } = this.props;
 
     return (
       <div className='coach-scheme'>
@@ -96,7 +151,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    chooseSeat: (seatIndex) => dispatch(chooseSeat(seatIndex))
+    chooseSeat: (seatIndex, ticketCategory) => dispatch(chooseSeat(seatIndex, ticketCategory))
   }
 }
 

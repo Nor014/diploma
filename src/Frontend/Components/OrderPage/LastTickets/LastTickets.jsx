@@ -15,9 +15,7 @@ class LastTickets extends React.Component {
 
   render() {
     const { data } = this.props.lastTicketsData;
-
-    console.log(data)
-
+    
     return (
       <div className="last-tickets">
         <h2 className="last-tickets__title">Последние билеты</h2>

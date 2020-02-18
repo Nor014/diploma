@@ -15,7 +15,7 @@
 }
 
 .coach-seat:hover rect {
-  fill: #FFA800;
+  fill: #FFF;
 }
 
 .disabled-seat {
@@ -26,8 +26,17 @@
   pointer-events: all;
 }
 
-.coach-seat.selected-seat rect {
+.coach-seat.selected-seat_by_adult rect {
   fill: #FFA800;
+}
+
+.coach-seat.selected-seat_by_children rect {
+  fill: rgb(166, 255, 0);
+}
+
+.coach-seat.disabled-seat rect {
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .available-seat rect {

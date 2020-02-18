@@ -7,8 +7,14 @@ import CoachScheme from '../CoachScheme/CoachScheme';
 
 export default class CoachDetails extends React.Component {
   render() {
-    const { activeCoach } = this.props;
-    console.log(activeCoach.seats)
+    const { activeCoach, activeCoachClass } = this.props;
+    const selectedAdditionalServices = activeCoach.servicesInfo.filter(service => {
+      if (service.available && !service.inTicketCost && service.checked) {
+        return service
+      }
+    })
+
+    console.log(activeCoach)
 
     return (
       <React.Fragment>
@@ -56,11 +62,14 @@ export default class CoachDetails extends React.Component {
         </div>
 
         <CoachScheme
-          seatsData={activeCoach}
+          seatsData={activeCoach.seats}
+          wagonName={activeCoach.coach.name}
           coachClass={activeCoach.coach.class_type}
-          changes={activeCoach.seats.filter(el => el.selected)} 
-          />
-
+          coachClassName={activeCoachClass}
+          selectedServises={selectedAdditionalServices}
+          changes={activeCoach.seats.filter(el => el.selected)}
+        />
+        
       </React.Fragment>
     )
   }
