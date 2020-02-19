@@ -30,22 +30,18 @@ class Coach extends React.Component {
     return (
       <div className="coach">
         <h2 className="coach__title">Тип вагона</h2>
-
         {/* выбор класса */}
         <div className="coach__classes">
           {seatsData.map((el, index) => {
-            return <CoachClassBtn key={index}
-              data={el} onClick={this.onChangeClassBtn} />
+            return <CoachClassBtn key={index} data={el} onClick={this.onChangeClassBtn} />
           })}
         </div>
-
         {/* выбор вагона */}
         {renderCoachCondition
           ? <CoachWagons
             activeCoachClass={activeCoachClass}
             onClick={this.onChangeWagonBtn} />
           : null}
-
         {/* информация о вагоне, выбор мест */}
         {activeCoach
           ? <CoachDetails
