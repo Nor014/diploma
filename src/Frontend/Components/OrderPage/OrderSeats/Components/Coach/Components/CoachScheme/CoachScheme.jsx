@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { chooseSeat } from '../../../../../../../Redux/actions/actions';
+import { chooseSeat, setTicketDetails, removeTicketDetails } from '../../../../../../../Redux/actions/actions';
 import { ReactComponent as SecondClassScheme } from '../CoachScheme/coach_scheme_second-class.svg';
 
 class CoachScheme extends React.Component {
@@ -14,7 +14,7 @@ class CoachScheme extends React.Component {
   }
 
   componentWillUpdate = () => {
-    // очищаем svg 
+    // очищаем svg-схему вагона 
     let schemeSeats = document.querySelectorAll('.coach-seat');
     schemeSeats.forEach(el => {
       el.classList.remove('available-seat');
@@ -31,62 +31,63 @@ class CoachScheme extends React.Component {
     let schemeSeats = document.querySelectorAll('.coach-seat');
     let seatsData = this.props.seatsData;
 
-    // присваеваем каждому месту показатель selected
-    if (firstInit) {
+    if (firstInit) { // присваеваем каждому месту показатель selected при первой инициализации
       schemeSeats.forEach(seat => seat.dataset.selected = false);
     }
 
     seatsData.forEach(seat => {
+      const index = seat.index - 1;
       // закидываем данные в svg для выбора места
-      if (seat.index === Number(schemeSeats[seat.index - 1].dataset.number) && seat.available) {
+      if (seat.index === Number(schemeSeats[index].dataset.number) && seat.available) {
         const currentTicketCategory = this.props.orderDetailsData.ticketCategories
           .find(category => category.active).categoryName;
 
         if (seat.available[currentTicketCategory]) {
-          schemeSeats[seat.index - 1].dataset.type = seat.type;
-          schemeSeats[seat.index - 1].dataset.price = seat.price;
+          schemeSeats[index].dataset.type = seat.type;
+          schemeSeats[index].dataset.price = seat.price;
 
-          schemeSeats[seat.index - 1].classList.add('available-seat');
+          schemeSeats[index].classList.add('available-seat');
 
           if (seat.selected.adult) {
-            schemeSeats[seat.index - 1].classList.add('selected-seat_by_adult');
-            schemeSeats[seat.index - 1].dataset.selected = true;
+            schemeSeats[index].classList.add('selected-seat_by_adult');
+            schemeSeats[index].dataset.selected = true;
           }
 
           if (seat.selected.children) {
-            schemeSeats[seat.index - 1].classList.add('selected-seat_by_children')
-            schemeSeats[seat.index - 1].dataset.selected = true;
+            schemeSeats[index].classList.add('selected-seat_by_children')
+            schemeSeats[index].dataset.selected = true;
           };
 
           // подсказка при наведении
-          schemeSeats[seat.index - 1].addEventListener('mouseenter', (event) => this.showHint(event));
-          schemeSeats[seat.index - 1].addEventListener('mouseleave', (event) => this.hideHint(event));
+          schemeSeats[index].addEventListener('mouseenter', (event) => this.showHint(event));
+          schemeSeats[index].addEventListener('mouseleave', (event) => this.hideHint(event));
           // выбор места
-          schemeSeats[seat.index - 1].addEventListener('click', this.selectSeat);
+          schemeSeats[index].addEventListener('click', this.selectSeat);
         } else {
-          schemeSeats[seat.index - 1].classList.add('disabled-seat')
+          schemeSeats[index].classList.add('disabled-seat')
         }
       }
     })
   }
 
   selectSeat = (event) => {
-    const seat = event.currentTarget;
-    const index = seat.dataset.number;
-    const ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active).categoryName;
-    const selectedSeat = seat.dataset.selected;
+    const seat = event.currentTarget,
+      index = seat.dataset.number,
+      ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active),
+      selectedSeat = seat.dataset.selected;
 
-    if (selectedSeat === false) {
+    if (selectedSeat === 'false' && ticketCategory.currentAmountOfTickets < ticketCategory.maxAmountOfTickets) {
+      //меняем стейт-данные 
+      this.props.chooseSeat(index, ticketCategory.categoryName);
+
       // dispatch всех данных о билете
-      const ticketPrice = ticketCategory === 'children' ? Math.floor(seat.dataset.price * 0.4) : Number(seat.dataset.price)
+      const ticketPrice = Math.floor(seat.dataset.price * ticketCategory.categoryDiscountСoefficient);
       let totalCost = ticketPrice;
 
-      this.props.selectedServises.forEach(service => {
-        totalCost += service.price;
-      })
+      this.props.selectedServises.forEach(service => totalCost += service.price);
 
       const ticketDetails = {
-        ticketCategory: ticketCategory,
+        ticketCategory: ticketCategory.categoryName,
         coachClass: this.props.coachClassName,
         wagonName: this.props.wagonName,
         seatNumber: seat.dataset.number,
@@ -96,26 +97,22 @@ class CoachScheme extends React.Component {
         totalCost: totalCost,
       }
 
-      console.log(ticketDetails, 1111)
-    } else {
+      this.props.setTicketDetails(ticketDetails);
+    } else if (selectedSeat === 'true') {
+      //меняем стейт-данные 
+      this.props.chooseSeat(index, ticketCategory.categoryName);
       // убираем ранее выбранное место из reducer
-      console.log(1111)
+      this.props.removeTicketDetails(index, ticketCategory.categoryName);
     }
-
-    console.log(selectedSeat);
-
-    //меняем стейт-данные 
-    this.props.chooseSeat(index, ticketCategory);
-
   }
 
   showHint = (event) => {
     const type = event.target.dataset.type;
-    const price = event.target.dataset.price;
-    const ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active).categoryHint;
+    const ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active);
+    const price = Math.floor(event.target.dataset.price * ticketCategory.categoryDiscountСoefficient);
     const hint = document.querySelector('.coach-scheme__hint');
 
-    hint.innerHTML = `место - ${type} <br> категория - ${ticketCategory} <br> цена - ${price}₽`;
+    hint.innerHTML = `место - ${type} <br> категория - ${ticketCategory.categoryHint} <br> цена - ${price} ₽`;
     hint.style.left = event.pageX + 'px';
     hint.style.top = event.pageY + 25 + 'px';
     hint.style.display = 'block';
@@ -127,7 +124,14 @@ class CoachScheme extends React.Component {
   }
 
   render() {
-    const { coachClass } = this.props;
+    const { coachClass, orderDetailsData } = this.props;
+    let totalCost = 0;
+
+    orderDetailsData.ticketCategories.forEach(category => {
+      category.ticketsData.forEach(ticket => totalCost += ticket.totalCost);
+    })
+
+    console.log(orderDetailsData)
 
     return (
       <div className='coach-scheme'>
@@ -137,6 +141,8 @@ class CoachScheme extends React.Component {
           ? <SecondClassScheme className='coach-scheme__svg' />
           : null
         }
+
+        <p className="coach-scheme__total-cost">{totalCost} <span className='coach__seats-ruble'>₽</span></p>
       </div >
     )
   }
@@ -151,7 +157,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    chooseSeat: (seatIndex, ticketCategory) => dispatch(chooseSeat(seatIndex, ticketCategory))
+    chooseSeat: (seatIndex, ticketCategory) => dispatch(chooseSeat(seatIndex, ticketCategory)),
+    setTicketDetails: (ticketDetails) => dispatch(setTicketDetails(ticketDetails)),
+    removeTicketDetails: (seatIndex, ticketCategory) => dispatch(removeTicketDetails(seatIndex, ticketCategory))
   }
 }
 

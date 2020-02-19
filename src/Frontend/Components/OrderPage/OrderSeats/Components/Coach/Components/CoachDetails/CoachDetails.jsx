@@ -14,10 +14,8 @@ export default class CoachDetails extends React.Component {
       }
     })
 
-    console.log(activeCoach)
-
     return (
-      <React.Fragment>
+      <>
         <div className="coach__details">
           <div className="coach__details-wagon coach__details-item">
             <div className="coach__details-wagon-inner">
@@ -52,11 +50,9 @@ export default class CoachDetails extends React.Component {
                       hint={service.hint}
                       disabled={service.inTicketCost}
                       name={service.name}
-                      checked={service.checked}>
-                      <SvgIcon icon={service.name} className='option-checkbox__icon' />
+                      checked={service.checked}><SvgIcon icon={service.name} className='option-checkbox__icon' />
                     </OptionCheckBox>)
-                })
-              }
+                })}
             </div>
           </div>
         </div>
@@ -67,10 +63,8 @@ export default class CoachDetails extends React.Component {
           coachClass={activeCoach.coach.class_type}
           coachClassName={activeCoachClass}
           selectedServises={selectedAdditionalServices}
-          changes={activeCoach.seats.filter(el => el.selected)}
-        />
-        
-      </React.Fragment>
+          changes={activeCoach.seats.filter(el => el.selected)} />
+      </>
     )
   }
 } 

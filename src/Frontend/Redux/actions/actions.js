@@ -199,6 +199,23 @@ export function chooseSeat(seatIndex, ticketCategory) {
   }
 }
 
+export function setTicketDetails(ticketDetails) {
+  return {
+    type: 'SET_TICKET_DETAILS',
+    payload: ticketDetails
+  }
+}
+
+export function removeTicketDetails(seatIndex, ticketCategory) {
+  return {
+    type: 'REMOVE_TICKET_DETAILS',
+    payload: {
+      seatIndex: seatIndex,
+      ticketCategory: ticketCategory
+    }
+  }
+}
+
 // OptionCheckBox
 
 export function checkService(serviceName) {
