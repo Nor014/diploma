@@ -5,6 +5,8 @@ import { chooseSeat, setTicketDetails, removeTicketDetails } from '../../../../.
 
 import { ReactComponent as FirstClassScheme } from '../CoachScheme/coach_scheme_first-class.svg';
 import { ReactComponent as SecondClassScheme } from '../CoachScheme/coach_scheme_second-class.svg';
+import { ReactComponent as ThirdClassScheme } from '../CoachScheme/coach_scheme_third-class.svg';
+import { ReactComponent as FourthClassScheme } from '../CoachScheme/coach_scheme_fourth-class.svg';
 
 class CoachScheme extends React.Component {
   componentDidMount = () => {
@@ -132,14 +134,19 @@ class CoachScheme extends React.Component {
 
         {coachClass === 'first'
           ? <FirstClassScheme className='coach-scheme__svg' />
-          : null
-        }
+          : null}
 
         {coachClass === 'second'
           ? <SecondClassScheme className='coach-scheme__svg' />
-          : null
-        }
+          : null}
 
+        {coachClass === 'third'
+          ? <ThirdClassScheme className='coach-scheme__svg' />
+          : null}
+
+        {coachClass === 'fourth'
+          ? <FourthClassScheme className='coach-scheme__svg' />
+          : null}
         <p className="coach-scheme__total-cost">{totalCost} <span className='coach__seats-ruble'>₽</span></p>
       </div >
     )

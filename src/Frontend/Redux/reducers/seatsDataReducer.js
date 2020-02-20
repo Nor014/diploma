@@ -26,26 +26,25 @@ export default function seatsDataReducer(state = initState, action) {
         }
 
         if (el.coach.class_type === 'first') {
+          seat.type = 'люкс';
           seat.price = el.coach.price;
         }
 
         if (el.coach.class_type === 'fourth') {
+          seat.type = 'сидячее';
           seat.price = el.coach.bottom_price;
         }
 
-        // seat.selected = false;
         // добавление информации по категориям билетов (взрослые, дети)
-
         if (seat.available) {
           seat.available = {
             adult: true,
             children: true
           }
-        }
-
-        seat.selected = {
-          adult: false,
-          children: false
+          seat.selected = {
+            adult: false,
+            children: false
+          }
         }
       })
 
