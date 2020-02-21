@@ -62,5 +62,10 @@ export default function orderDetailsReducer(state = initState, action) {
     return { ...state, ticketCategories: newState };
   }
 
+  if (action.type === 'CLEAR_ORDER_DETAILS_DATA') {
+    console.log('initState', initState)
+    return initState
+  }
+
   return state
 }

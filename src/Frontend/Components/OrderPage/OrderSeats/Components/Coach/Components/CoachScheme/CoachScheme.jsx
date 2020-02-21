@@ -41,6 +41,9 @@ class CoachScheme extends React.Component {
       schemeSeats.forEach(seat => seat.dataset.selected = false);
     }
 
+    // сортируем svg-места в возрастающем порядке
+    schemeSeats = Array.from(schemeSeats).sort((a, b) => a.dataset.number - b.dataset.number);
+
     seatsData.forEach(seat => { // закидываем все необходимые данные в svg для выбора места
       const index = seat.index - 1;
       if (seat.index === Number(schemeSeats[index].dataset.number) && seat.available) {

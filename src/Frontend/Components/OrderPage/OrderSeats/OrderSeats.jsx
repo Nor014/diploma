@@ -7,7 +7,7 @@ import Passengers from './Components/Passengers/Passengers';
 import Coach from './Components/Coach/Coach';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
-import { getSeatsData } from '../../../Redux/actions/actions';
+import { getSeatsData, clearOrderDetailsData } from '../../../Redux/actions/actions';
 
 class OrderSeats extends React.Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class OrderSeats extends React.Component {
 
         <div className="order-seats__inner">
           <div className="order-seats__link-wrap">
-            <Link to='/order' className="link order-seats__cahnge-train-link">Выбрать другой поезд</Link>
+            <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.props.clearOrderDetailsData}>Выбрать другой поезд</Link>
           </div>
 
           <PathDetails className='order-seats__path-details' pathData={pathData} />
@@ -77,7 +77,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getSeatsData: (url, fromComponent) => dispatch(getSeatsData(url, fromComponent))
+    getSeatsData: (url, fromComponent) => dispatch(getSeatsData(url, fromComponent)),
+    clearOrderDetailsData: () => dispatch(clearOrderDetailsData())
   }
 }
 
