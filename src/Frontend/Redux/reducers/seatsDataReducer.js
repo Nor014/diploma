@@ -13,8 +13,7 @@ export default function seatsDataReducer(state = initState, action) {
     const data = action.payload;
 
     const formatedData = data.map(el => {
-      // преобразовываем данные мест для работы со схемой вагона
-      el.seats.forEach(seat => {
+      el.seats.forEach(seat => { // преобразовываем данные мест для работы со схемой вагона
         if (el.coach.class_type === 'second' || el.coach.class_type === 'third') {
           if (seat.index <= 32) {
             seat.type = seat.index % 2 === 0 ? 'верхнее' : 'нижнее';
@@ -35,8 +34,7 @@ export default function seatsDataReducer(state = initState, action) {
           seat.price = el.coach.bottom_price;
         }
 
-        // добавление информации по категориям билетов (взрослые, дети)
-        if (seat.available) {
+        if (seat.available) { // добавление информации по категориям билетов (взрослые, дети)
           seat.available = {
             adult: true,
             children: true
@@ -48,8 +46,7 @@ export default function seatsDataReducer(state = initState, action) {
         }
       })
 
-      // данные для рендера информации по местам
-      let info = [];
+      let info = []; // данные для рендера информации по местам
 
       if (el.coach.class_type === 'second' || el.coach.class_type === 'third') {
         info.push(
@@ -89,8 +86,7 @@ export default function seatsDataReducer(state = initState, action) {
         })
       }
 
-      // данные об услугах
-      const services = [
+      const services = [ // данные об услугах
         {
           name: 'air-conditioning',
           hint: 'кондиционер',
@@ -131,12 +127,10 @@ export default function seatsDataReducer(state = initState, action) {
       return el
     })
 
-    // функция разбивки данных по классам вагонов
-    function filterDataByClass(coachClass) {
+    function filterDataByClass(coachClass) { // функция разбивки данных по классам вагонов
       return formatedData
         .filter(el => el.coach.class_type === coachClass)
-        .map((el, index) => {
-          // добавляем флаг для определения активного вагона
+        .map((el, index) => { // добавляем флаг для определения активного вагона (по умолчанию первый)
           el.coach.active = index === 0 ? true : false;
           return el
         })
@@ -178,7 +172,6 @@ export default function seatsDataReducer(state = initState, action) {
 
   if (action.type === 'CHANGE_COACH_CLASS') {
     const coachClass = action.payload;
-
     const newData = state.data.map(el => {
       el.active = el.class === coachClass ? !el.active : false;
       return el
@@ -189,7 +182,6 @@ export default function seatsDataReducer(state = initState, action) {
 
   if (action.type === 'CHANGE_COACH_WAGONE') {
     const coachId = action.payload;
-
     const newData = state.data.map(coachClass => {
       if (coachClass.active) {
         coachClass.data.map(el => {
@@ -213,10 +205,9 @@ export default function seatsDataReducer(state = initState, action) {
         coachClass.data.map(wagon => {
           if (wagon.coach.active) {
             let seat = wagon.seats.find(el => el.index === Number(seatIndex));
-            // выбор или снятие выбора места в зависимости от категории
-            seat.selected[ticketCategory] = !seat.selected[ticketCategory];
-            // disable/active выбранного места для другой категории
-            if (ticketCategory === 'adult') {
+            seat.selected[ticketCategory] = !seat.selected[ticketCategory]; // выбор или снятие выбора места в зависимости от категории
+            
+            if (ticketCategory === 'adult') { // disable/active выбранного места для другой категории
               seat.available.children = !seat.available.children
             } else if (ticketCategory === 'children') {
               seat.available.adult = !seat.available.adult
@@ -228,13 +219,11 @@ export default function seatsDataReducer(state = initState, action) {
       return coachClass
     })
 
-    console.log(newData)
     return { ...state, data: newData }
   }
 
   if (action.type === 'CHECK_SERVICE') {
     const serviceToCheck = action.payload;
-
     const newData = state.data.map(coachClass => {
       if (coachClass.active) {
         coachClass.data.map(wagon => {
@@ -242,14 +231,12 @@ export default function seatsDataReducer(state = initState, action) {
             let service = wagon.servicesInfo.find(service => service.name === serviceToCheck);
             service.checked = !service.checked;
           }
-
           return wagon
         })
       }
-
       return coachClass
     })
-
+    
     return { ...state, data: newData }
   }
 

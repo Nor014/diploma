@@ -129,7 +129,7 @@ class CoachScheme extends React.Component {
       category.ticketsData.forEach(ticket => totalCost += ticket.totalCost);
     })
 
-    console.log(orderDetailsData)
+    console.log(orderDetailsData) 
 
     return (
       <div className='coach-scheme'>

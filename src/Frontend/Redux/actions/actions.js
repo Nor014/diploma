@@ -171,6 +171,13 @@ export function setSeatsData(data) {
   }
 }
 
+export function setPathDetails(details) {
+  return {
+    type: 'SET_PATH_DETAILS',
+    payload: details
+  }
+}
+
 export function clearOrderDetailsData() {
   return {
     type: 'CLEAR_ORDER_DETAILS_DATA'

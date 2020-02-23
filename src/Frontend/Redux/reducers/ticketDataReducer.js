@@ -34,6 +34,19 @@ export default function ticketDataReducer(state = initState, action) {
     const currentFilter = state.filters.find(el => el.active).value;
     const sortedData = sortData(data, currentFilter);
 
+    sortedData.items.forEach(ticket => { // преобразуем данные для рендера
+      // заглавная буква городов
+      ticket.departure.from.city.name = firstLetterToUppercase(ticket.departure.from.city.name);
+      ticket.departure.to.city.name = firstLetterToUppercase(ticket.departure.to.city.name);
+
+      // секунды в время
+      ticket.departure.from.datetimeToRender = secondsToTime(ticket.departure.from.datetime);
+      ticket.departure.to.datetimeToRender = secondsToTime(ticket.departure.to.datetime);
+
+      // длительность поездки в часы
+      ticket.departure.durationToRender = secondsToDuration(ticket.departure.duration)
+    })
+
     return { ...state, data: sortedData, loading: false };
   }
 
@@ -55,13 +68,14 @@ export default function ticketDataReducer(state = initState, action) {
   function sortData(data, filter) {
     let result = [].concat(data.items).sort((a, b) => {
       if (filter === 'time') {
-        let value = Number(moment(a.departure.from.datetime * 1000).format("HH")) - Number(moment(b.departure.from.datetime * 1000).format("HH"));
+        // let value = Number(moment(a.departure.from.datetime * 1000).format("HH")) - Number(moment(b.departure.from.datetime * 1000).format("HH"));
+        // if (value !== 0) {
+        //   return value;
+        // } else {
+        //   return Number(moment(a.departure.from.datetime * 1000).format("mm")) - Number(moment(b.departure.from.datetime * 1000).format("mm"));
+        // }
 
-        if (value !== 0) {
-          return value;
-        } else {
-          return Number(moment(a.departure.from.datetime * 1000).format("mm")) - Number(moment(b.departure.from.datetime * 1000).format("mm"));
-        }
+        return a.departure.from.datetime - b.departure.from.datetime;
       }
 
       if (filter === 'cost') {
@@ -75,6 +89,23 @@ export default function ticketDataReducer(state = initState, action) {
 
     return { ...data, items: result };
   }
+
+  function secondsToTime(seconds) {
+    return moment(seconds * 1000).format("HH:mm")
+  }
+
+  function secondsToDuration(seconds) {
+    const totalDuration = seconds / 60 / 60;
+    const hours = Math.floor(totalDuration);
+    const minutes = ((totalDuration - hours) * 60).toFixed(0);
+
+    return `${hours} : ${minutes}`;
+  }
+
+  function firstLetterToUppercase(value) {
+    return value[0].toUpperCase() + value.slice(1);
+  }
+
 
   return state;
 }

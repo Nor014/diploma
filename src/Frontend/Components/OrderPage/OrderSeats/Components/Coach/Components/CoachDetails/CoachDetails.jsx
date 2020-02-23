@@ -62,8 +62,7 @@ export default class CoachDetails extends React.Component {
           wagonName={activeCoach.coach.name}
           coachClass={activeCoach.coach.class_type}
           coachClassName={activeCoachClass}
-          selectedServises={selectedAdditionalServices}
-          changes={activeCoach.seats.filter(el => el.selected)} />
+          selectedServises={selectedAdditionalServices} />
       </>
     )
   }

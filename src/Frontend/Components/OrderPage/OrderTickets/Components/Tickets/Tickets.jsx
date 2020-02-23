@@ -7,23 +7,7 @@ import { ReactComponent as Express } from './order-tickets_icon-express.svg';
 import { ReactComponent as Eating } from './order-tickets__icon-eating.svg';
 
 export default class Tickets extends React.Component {
-
-  secondsToTime = (seconds) => {
-    return moment(seconds * 1000).format("HH:mm")
-  }
-
-  secondsToDuration = (seconds) => {
-    const totalDuration = seconds / 60 / 60;
-    const hours = Math.floor(totalDuration);
-    const minutes = ((totalDuration - hours) * 60).toFixed(0);
-
-    return `${hours} : ${minutes}`;
-  }
-
-  firstLetterToUppercase = (value) => {
-    return value[0].toUpperCase() + value.slice(1);
-  }
-
+  
   render() {
     const { data, maxTicketsToShow } = this.props;
     console.log(maxTicketsToShow)
@@ -37,23 +21,23 @@ export default class Tickets extends React.Component {
               <div className="ticket-card__train">
                 <div className="ticket-card__train-inner">
                   <p className='ticket-card__train-name'>{el.departure.train.name}</p>
-                  <p className="ticket-card__train-path"> {this.firstLetterToUppercase(el.departure.from.city.name)} → <br />
-                    {this.firstLetterToUppercase(el.departure.to.city.name)}</p>
+                  <p className="ticket-card__train-path"> {el.departure.from.city.name} → <br />
+                    {el.departure.to.city.name}</p>
                 </div>
               </div>
 
               <div className="ticket-card__details">
                 <div className="ticket-card__path-details">
                   <div className="ticket-card__path-item">
-                    <p className="ticket-card__time">{this.secondsToTime(el.departure.from.datetime)}</p>
+                    <p className="ticket-card__time">{el.departure.from.datetimeToRender}</p>
                     <p className="ticket-card__city ">{el.departure.from.city.name}</p>
                     <p className="ticket-card__station">{el.departure.from.railway_station_name}</p>
                   </div>
 
-                  <p className="ticket-card__duration ticket-card_pointer_departure">{this.secondsToDuration(el.departure.duration)}</p>
+                  <p className="ticket-card__duration ticket-card_pointer_departure">{el.departure.durationToRender}</p>
 
                   <div className="ticket-card__path-item">
-                    <p className="ticket-card__time">{this.secondsToTime(el.departure.to.datetime)}</p>
+                    <p className="ticket-card__time">{el.departure.to.datetimeToRender}</p>
                     <p className="ticket-card__city">{el.departure.to.city.name}</p>
                     <p className="ticket-card__station">{el.departure.to.railway_station_name}</p>
                   </div>
@@ -62,15 +46,15 @@ export default class Tickets extends React.Component {
                 {el.arrival &&
                   <div className="ticket-card__path-details">
                     <div className="ticket-card__path-item">
-                      <p className="ticket-card__time">{this.secondsToTime(el.arrival.from.datetime)}</p>
+                      <p className="ticket-card__time">{el.arrival.from.datetimeToRender}</p>
                       <p className="ticket-card__city ">{el.arrival.from.city.name}</p>
                       <p className="ticket-card__station">{el.arrival.from.railway_station_name}</p>
                     </div>
 
-                    <p className="ticket-card__duration ticket-card_pointer_arrival">{this.secondsToDuration(el.arrival.duration)}</p>
+                    <p className="ticket-card__duration ticket-card_pointer_arrival">{el.arrival.durationToRender}</p>
 
                     <div className="ticket-card__path-item">
-                      <p className="ticket-card__time">{this.secondsToTime(el.arrival.to.datetime)}</p>
+                      <p className="ticket-card__time">{el.arrival.to.datetimeToRender}</p>
                       <p className="ticket-card__city">{el.arrival.to.city.name}</p>
                       <p className="ticket-card__station">{el.arrival.to.railway_station_name}</p>
                     </div>
