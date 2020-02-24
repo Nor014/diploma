@@ -83,7 +83,7 @@ class OrderSeats extends React.Component {
         </div>
 
         <div className="order-seats__to-registration-link-wrap">
-          <Link to='/order' className={toRegistrationLinkClass} onClick={this.props.clearOrderDetailsData}>Далее</Link>
+          <Link to='/order/registration' className={toRegistrationLinkClass} onClick={this.props.clearOrderDetailsData}>Далее</Link>
         </div>
       </div>
     )

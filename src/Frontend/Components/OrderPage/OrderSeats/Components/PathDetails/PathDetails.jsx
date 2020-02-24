@@ -4,11 +4,6 @@ import { ReactComponent as DirectionArrow } from '../PathDetails/path-details__p
 
 
 export default class PathDetails extends React.Component {
-
-  secondsToTime = (seconds) => {
-    return moment(seconds * 1000).format("HH:mm")
-  }
-
   secondsToDuration = (seconds) => {
     const totalDuration = seconds / 60 / 60;
     const hours = Math.floor(totalDuration);
@@ -34,7 +29,7 @@ export default class PathDetails extends React.Component {
 
         <div className="path-details__item path-details_type_path">
           <div className="path-details__direction">
-            <p className="path-details__time">{this.secondsToTime(pathData.from.datetime)}</p>
+            <p className="path-details__time">{pathData.from.datetimeToRender}</p>
             <p className="path-details__city">{pathData.from.city.name}</p>
             <p className="path-details__station">{pathData.from.railway_station_name}</p>
           </div>
@@ -42,16 +37,14 @@ export default class PathDetails extends React.Component {
           <DirectionArrow />
 
           <div className="path-details__direction">
-            <p className="path-details__time">{this.secondsToTime(pathData.to.datetime)}</p>
+            <p className="path-details__time">{pathData.to.datetimeToRender}</p>
             <p className="path-details__city ">{pathData.to.city.name}</p>
             <p className="path-details__station">{pathData.to.railway_station_name}</p>
           </div>
         </div>
 
         <div className="path-details__item path-details_type_time">
-          <div className="path-details__inner">
-            {this.secondsToDuration(pathData.duration)}
-          </div>
+          <div className="path-details__inner">{this.secondsToDuration(pathData.duration)}</div>
         </div>
       </div>
     )
