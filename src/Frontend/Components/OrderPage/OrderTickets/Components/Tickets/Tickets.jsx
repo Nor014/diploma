@@ -7,7 +7,7 @@ import { ReactComponent as Express } from './order-tickets_icon-express.svg';
 import { ReactComponent as Eating } from './order-tickets__icon-eating.svg';
 
 export default class Tickets extends React.Component {
-  
+
   render() {
     const { data, maxTicketsToShow } = this.props;
     console.log(maxTicketsToShow)
@@ -34,7 +34,7 @@ export default class Tickets extends React.Component {
                     <p className="ticket-card__station">{el.departure.from.railway_station_name}</p>
                   </div>
 
-                  <p className="ticket-card__duration ticket-card_pointer_departure">{el.departure.durationToRender}</p>
+                  <p className="ticket-card__duration arrow-pointer arrow-pointer_type_departure">{el.departure.durationToRender}</p>
 
                   <div className="ticket-card__path-item">
                     <p className="ticket-card__time">{el.departure.to.datetimeToRender}</p>
@@ -51,7 +51,7 @@ export default class Tickets extends React.Component {
                       <p className="ticket-card__station">{el.arrival.from.railway_station_name}</p>
                     </div>
 
-                    <p className="ticket-card__duration ticket-card_pointer_arrival">{el.arrival.durationToRender}</p>
+                    <p className="ticket-card__duration arrow-pointer arrow-pointer_type_arrival">{el.arrival.durationToRender}</p>
 
                     <div className="ticket-card__path-item">
                       <p className="ticket-card__time">{el.arrival.to.datetimeToRender}</p>

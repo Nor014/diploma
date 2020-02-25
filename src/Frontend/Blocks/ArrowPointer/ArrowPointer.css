@@ -1,0 +1,15 @@
+.arrow-pointer::after {
+  content: '';
+  width: 30px;
+  height: 20px;
+  display: block;
+  margin: 10px auto 0 auto;
+}
+
+.arrow-pointer_type_departure.arrow-pointer::after {
+  background: url('./arrow-pointer_type__departure.svg') no-repeat center;
+}
+
+.arrow-pointer_type_arrival.arrow-pointer::after {
+  background: url('./arrow-pointer_type__arrival.svg') no-repeat center;
+}

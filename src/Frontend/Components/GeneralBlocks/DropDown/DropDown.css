@@ -1,7 +1,6 @@
 .drop-down__title {
   color: #fff;
   display: flex;
-  align-items: center;
   font-size: 23px;
   line-height: 26px;
   font-weight: 600;
@@ -23,6 +22,14 @@
   background: url('./drop-down_title-icon_back.svg') no-repeat center;
 }
 
+.drop-down__date-span {
+  font-size: 15px;
+  line-height: 18px;
+  color: #FFFFFF;
+  align-self: flex-end;
+  margin-left: 15px;
+}
+
 .drop-down__head {
   display: flex;
   align-items: center;
@@ -39,16 +46,13 @@
   padding: 0px 37px 60px 32px;
 }
 
-.drop-down_active .drop-down__body {
-  height: 210px;
-}
-
 .drop-down__btn {
   margin-left: auto;
   line-height: 0;
 }
 
 .drop-down__icon {
+  align-self: center;
   transition: .2s transform;
 }
 

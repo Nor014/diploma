@@ -94,22 +94,6 @@
   margin: 0 20px;
 }
 
-.ticket-card__duration::after {
-  content: '';
-  width: 30px;
-  height: 20px;
-  display: block;
-  margin-top: 10px;
-}
-
-.ticket-card_pointer_departure {
-  background: url('./order-tickets__pointer.svg') no-repeat center;
-}
-
-.ticket-card_pointer_arrival {
-  background: url('./order-tickets__pointer-arrival.svg') no-repeat center;
-}
-
 /* seats */
 
 .ticket-card__seats {

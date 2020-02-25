@@ -44,13 +44,12 @@ class OrderTickets extends React.Component {
     const { data, loading, error, filters } = this.props.ticketsData;
     const filterValue = filters.find(el => el.active).innerText;
     const items = data.items;
-    console.log(data);
+    // console.log(data, this.props);
 
     return (
       <div className="order-tickets">
         {loading ? <Preloader /> : null}
 
-        {/* <Preloader /> */}
         {data.items &&
           <div className="order-tickets__inner">
             <p className='order-tickets__text order-tickets__total-count'>найдено {data.total_count}</p>

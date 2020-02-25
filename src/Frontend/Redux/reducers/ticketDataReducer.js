@@ -43,6 +43,9 @@ export default function ticketDataReducer(state = initState, action) {
       ticket.departure.from.datetimeToRender = secondsToTime(ticket.departure.from.datetime);
       ticket.departure.to.datetimeToRender = secondsToTime(ticket.departure.to.datetime);
 
+      ticket.departure.from.fullDateToRender = moment(ticket.departure.from.datetime * 1000).format('DD.MM.YYYY');
+      ticket.departure.to.fullDateToRender = moment(ticket.departure.to.datetime * 1000).format('DD.MM.YYYY');
+
       // длительность поездки в часы
       ticket.departure.durationToRender = secondsToDuration(ticket.departure.duration)
     })

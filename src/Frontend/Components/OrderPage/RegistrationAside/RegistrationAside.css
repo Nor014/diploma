@@ -1,0 +1,116 @@
+.registration-aside {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  background: #3E3C41;
+  margin-bottom: 90px;
+}
+
+.registration-aside__drop-down {
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.registration-aside__title {
+  font-size: 25px;
+  line-height: 30px;
+  text-transform: uppercase;
+  padding: 30px 40px;
+  color: #E5E5E5;
+  text-align: center;
+  font-weight: 500;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.registration-aside__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.registration-aside__inner:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+/* train info */
+
+.registration-aside_type_train {
+  margin-bottom: 60px;
+}
+
+.registration-aside__label {
+  font-size: 16px;
+  line-height: 18px;
+  color: #E5E5E5;
+  margin-right: 20px;
+}
+
+.registration-aside__train {
+  font-size: 20px;
+  line-height: 24px;
+  color: #FFFFFF;
+}
+
+.registration-aside_text-align_right {
+  text-align: right;
+}
+
+.registration-aside__path {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
+  color: #FFFFFF;
+}
+
+/* date info */
+
+.registration-aside_type_date {
+  margin-bottom: 25px;
+}
+
+.registration-aside_type_date .registration-aside__inner {
+  align-items: flex-end;
+}
+
+.registration-aside__datetime {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+  color: #FFFFFF;
+  margin-bottom: 5px;
+}
+
+.registration-aside__duration {
+  font-size: 16px;
+  line-height: 19px;
+  color: #E5E5E5;
+  ;
+  margin: 0 10px;
+  position: relative;
+  top: -28px;
+}
+
+.registration-aside__full-date {
+  font-size: 16px;
+  line-height: 19px;
+  color: #928F94;
+}
+
+/* locations info */
+
+.registration-aside__location:first-child {
+  margin-right: 20px;
+}
+
+.registration-aside__city {
+  font-size: 16px;
+  line-height: 19px;
+  color: #FFFFFF;
+  margin-bottom: 3px;
+}
+
+.registration-aside__station {
+  font-size: 14px;
+  line-height: 17px;
+  color: #928F94;
+}

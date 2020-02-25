@@ -6,7 +6,7 @@ import DropDown from '../../GeneralBlocks/DropDown/DropDown';
 
 export default class OrderFilters extends React.Component {
 
-  render() {
+  render() { 
 
     return (
       <div className="order-filters">

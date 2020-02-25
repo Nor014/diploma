@@ -1,6 +1,4 @@
 import React from 'react';
-import moment from 'moment';
-import { ReactComponent as DirectionArrow } from '../PathDetails/path-details__path-arrow.svg';
 
 
 export default class PathDetails extends React.Component {
@@ -34,7 +32,7 @@ export default class PathDetails extends React.Component {
             <p className="path-details__station">{pathData.from.railway_station_name}</p>
           </div>
 
-          <DirectionArrow />
+          <p className="arrow-pointer arrow-pointer_type_departure" />
 
           <div className="path-details__direction">
             <p className="path-details__time">{pathData.to.datetimeToRender}</p>
