@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 
 class RegistrationAside extends React.Component {
   render() {
-    const { pathDetails } = this.props.orderDetailsData;
+    const { pathDetails, ticketCategories } = this.props.orderDetailsData;
+    const adultCategory = ticketCategories.find(el => el.categoryName === 'adult');
+    const childrenCategory = ticketCategories.find(el => el.categoryName === 'children');
+    const adultCategoryCost = adultCategory.ticketsData.reduce((acc, ticket) => acc + ticket.totalCost, 0);
+    const childrenCategoryCost = childrenCategory.ticketsData.reduce((acc, ticket) => acc + ticket.totalCost, 0);
     console.log(this.props)
 
     return (
@@ -58,11 +62,32 @@ class RegistrationAside extends React.Component {
                   </div>
                 </div>
               </div>
-            </>
-          }
+            </>}
         </DropDown>
-          
 
+        <DropDown className='registration-aside__drop-down'
+          headContent={{
+            title: 'Пассажиры',
+            titleClass: 'drop-down_title-type_passengers'
+          }}>
+          <>
+            <div className="registration-aside__inner ">
+              <p className="registration-aside__label">{adultCategory.currentAmountOfTickets} Взрослых</p>
+              <p className="registration-aside__cost">{adultCategoryCost} <span className='registration-aside__ruble'>₽</span></p>
+            </div>
+
+            <div className="registration-aside__inner ">
+              <p className="registration-aside__label">{childrenCategory.currentAmountOfTickets} Детских</p>
+              <p className="registration-aside__cost">{childrenCategoryCost} <span className='registration-aside__ruble'>₽</span></p>
+            </div>
+          </>
+        </DropDown>
+
+        <div className="registration-aside__total-cost">
+          <p className="registration-aside__total-cost-label">Итог</p>
+          <p className="registration-aside__total-cost-value">{adultCategoryCost + childrenCategoryCost}
+            <span className='registration-aside__ruble'>₽</span></p>
+        </div>
       </div >
     )
   }

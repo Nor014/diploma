@@ -22,6 +22,10 @@
   background: url('./drop-down_title-icon_back.svg') no-repeat center;
 }
 
+.drop-down_title-type_passengers::before {
+  background: url('./drop-down_title-icon_passengers.svg') no-repeat center;
+}
+
 .drop-down__date-span {
   font-size: 15px;
   line-height: 18px;

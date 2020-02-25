@@ -114,3 +114,45 @@
   line-height: 17px;
   color: #928F94;
 }
+
+/* passengers */
+
+.registration-aside__cost {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: right;
+  color: #FFFFFF;
+}
+
+.registration-aside__ruble {
+  margin-left: 5px;
+  font-weight: 16px;
+  line-height: 18px;
+  color: #928F94;
+  font-weight: 400;
+}
+
+/* total cost */
+
+.registration-aside__total-cost {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 30px;
+}
+
+.registration-aside__total-cost-label {
+  font-size: 25px;
+  line-height: 30px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-right: 20px;
+}
+
+.registration-aside__total-cost-value {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  color: #FFA800;
+}

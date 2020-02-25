@@ -38,6 +38,7 @@ class OrderSeats extends React.Component {
     // })
 
     this.props.getSeatsData(url, 'OrderSeats');
+    this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из localStorage, в данном случаэ это не нужно
 
     // set path details
     const pathData = this.props.location.state,
