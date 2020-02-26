@@ -154,20 +154,24 @@ export function setLastTickets(data) {
 
 // OrderSeats
 
-export function getSeatsData(url, fromComponent) {
+export function getSeatsData(url, directionName, fromComponent) {
   return {
     type: 'GET_SEATS_DATA',
     payload: {
       url: url,
+      directionName: directionName,
       fromComponent: fromComponent
     }
   }
 }
 
-export function setSeatsData(data) {
+export function setSeatsData(data, directionName) {
   return {
     type: 'SET_SEATS_DATA',
-    payload: data
+    payload: {
+      data: data,
+      directionName: directionName
+    }
   }
 }
 

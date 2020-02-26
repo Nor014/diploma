@@ -21,6 +21,7 @@ class Coach extends React.Component {
 
   render() {
     const seatsData = this.props.seatsData;
+    console.log(seatsData)
     const activeCoachClass = seatsData.find(el => el.active);
     const renderCoachCondition = activeCoachClass && activeCoachClass.data.length > 0;
     const activeCoach = activeCoachClass ? activeCoachClass.data.find(el => el.coach.active) : null;

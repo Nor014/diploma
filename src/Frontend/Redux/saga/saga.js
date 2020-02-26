@@ -28,7 +28,7 @@ function* getDataSaga(action) {
     } else if (fromComponent === 'LastTickets') {
       yield put(setLastTickets(data))
     } else if (fromComponent === 'OrderSeats') {
-      yield put(setSeatsData(data))
+      yield put(setSeatsData(data, action.payload.directionName))
     }
 
   } catch (error) {

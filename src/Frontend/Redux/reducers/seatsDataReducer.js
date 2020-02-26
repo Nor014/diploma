@@ -1,16 +1,30 @@
 const initState = {
-  data: [],
+  // data: [
+  //   {
+  //     name: 'departure',
+  //     seatsData: null
+  //   },
+  //   {
+  //     name: 'arrival',
+  //     seatsData: null
+  //   }
+  // ],
+  data: {
+    departure: null,
+    arrival: null
+  },
   loading: false,
   error: null
 }
 
 export default function seatsDataReducer(state = initState, action) {
   if (action.type === 'GET_SEATS_DATA') {
-    return { ...state, data: [], error: null, loading: true }
+    return { ...state, error: null, loading: true }
   }
 
   if (action.type === 'SET_SEATS_DATA') {
-    const data = action.payload;
+    const { data, directionName } = action.payload;
+    console.log(directionName)
 
     const formatedData = data.map(el => {
       el.seats.forEach(seat => { // преобразовываем данные мест для работы со схемой вагона
@@ -127,6 +141,8 @@ export default function seatsDataReducer(state = initState, action) {
       return el
     })
 
+    console.log(formatedData)
+
     function filterDataByClass(coachClass) { // функция разбивки данных по классам вагонов
       return formatedData
         .filter(el => el.coach.class_type === coachClass)
@@ -167,7 +183,21 @@ export default function seatsDataReducer(state = initState, action) {
       },
     ]
 
-    return { ...state, data: classes, error: null, loading: false }
+    console.log(classes)
+    console.log(state.data)
+
+    // const newState = [].concat(state.data).map(el => {
+    //   if (el.name === directionName) {
+    //     el.seatsData = classes
+    //   }
+    //   return el
+    // })
+
+    const newState = { ...state, data }
+
+    console.log(newState)
+
+    return { ...state, data: newState, error: null, loading: false }
   }
 
   if (action.type === 'CHANGE_COACH_CLASS') {
@@ -206,7 +236,7 @@ export default function seatsDataReducer(state = initState, action) {
           if (wagon.coach.active) {
             let seat = wagon.seats.find(el => el.index === Number(seatIndex));
             seat.selected[ticketCategory] = !seat.selected[ticketCategory]; // выбор или снятие выбора места в зависимости от категории
-            
+
             if (ticketCategory === 'adult') { // disable/active выбранного места для другой категории
               seat.available.children = !seat.available.children
             } else if (ticketCategory === 'children') {
@@ -236,7 +266,7 @@ export default function seatsDataReducer(state = initState, action) {
       }
       return coachClass
     })
-    
+
     return { ...state, data: newData }
   }
 

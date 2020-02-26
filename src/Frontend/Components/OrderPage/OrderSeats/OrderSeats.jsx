@@ -16,44 +16,50 @@ class OrderSeats extends React.Component {
   }
 
   componentDidMount = () => {
-    this.seatsRef.current.scrollIntoView({ // scroll to top
-      behavior: 'smooth',
-      block: 'start',
-    });
+    // this.seatsRef.current.scrollIntoView({ // scroll to top
+    //   behavior: 'smooth',
+    //   block: 'start',
+    // });
 
     // get seatsData
-    const ticketData = this.props.location.state;
-    let url = `https://netology-trainbooking.herokuapp.com/routes/${ticketData._id}/seats?`;
+    const directions = this.props.location.state;
 
-    // let params = [];
+    directions.forEach(direction => {
+      if (direction.data !== null) {
+        let url = `https://netology-trainbooking.herokuapp.com/routes/${direction.data._id}/seats?`;
+        let directionName = direction.name;
 
-    // for (let [key, value] of Object.entries(ticketData)) {
-    //   if (key === 'have_wifi' || key === 'have_air_conditioning') {
-    //     params.push({ name: key, value: value })
-    //   }
-    // }
+        // let params = [];
 
-    // params.forEach(el => {
-    //   url += el.name + '=' + el.value + '&';
-    // })
+        // for (let [key, value] of Object.entries(ticketData)) {
+        //   if (key === 'have_wifi' || key === 'have_air_conditioning') {
+        //     params.push({ name: key, value: value })
+        //   }
+        // }
 
-    this.props.getSeatsData(url, 'OrderSeats');
-    this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из localStorage, в данном случаэ это не нужно
+        // params.forEach(el => {
+        //   url += el.name + '=' + el.value + '&';
+        // })
 
-    // set path details
-    const pathData = this.props.location.state,
-      pathDetailsObj = {
-        train: pathData.train,
-        from: pathData.from,
-        to: pathData.to,
-        duration: pathData.durationToRender
+        this.props.getSeatsData(url, directionName, 'OrderSeats');
+        this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из localStorage, в данном случаэ это не нужно
+
+        // set path details
+        const pathData = direction.data,
+          pathDetailsObj = {
+            train: pathData.train,
+            from: pathData.from,
+            to: pathData.to,
+            duration: pathData.durationToRender
+          }
+
+        this.props.setPathDetails(pathDetailsObj);
       }
-
-    this.props.setPathDetails(pathDetailsObj);
+    })
   }
 
   render() {
-    const pathData = this.props.location.state;
+    const directions = this.props.location.state;
     const { data, loading, error } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
 
@@ -73,15 +79,24 @@ class OrderSeats extends React.Component {
       <div className="order-seats" ref={this.seatsRef}>
         <h2 className="order-seats__title">Выбор мест</h2>
 
-        <div className="order-seats__inner">
-          <div className="order-seats__link-wrap">
-            <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.props.clearOrderDetailsData}>Выбрать другой поезд</Link>
-          </div>
+        {directions.map((direction, index) => {
+          return direction.data !== null ?
+            <div className="order-seats__inner" key={index}>
+              <div className="order-seats__link-wrap">
+                <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.props.clearOrderDetailsData}>Выбрать другой поезд</Link>
+              </div>
 
-          <PathDetails className='order-seats__path-details' pathData={pathData} />
-          <Passengers />
-          <Coach seatsData={this.props.seatsData.data} />
-        </div>
+              <PathDetails className='order-seats__path-details' pathData={direction.data} />
+              <Passengers />
+
+              {/* {this.props.seatsData.data !== null
+                ? <Coach seatsData={this.props.seatsData.data.find(el => el.name === direction.name).seatsData} />
+                : null
+              } */}
+
+            </div>
+            : null
+        })}
 
         <div className="order-seats__to-registration-link-wrap">
           <Link to='/order/registration' className={toRegistrationLinkClass}>Далее</Link>
@@ -102,7 +117,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getSeatsData: (url, fromComponent) => dispatch(getSeatsData(url, fromComponent)),
+    getSeatsData: (url, directionName, fromComponent) => dispatch(getSeatsData(url, directionName, fromComponent)),
     setPathDetails: (ditails) => dispatch(setPathDetails(ditails)),
     clearOrderDetailsData: () => dispatch(clearOrderDetailsData())
   }
