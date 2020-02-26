@@ -47,7 +47,17 @@ export default function ticketDataReducer(state = initState, action) {
       ticket.departure.to.fullDateToRender = moment(ticket.departure.to.datetime * 1000).format('DD.MM.YYYY');
 
       // длительность поездки в часы
-      ticket.departure.durationToRender = secondsToDuration(ticket.departure.duration)
+      ticket.departure.durationToRender = secondsToDuration(ticket.departure.duration);
+
+      if (ticket.arrival !== undefined) { // те же операции если есть поезд назад
+        ticket.arrival.from.city.name = firstLetterToUppercase(ticket.arrival.from.city.name);
+        ticket.arrival.to.city.name = firstLetterToUppercase(ticket.arrival.to.city.name);
+        ticket.arrival.from.datetimeToRender = secondsToTime(ticket.arrival.from.datetime);
+        ticket.arrival.to.datetimeToRender = secondsToTime(ticket.arrival.to.datetime);
+        ticket.arrival.from.fullDateToRender = moment(ticket.arrival.from.datetime * 1000).format('DD.MM.YYYY');
+        ticket.arrival.to.fullDateToRender = moment(ticket.arrival.to.datetime * 1000).format('DD.MM.YYYY');
+        ticket.arrival.durationToRender = secondsToDuration(ticket.departure.duration)
+      }
     })
 
     return { ...state, data: sortedData, loading: false };
@@ -71,13 +81,6 @@ export default function ticketDataReducer(state = initState, action) {
   function sortData(data, filter) {
     let result = [].concat(data.items).sort((a, b) => {
       if (filter === 'time') {
-        // let value = Number(moment(a.departure.from.datetime * 1000).format("HH")) - Number(moment(b.departure.from.datetime * 1000).format("HH"));
-        // if (value !== 0) {
-        //   return value;
-        // } else {
-        //   return Number(moment(a.departure.from.datetime * 1000).format("mm")) - Number(moment(b.departure.from.datetime * 1000).format("mm"));
-        // }
-
         return a.departure.from.datetime - b.departure.from.datetime;
       }
 

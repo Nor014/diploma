@@ -173,11 +173,8 @@ export default class Tickets extends React.Component {
                 </div>
 
                 <div className="ticket-card__seats-services">
-                  {el.departure.have_wifi &&
-                    <WifiIcon className='ticket-card__seats-service' />}
-                  {el.departure.is_express &&
-                    <Express className='ticket-card__seats-service' />}
-
+                  {el.departure.have_wifi && <WifiIcon className='ticket-card__seats-service' />}
+                  {el.departure.is_express && <Express className='ticket-card__seats-service' />}
                   <Eating className='ticket-card__seats-service' />
                 </div>
 
