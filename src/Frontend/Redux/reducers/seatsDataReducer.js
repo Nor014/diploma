@@ -1,18 +1,14 @@
 const initState = {
-  // data: [
-  //   {
-  //     name: 'departure',
-  //     seatsData: null
-  //   },
-  //   {
-  //     name: 'arrival',
-  //     seatsData: null
-  //   }
-  // ],
-  data: {
-    departure: null,
-    arrival: null
-  },
+  data: [
+    {
+      name: 'departure',
+      seatsData: null
+    },
+    {
+      name: 'arrival',
+      seatsData: null
+    }
+  ],
   loading: false,
   error: null
 }
@@ -183,17 +179,12 @@ export default function seatsDataReducer(state = initState, action) {
       },
     ]
 
-    console.log(classes)
-    console.log(state.data)
-
-    // const newState = [].concat(state.data).map(el => {
-    //   if (el.name === directionName) {
-    //     el.seatsData = classes
-    //   }
-    //   return el
-    // })
-
-    const newState = { ...state, data }
+    const newState = [].concat(state.data).map(el => {
+      if (el.name === directionName) {
+        el.seatsData = classes
+      }
+      return el
+    })
 
     console.log(newState)
 
@@ -201,27 +192,42 @@ export default function seatsDataReducer(state = initState, action) {
   }
 
   if (action.type === 'CHANGE_COACH_CLASS') {
-    const coachClass = action.payload;
-    const newData = state.data.map(el => {
-      el.active = el.class === coachClass ? !el.active : false;
+    const { coachClass, direction } = action.payload;
+
+    const newData = [].concat(state.data).map(el => {
+      if (el.name === direction) {
+        el.seatsData.map(seatsClass => {
+          seatsClass.active = seatsClass.class === coachClass ? !seatsClass.active : false;
+          return seatsClass
+        })
+      }
+
       return el
     })
 
+    console.log(newData)
     return { ...state, data: newData }
   }
 
   if (action.type === 'CHANGE_COACH_WAGONE') {
-    const coachId = action.payload;
-    const newData = state.data.map(coachClass => {
-      if (coachClass.active) {
-        coachClass.data.map(el => {
-          el.coach.active = el.coach._id === coachId ? true : false
-          return el
+    const { id, direction } = action.payload;
+
+    const newData = state.data.map(stateDirection => {
+      if (stateDirection.name === direction) {
+        stateDirection.seatsData.map(seatsClass => {
+          if (seatsClass.active) {
+            seatsClass.data.map(wagon => {
+              wagon.coach.active = wagon.coach._id === id ? true : false
+              return wagon
+            })
+          }
+          return seatsClass
         })
       }
-
-      return coachClass
+      return stateDirection
     })
+
+    console.log(newData)
 
     return { ...state, data: newData }
   }

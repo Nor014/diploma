@@ -181,13 +181,18 @@ export default class Tickets extends React.Component {
                 <div className="ticket-card__btn-wrap">
                   <Link className='ticket-card__btn link btn btn_theme_yellow btn_size_small' to={{
                     pathname: `/order/${el.departure._id}`,
-                    state: [{ name: 'departure', data: el.departure }, { name: 'arrivel', data: el.arrival || null }]
+                    state: [{ name: 'departure', data: el.departure }, { name: 'arrival', data: el.arrival || null }]
+                    // state: {
+                    //   departure: el.departure,
+                    //   arrival: el.arrival || null
+                    // }
                   }}>Выбрать места</Link>
                 </div>
               </div>
             </div>
           )
-        )}
+        )
+        }
       </div>
     )
   }

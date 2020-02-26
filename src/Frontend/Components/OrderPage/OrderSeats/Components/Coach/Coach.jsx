@@ -11,28 +11,25 @@ import { changeCoachClass, changeCoachWagon } from '../../../../../Redux/actions
 class Coach extends React.Component {
   onChangeClassBtn = (event) => {
     const coachClass = event.currentTarget.dataset.class;
-    this.props.changeCoachClass(coachClass);
+    this.props.changeCoachClass(coachClass, this.props.direction);
   }
 
   onChangeWagonBtn = (event) => {
     const wagonId = event.currentTarget.dataset.id;
-    this.props.changeCoachWagon(wagonId);
+    this.props.changeCoachWagon(wagonId, this.props.direction);
   }
 
   render() {
-    const seatsData = this.props.seatsData;
-    console.log(seatsData)
+    const seatsData = this.props.seatsData.data.find(el => el.name === this.props.direction).seatsData;
     const activeCoachClass = seatsData.find(el => el.active);
     const renderCoachCondition = activeCoachClass && activeCoachClass.data.length > 0;
     const activeCoach = activeCoachClass ? activeCoachClass.data.find(el => el.coach.active) : null;
-
-    // console.log(seatsData, activeCoach)
 
     return (
       <div className="coach">
         <h2 className="coach__title">Тип вагона</h2>
 
-        <div className="coach__classes"> 
+        <div className="coach__classes">
           {seatsData.map((el, index) => { /* кнопки выбора класса */
             return <CoachClassBtn key={index} data={el} onClick={this.onChangeClassBtn} />
           })}
@@ -43,7 +40,7 @@ class Coach extends React.Component {
             activeCoachClass={activeCoachClass}
             onClick={this.onChangeWagonBtn} />
           : null}
-          
+
         {activeCoach /* информация о вагоне, выбор мест */
           ? <CoachDetails
             activeCoach={activeCoach}
@@ -55,16 +52,16 @@ class Coach extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-
+  const { seatsData } = state
   return {
-
+    seatsData: seatsData,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeCoachClass: (coachClass) => dispatch(changeCoachClass(coachClass)),
-    changeCoachWagon: (id) => dispatch(changeCoachWagon(id))
+    changeCoachClass: (coachClass, direction) => dispatch(changeCoachClass(coachClass, direction)),
+    changeCoachWagon: (id, direction) => dispatch(changeCoachWagon(id, direction))
   }
 }
 

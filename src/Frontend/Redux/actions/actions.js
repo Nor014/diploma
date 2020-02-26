@@ -190,17 +190,23 @@ export function clearOrderDetailsData() {
 
 // Coach
 
-export function changeCoachClass(coachClass) {
+export function changeCoachClass(coachClass, direction) {
   return {
     type: 'CHANGE_COACH_CLASS',
-    payload: coachClass
+    payload: {
+      coachClass: coachClass,
+      direction: direction
+    }
   }
 }
 
-export function changeCoachWagon(id) {
+export function changeCoachWagon(id, direction) {
   return {
     type: 'CHANGE_COACH_WAGONE',
-    payload: id
+    payload: {
+      id: id,
+      direction: direction
+    }
   }
 }
 

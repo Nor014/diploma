@@ -59,7 +59,7 @@ class OrderSeats extends React.Component {
   }
 
   render() {
-    const directions = this.props.location.state;
+    // const directions = this.props.seatsData;
     const { data, loading, error } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
 
@@ -69,8 +69,6 @@ class OrderSeats extends React.Component {
       ? "link order-seats__to-registration-link btn btn_theme_yellow btn_size_small"
       : "link order-seats__to-registration-link btn btn_theme_yellow btn_size_small link_disabled"
 
-    console.log(this.props)
-
     if (loading) {
       return <Preloader />
     }
@@ -79,21 +77,16 @@ class OrderSeats extends React.Component {
       <div className="order-seats" ref={this.seatsRef}>
         <h2 className="order-seats__title">Выбор мест</h2>
 
-        {directions.map((direction, index) => {
-          return direction.data !== null ?
+        {data.map((direction, index) => {
+          return direction.seatsData !== null ?
             <div className="order-seats__inner" key={index}>
               <div className="order-seats__link-wrap">
                 <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.props.clearOrderDetailsData}>Выбрать другой поезд</Link>
               </div>
 
-              <PathDetails className='order-seats__path-details' pathData={direction.data} />
+              <PathDetails className='order-seats__path-details' pathData={this.props.location.state.find(el => el.name === direction.name).data} />
               <Passengers />
-
-              {/* {this.props.seatsData.data !== null
-                ? <Coach seatsData={this.props.seatsData.data.find(el => el.name === direction.name).seatsData} />
-                : null
-              } */}
-
+              <Coach direction={direction.name} />
             </div>
             : null
         })}
