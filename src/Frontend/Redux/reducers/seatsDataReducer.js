@@ -20,8 +20,7 @@ export default function seatsDataReducer(state = initState, action) {
 
   if (action.type === 'SET_SEATS_DATA') {
     const { data, directionName } = action.payload;
-    console.log(directionName)
-
+    
     const formatedData = data.map(el => {
       el.seats.forEach(seat => { // преобразовываем данные мест для работы со схемой вагона
         if (el.coach.class_type === 'second' || el.coach.class_type === 'third') {

@@ -24,16 +24,16 @@ const generalReducer = combineReducers({
 })
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(generalReducer, loadState(), applyMiddleware(sagaMiddleware));
+const store = createStore(generalReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(saga);
 
-store.subscribe(() => { // при изменении состояния новое состояние сохраняется в sessionStorage
-  saveState({
-    orderDetailsData: store.getState().orderDetailsData,
-    ticketsData: store.getState().ticketsData,
-    seatsData: store.getState().seatsData,
-  })
-})
+// store.subscribe(() => { // при изменении состояния новое состояние сохраняется в sessionStorage
+//   saveState({
+//     orderDetailsData: store.getState().orderDetailsData,
+//     ticketsData: store.getState().ticketsData,
+//     seatsData: store.getState().seatsData,
+//   })
+// })
 
 export default store

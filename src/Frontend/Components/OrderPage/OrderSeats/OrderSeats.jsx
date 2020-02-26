@@ -16,33 +16,21 @@ class OrderSeats extends React.Component {
   }
 
   componentDidMount = () => {
-    // this.seatsRef.current.scrollIntoView({ // scroll to top
-    //   behavior: 'smooth',
-    //   block: 'start',
-    // });
+    this.seatsRef.current.scrollIntoView({ // scroll to top
+      behavior: 'smooth',
+      block: 'start',
+    });
 
     // get seatsData
     const directions = this.props.location.state;
 
-    directions.forEach(direction => {
+    directions.forEach(direction => { // запрос данных для departure и arrival
       if (direction.data !== null) {
         let url = `https://netology-trainbooking.herokuapp.com/routes/${direction.data._id}/seats?`;
         let directionName = direction.name;
 
-        // let params = [];
-
-        // for (let [key, value] of Object.entries(ticketData)) {
-        //   if (key === 'have_wifi' || key === 'have_air_conditioning') {
-        //     params.push({ name: key, value: value })
-        //   }
-        // }
-
-        // params.forEach(el => {
-        //   url += el.name + '=' + el.value + '&';
-        // })
-
         this.props.getSeatsData(url, directionName, 'OrderSeats');
-        this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из localStorage, в данном случаэ это не нужно
+        this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из localStorage, в данном случае это не нужно
 
         // set path details
         const pathData = direction.data,
@@ -78,8 +66,8 @@ class OrderSeats extends React.Component {
         <h2 className="order-seats__title">Выбор мест</h2>
 
         {data.map((direction, index) => {
-          return direction.seatsData !== null ?
-            <div className="order-seats__inner" key={index}>
+          return direction.seatsData !== null
+            ? <div className="order-seats__inner" key={index}>
               <div className="order-seats__link-wrap">
                 <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.props.clearOrderDetailsData}>Выбрать другой поезд</Link>
               </div>
