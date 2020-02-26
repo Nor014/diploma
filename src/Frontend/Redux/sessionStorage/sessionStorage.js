@@ -1,7 +1,7 @@
-// загрузка глобального состояния из localStorage
+// загрузка глобального состояния из sessionStorage
 export function loadState() {
   try {
-    const serializedState = localStorage.getItem('state')
+    const serializedState = sessionStorage.getItem('state')
     if (serializedState === null) {
       return undefined
     }
@@ -12,11 +12,11 @@ export function loadState() {
   }
 }
 
-// сохранение состояния в localStorage
+// сохранение состояния в sessionStorage
 export function saveState(state) {
   try {
     const serializedState = JSON.stringify(state)
-    localStorage.setItem('state', serializedState)
+    sessionStorage.setItem('state', serializedState)
   }
   catch (err) {
     // ignore

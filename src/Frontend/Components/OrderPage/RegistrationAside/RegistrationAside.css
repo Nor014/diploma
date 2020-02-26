@@ -73,7 +73,7 @@
 }
 
 .registration-aside__datetime {
-  font-weight: bold;
+  font-weight: 500;
   font-size: 20px;
   line-height: 24px;
   color: #FFFFFF;
@@ -84,7 +84,6 @@
   font-size: 16px;
   line-height: 19px;
   color: #E5E5E5;
-  ;
   margin: 0 10px;
   position: relative;
   top: -28px;
@@ -118,7 +117,7 @@
 /* passengers */
 
 .registration-aside__cost {
-  font-weight: bold;
+  font-weight: 500;
   font-size: 20px;
   line-height: 24px;
   text-align: right;
@@ -151,7 +150,7 @@
 }
 
 .registration-aside__total-cost-value {
-  font-weight: bold;
+  font-weight: 500;
   font-size: 36px;
   line-height: 42px;
   color: #FFA800;

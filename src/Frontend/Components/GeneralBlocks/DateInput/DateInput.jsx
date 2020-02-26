@@ -7,29 +7,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import ru from 'date-fns/locale/ru';
 
 class DateInput extends React.Component {
-  state = {
-    date: null
-  };
-
   componentDidUpdate = () => {
     const startDate = this.props.findTicketsState.date_start;
+    const currentDateValue = this.props.name === 'fromDate'
+      ? this.props.findTicketsState.date_start
+      : this.props.findTicketsState.date_end;
 
-    if (this.props.name === 'toDate'
-      && this.state.date !== null && this.state.date < startDate) {
+    if (this.props.name === 'toDate' // если дата отбытия больше даты прибытия, меняем дату прибытия
+      && currentDateValue !== null && currentDateValue < startDate) {
       this.onDateChange(startDate)
     }
   }
 
   onDateChange = (date) => {
-    this.setState({ date });
-
     let paramsName = this.props.name === 'fromDate' ? 'date_start' : 'date_end';
     this.props.setDate(date, paramsName)
   }
 
   render() {
-    const { inputClass, name, label } = this.props;
+    const { inputClass, name, label, findTicketsState } = this.props;
     const startDate = this.props.findTicketsState.date_start;
+    const currentDateValue = name === 'fromDate' ? findTicketsState.date_start : findTicketsState.date_end;
 
     return (
       <React.Fragment>
@@ -41,10 +39,10 @@ class DateInput extends React.Component {
           locale={ru}
           placeholderText="ДД/ММ/ГГ"
           className={`input ${inputClass}`}
-          selected={this.state.date}
+          selected={currentDateValue}
           onChange={date => this.onDateChange(date)}
-          value={this.state.date}
-          minDate={startDate !== null && name === 'toDate' ? new Date(startDate) : new Date(1514764800000)} />
+          value={currentDateValue}
+          minDate={startDate !== null && name === 'toDate' ? new Date(startDate) : new Date('2018-01-01')} />
       </React.Fragment>
     );
   }

@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import saga from '../saga/saga';
 
-import { saveState, loadState } from '../localStorage/localStorage';
+import { saveState, loadState } from '../sessionStorage/sessionStorage';
 
 import directionInputReducer from '../reducers/directionInputReducer';
 import findTicketsReducer from '../reducers/findTicketsReducer';
@@ -28,7 +28,7 @@ const store = createStore(generalReducer, loadState(), applyMiddleware(sagaMiddl
 
 sagaMiddleware.run(saga);
 
-store.subscribe(() => { // при изменении состояния новое состояние сохраняется в localStorage
+store.subscribe(() => { // при изменении состояния новое состояние сохраняется в sessionStorage
   saveState({
     orderDetailsData: store.getState().orderDetailsData,
     ticketsData: store.getState().ticketsData,
