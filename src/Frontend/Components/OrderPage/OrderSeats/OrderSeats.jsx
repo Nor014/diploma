@@ -7,7 +7,7 @@ import Passengers from './Components/Passengers/Passengers';
 import Coach from './Components/Coach/Coach';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
-import { getSeatsData, setPathDetails, clearOrderDetailsData } from '../../../Redux/actions/actions';
+import { getSeatsData, setPathDetails, clearOrderDetailsData, clearSeatsData } from '../../../Redux/actions/actions';
 
 class OrderSeats extends React.Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class OrderSeats extends React.Component {
         let directionName = direction.name;
 
         this.props.getSeatsData(url, directionName, 'OrderSeats');
-        this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из localStorage, в данном случае это не нужно
+        this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из sessionStorage, в данном случае это не нужно
 
         // set path details
         const pathData = direction.data,
@@ -66,7 +66,7 @@ class OrderSeats extends React.Component {
         <h2 className="order-seats__title">Выбор мест</h2>
 
         {data.map((direction, index) => {
-          return direction.seatsData !== null ?
+          return direction.directionSeatsData !== null ?
             <div className="order-seats__inner" key={index}>
               <div className="order-seats__link-wrap">
                 <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.props.clearOrderDetailsData}>Выбрать другой поезд</Link>

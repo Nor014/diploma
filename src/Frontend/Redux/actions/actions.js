@@ -188,6 +188,12 @@ export function clearOrderDetailsData() {
   }
 }
 
+export function clearSeatsData() {
+  return {
+    type: 'CLEAR_SEATS_DATA'
+  }
+}
+
 // Coach
 
 export function changeCoachClass(coachClass, direction) {

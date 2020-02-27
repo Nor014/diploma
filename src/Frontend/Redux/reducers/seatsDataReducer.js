@@ -2,11 +2,11 @@ const initState = {
   data: [
     {
       name: 'departure',
-      seatsData: null
+      directionSeatsData: null
     },
     {
       name: 'arrival',
-      seatsData: null
+      directionSeatsData: null
     }
   ],
   loading: false,
@@ -180,7 +180,7 @@ export default function seatsDataReducer(state = initState, action) {
 
     const newState = [].concat(state.data).map(el => {
       if (el.name === directionName) {
-        el.seatsData = classes
+        el.directionSeatsData = classes
       }
       return el
     })
@@ -193,7 +193,7 @@ export default function seatsDataReducer(state = initState, action) {
 
     const newData = [].concat(state.data).map(el => {
       if (el.name === direction) {
-        el.seatsData.map(seatsClass => {
+        el.directionSeatsData.map(seatsClass => {
           seatsClass.active = seatsClass.class === coachClass ? !seatsClass.active : false;
           return seatsClass
         })
@@ -210,7 +210,7 @@ export default function seatsDataReducer(state = initState, action) {
 
     const newData = state.data.map(stateDirection => {
       if (stateDirection.name === direction) {
-        stateDirection.seatsData.map(seatsClass => {
+        stateDirection.directionSeatsData.map(seatsClass => {
           if (seatsClass.active) {
             seatsClass.data.map(wagon => {
               wagon.coach.active = wagon.coach._id === id ? true : false
@@ -234,7 +234,7 @@ export default function seatsDataReducer(state = initState, action) {
 
     const newData = state.data.map(pathDirection => {
       if (pathDirection.name === direction) {
-        pathDirection.seatsData.map(coachClass => {
+        pathDirection.directionSeatsData.map(coachClass => {
           if (coachClass.active) {
             coachClass.data.map(wagon => {
               if (wagon.coach.active) {
@@ -262,12 +262,11 @@ export default function seatsDataReducer(state = initState, action) {
   }
 
   if (action.type === 'CHECK_SERVICE') {
-    // const serviceToCheck = action.payload;
     const { serviceName, direction } = action.payload;
 
     const newData = state.data.map(pathDirection => {
       if (pathDirection.name === direction) {
-        pathDirection.seatsData.map(coachClass => {
+        pathDirection.directionSeatsData.map(coachClass => {
           if (coachClass.active) {
             coachClass.data.map(wagon => {
               if (wagon.coach.active) {
@@ -284,6 +283,23 @@ export default function seatsDataReducer(state = initState, action) {
     })
 
     return { ...state, data: newData }
+  }
+
+  if (action.type === 'CLEAR_SEATS_DATA') {
+    return {
+      data: [
+        {
+          name: 'departure',
+          directionSeatsData: null
+        },
+        {
+          name: 'arrival',
+          directionSeatsData: null
+        }
+      ],
+      loading: false,
+      error: null
+    }
   }
 
   return state
