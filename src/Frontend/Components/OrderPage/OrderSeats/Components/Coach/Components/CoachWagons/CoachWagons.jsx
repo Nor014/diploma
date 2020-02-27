@@ -4,8 +4,7 @@ import React from 'react';
 export default class CoachWagons extends React.Component {
   render() {
     const { activeCoachClass } = this.props;
-    console.log(activeCoachClass)
-
+  
     return (
       <div className="coach__wagons">
         <div className="coach__wagons-inner">

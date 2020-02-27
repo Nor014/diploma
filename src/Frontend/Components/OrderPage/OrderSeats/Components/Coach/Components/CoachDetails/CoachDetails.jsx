@@ -6,6 +6,7 @@ import CoachScheme from '../CoachScheme/CoachScheme';
 
 
 export default class CoachDetails extends React.Component {
+
   render() {
     const { activeCoach, activeCoachClass } = this.props;
     const selectedAdditionalServices = activeCoach.servicesInfo.filter(service => {
@@ -47,6 +48,7 @@ export default class CoachDetails extends React.Component {
                   return (
                     <OptionCheckBox key={index}
                       className='coach__details-service-item'
+                      direction={this.props.direction}
                       hint={service.hint}
                       disabled={service.inTicketCost}
                       name={service.name}
@@ -57,12 +59,13 @@ export default class CoachDetails extends React.Component {
           </div>
         </div>
 
-        <CoachScheme
+        <CoachScheme // Схема вагонов, выбор мест
           seatsData={activeCoach.seats}
           wagonName={activeCoach.coach.name}
           coachClass={activeCoach.coach.class_type}
           coachClassName={activeCoachClass}
-          selectedServises={selectedAdditionalServices} />
+          selectedServises={selectedAdditionalServices}
+          direction={this.props.direction} />
       </>
     )
   }

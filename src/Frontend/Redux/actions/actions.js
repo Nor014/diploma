@@ -212,12 +212,13 @@ export function changeCoachWagon(id, direction) {
 
 // CoachScheme
 
-export function chooseSeat(seatIndex, ticketCategory) {
+export function chooseSeat(seatIndex, ticketCategory, direction) {
   return {
     type: 'CHOOSE_SEAT',
     payload: {
       seatIndex: seatIndex,
-      ticketCategory: ticketCategory
+      ticketCategory: ticketCategory,
+      direction: direction
     }
   }
 }
@@ -241,10 +242,13 @@ export function removeTicketDetails(seatIndex, ticketCategory) {
 
 // OptionCheckBox
 
-export function checkService(serviceName) {
+export function checkService(serviceName, direction) {
   return {
     type: 'CHECK_SERVICE',
-    payload: serviceName
+    payload: {
+      serviceName: serviceName,
+      direction: direction
+    }
   }
 }
 

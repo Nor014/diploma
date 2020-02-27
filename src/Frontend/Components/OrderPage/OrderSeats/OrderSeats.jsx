@@ -47,9 +47,9 @@ class OrderSeats extends React.Component {
   }
 
   render() {
-    // const directions = this.props.seatsData;
     const { data, loading, error } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
+    console.log(this.props)
 
     // общее число выбранных пассажиров для дизейбла/активации кнопки перехода к оформлению пассажиров 
     const passengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentAmountOfTickets, 0)
@@ -66,13 +66,15 @@ class OrderSeats extends React.Component {
         <h2 className="order-seats__title">Выбор мест</h2>
 
         {data.map((direction, index) => {
-          return direction.seatsData !== null
-            ? <div className="order-seats__inner" key={index}>
+          return direction.seatsData !== null ?
+            <div className="order-seats__inner" key={index}>
               <div className="order-seats__link-wrap">
                 <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.props.clearOrderDetailsData}>Выбрать другой поезд</Link>
               </div>
 
-              <PathDetails className='order-seats__path-details' pathData={this.props.location.state.find(el => el.name === direction.name).data} />
+              <PathDetails className='order-seats__path-details'
+                pathData={this.props.location.state.find(el => el.name === direction.name).data} />
+
               <Passengers />
               <Coach direction={direction.name} />
             </div>

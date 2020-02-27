@@ -8,7 +8,7 @@ class OptionCheckBox extends React.Component {
 
   onInputChange = (event) => {
     const serviceName = event.target.dataset.servicename;
-    this.props.changeService(serviceName);
+    this.props.changeService(serviceName, this.props.direction);
   }
 
   render() {
@@ -31,17 +31,10 @@ class OptionCheckBox extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-
-  return {
-
-  }
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeService: (serviceName) => dispatch(checkService(serviceName))
+    changeService: (serviceName, direction) => dispatch(checkService(serviceName, direction))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OptionCheckBox)
+export default connect(null, mapDispatchToProps)(OptionCheckBox)

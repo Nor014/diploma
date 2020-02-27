@@ -20,7 +20,7 @@ export default function seatsDataReducer(state = initState, action) {
 
   if (action.type === 'SET_SEATS_DATA') {
     const { data, directionName } = action.payload;
-    
+
     const formatedData = data.map(el => {
       el.seats.forEach(seat => { // преобразовываем данные мест для работы со схемой вагона
         if (el.coach.class_type === 'second' || el.coach.class_type === 'third') {
@@ -185,8 +185,6 @@ export default function seatsDataReducer(state = initState, action) {
       return el
     })
 
-    console.log(newState)
-
     return { ...state, data: newState, error: null, loading: false }
   }
 
@@ -204,7 +202,6 @@ export default function seatsDataReducer(state = initState, action) {
       return el
     })
 
-    console.log(newData)
     return { ...state, data: newData }
   }
 
@@ -226,50 +223,64 @@ export default function seatsDataReducer(state = initState, action) {
       return stateDirection
     })
 
-    console.log(newData)
-
     return { ...state, data: newData }
   }
 
 
   if (action.type === 'CHOOSE_SEAT') {
-    const { seatIndex, ticketCategory } = action.payload;
+    const { seatIndex, ticketCategory, direction } = action.payload;
 
-    const newData = state.data.map(coachClass => {
-      if (coachClass.active) {
-        coachClass.data.map(wagon => {
-          if (wagon.coach.active) {
-            let seat = wagon.seats.find(el => el.index === Number(seatIndex));
-            seat.selected[ticketCategory] = !seat.selected[ticketCategory]; // выбор или снятие выбора места в зависимости от категории
+    console.log(direction)
 
-            if (ticketCategory === 'adult') { // disable/active выбранного места для другой категории
-              seat.available.children = !seat.available.children
-            } else if (ticketCategory === 'children') {
-              seat.available.adult = !seat.available.adult
-            }
+    const newData = state.data.map(pathDirection => {
+      if (pathDirection.name === direction) {
+        pathDirection.seatsData.map(coachClass => {
+          if (coachClass.active) {
+            coachClass.data.map(wagon => {
+              if (wagon.coach.active) {
+                let seat = wagon.seats.find(el => el.index === Number(seatIndex));
+                seat.selected[ticketCategory] = !seat.selected[ticketCategory]; // выбор или снятие выбора места в зависимости от категории
+
+                if (ticketCategory === 'adult') { // disable/active выбранного места для другой категории
+                  seat.available.children = !seat.available.children
+                } else if (ticketCategory === 'children') {
+                  seat.available.adult = !seat.available.adult
+                }
+              }
+              return wagon
+            })
           }
-          return wagon
+          return coachClass
         })
       }
-      return coachClass
+      return pathDirection
     })
+
+    console.log(newData)
 
     return { ...state, data: newData }
   }
 
   if (action.type === 'CHECK_SERVICE') {
-    const serviceToCheck = action.payload;
-    const newData = state.data.map(coachClass => {
-      if (coachClass.active) {
-        coachClass.data.map(wagon => {
-          if (wagon.coach.active) {
-            let service = wagon.servicesInfo.find(service => service.name === serviceToCheck);
-            service.checked = !service.checked;
+    // const serviceToCheck = action.payload;
+    const { serviceName, direction } = action.payload;
+
+    const newData = state.data.map(pathDirection => {
+      if (pathDirection.name === direction) {
+        pathDirection.seatsData.map(coachClass => {
+          if (coachClass.active) {
+            coachClass.data.map(wagon => {
+              if (wagon.coach.active) {
+                let service = wagon.servicesInfo.find(service => service.name === serviceName);
+                service.checked = !service.checked;
+              }
+              return wagon
+            })
           }
-          return wagon
+          return coachClass
         })
       }
-      return coachClass
+      return pathDirection
     })
 
     return { ...state, data: newData }

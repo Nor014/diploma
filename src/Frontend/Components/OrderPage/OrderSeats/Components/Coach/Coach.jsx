@@ -44,7 +44,8 @@ class Coach extends React.Component {
         {activeCoach /* информация о вагоне, выбор мест */
           ? <CoachDetails
             activeCoach={activeCoach}
-            activeCoachClass={activeCoachClass.name} />
+            activeCoachClass={activeCoachClass.name}
+            direction={this.props.direction} />
           : null}
       </div>
     )
