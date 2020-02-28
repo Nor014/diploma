@@ -30,7 +30,7 @@ class OrderSeats extends React.Component {
         let directionName = direction.name;
 
         this.props.getSeatsData(url, directionName, 'OrderSeats');
-        this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из sessionStorage, в данном случае это не нужно
+        // this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из sessionStorage, в данном случае это не нужно
 
         // set path details
         const pathData = direction.data,
@@ -41,7 +41,7 @@ class OrderSeats extends React.Component {
             duration: pathData.durationToRender
           }
 
-        this.props.setPathDetails(pathDetailsObj);
+        this.props.setPathDetails(pathDetailsObj, direction.name);
       }
     })
   }
@@ -107,7 +107,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getSeatsData: (url, directionName, fromComponent) => dispatch(getSeatsData(url, directionName, fromComponent)),
-    setPathDetails: (ditails) => dispatch(setPathDetails(ditails)),
+    setPathDetails: (ditails, direction) => dispatch(setPathDetails(ditails, direction)),
     clearOrderDetailsData: () => dispatch(clearOrderDetailsData()),
     clearSeatsData: () => dispatch(clearSeatsData())
   }

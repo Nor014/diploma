@@ -175,10 +175,13 @@ export function setSeatsData(data, directionName) {
   }
 }
 
-export function setPathDetails(details) {
+export function setPathDetails(details, direction) {
   return {
     type: 'SET_PATH_DETAILS',
-    payload: details
+    payload: {
+      details: details,
+      direction: direction
+    }
   }
 }
 
