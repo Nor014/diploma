@@ -46,6 +46,11 @@ class OrderSeats extends React.Component {
     })
   }
 
+  backReducersToDefaultState = () => { // возврат дефолтного состояния редьюсеров
+    this.props.clearOrderDetailsData();
+    this.props.clearSeatsData();
+  }
+
   render() {
     const { data, loading, error } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
@@ -68,12 +73,13 @@ class OrderSeats extends React.Component {
         {data.map((direction, index) => {
           return direction.directionSeatsData !== null ?
             <div className="order-seats__inner" key={index}>
-              <div className="order-seats__link-wrap">
-                <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.props.clearOrderDetailsData}>Выбрать другой поезд</Link>
+              <div className={`order-seats__link-wrap order-seats__link_type_${direction.name === 'departure' ? 'to' : 'from'}`}>
+                <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.backReducersToDefaultState}>Выбрать другой поезд</Link>
               </div>
 
               <PathDetails className='order-seats__path-details'
-                pathData={this.props.location.state.find(el => el.name === direction.name).data} />
+                pathData={this.props.location.state.find(el => el.name === direction.name).data}
+                direction={direction.name} />
 
               <Passengers />
               <Coach direction={direction.name} />
@@ -102,7 +108,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getSeatsData: (url, directionName, fromComponent) => dispatch(getSeatsData(url, directionName, fromComponent)),
     setPathDetails: (ditails) => dispatch(setPathDetails(ditails)),
-    clearOrderDetailsData: () => dispatch(clearOrderDetailsData())
+    clearOrderDetailsData: () => dispatch(clearOrderDetailsData()),
+    clearSeatsData: () => dispatch(clearSeatsData())
   }
 }
 

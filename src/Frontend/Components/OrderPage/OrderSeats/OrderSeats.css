@@ -23,6 +23,25 @@
   margin-bottom: 30px;
 }
 
+.order-seats__link-wrap::before {
+  content: '';
+  width: 76px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.order-seats__link_type_to::before {
+  background: url('./order-seats__arrow_to.svg') no-repeat center;
+}
+
+.order-seats__link_type_from {
+  justify-content: flex-end;
+}
+
+.order-seats__link_type_from::before {
+  background: url('./order-seats__arrow_from.svg') no-repeat center;
+}
+
 .order-seats__cahnge-train-link {
   border: 1px solid #292929;
   box-sizing: border-box;
@@ -36,14 +55,6 @@
 
 .order-seats__cahnge-train-link:hover, .order-seats__cahnge-train-link:focus {
   opacity: 0.8;
-}
-
-.order-seats__link-wrap::before {
-  content: '';
-  width: 76px;
-  height: 60px;
-  margin-right: 10px;
-  background: url('./order-seats__arrow.svg') no-repeat center;
 }
 
 .order-seats__path-details {

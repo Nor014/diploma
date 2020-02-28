@@ -58,12 +58,11 @@ export default function seatsDataReducer(state = initState, action) {
       let info = []; // данные для рендера информации по местам
 
       if (el.coach.class_type === 'second' || el.coach.class_type === 'third') {
-        info.push(
-          {
-            name: 'Верхнее',
-            amount: el.seats.filter(el => el.type === 'верхнее').length,
-            cost: el.coach.top_price
-          },
+        info.push({
+          name: 'Верхнее',
+          amount: el.seats.filter(el => el.type === 'верхнее').length,
+          cost: el.coach.top_price
+        },
           {
             name: 'Нижнее',
             amount: el.seats.filter(el => el.type === 'нижнее').length,
@@ -136,8 +135,6 @@ export default function seatsDataReducer(state = initState, action) {
       return el
     })
 
-    console.log(formatedData)
-
     function filterDataByClass(coachClass) { // функция разбивки данных по классам вагонов
       return formatedData
         .filter(el => el.coach.class_type === coachClass)
@@ -178,7 +175,7 @@ export default function seatsDataReducer(state = initState, action) {
       },
     ]
 
-    const newState = [].concat(state.data).map(el => {
+    const newState = state.data.map(el => {
       if (el.name === directionName) {
         el.directionSeatsData = classes
       }

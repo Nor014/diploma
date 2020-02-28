@@ -11,7 +11,7 @@ export default class PathDetails extends React.Component {
   }
 
   render() {
-    const { pathData, className } = this.props;
+    const { pathData, className, direction } = this.props;
     const componentClass = className
       ? `path-details ${className}`
       : "path-details";
@@ -32,7 +32,7 @@ export default class PathDetails extends React.Component {
             <p className="path-details__station">{pathData.from.railway_station_name}</p>
           </div>
 
-          <p className="arrow-pointer arrow-pointer_type_departure" />
+          <p className={`arrow-pointer arrow-pointer_type_${direction === 'departure' ? 'departure' : 'arrival'}`} />
 
           <div className="path-details__direction">
             <p className="path-details__time">{pathData.to.datetimeToRender}</p>
