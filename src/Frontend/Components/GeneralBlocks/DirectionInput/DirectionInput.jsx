@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getLocations, clearDirectionList, setCityParams, setDirectionInputValue, clearDirectionInput, clearCityParams, cancelFetchData } from '../../../Redux/actions/actions';
 
 class DirectionInput extends React.Component {
-  // отслеживаем клик
+  // отслеживаем клик 
   inputOnFocus = () => {
     document.addEventListener('mousedown', this.closeList)
   }
@@ -28,11 +28,22 @@ class DirectionInput extends React.Component {
     document.removeEventListener('mousedown', this.closeList)
   }
 
+  inputValueToValidView = (value) => {
+    let result = [];
+
+    value.split('').forEach((letter, index) => {
+      result.push(index === 0 ? letter.toUpperCase() : letter.toLowerCase())
+    })
+
+    return result.join('')
+  }
+
   onInputChange = (event) => {
     let { value } = event.target;
     let { name } = this.props;
 
-    this.props.setInputValue(value, name);
+    const validValue = this.inputValueToValidView(value); //Первая буква большая, остальные маленькие - для совпадения с подсказкой при вводе
+    this.props.setInputValue(validValue, name);
 
     // удаляем id предыдущего выбранного города, если такой установлен
     if (this.props.findTicketsState[this.props.paramsName] !== null) {
@@ -80,6 +91,7 @@ class DirectionInput extends React.Component {
     const inputValue = directionState[name].value;
     const loading = directionState[name].loading;
     const showHint = inputValue !== '' && findTicketsState[this.props.paramsName] === null && !loading;
+    const firstLocationInList = directionList[0] !== undefined ? directionList[0].name : null;
 
     const inputClassName = inputClass ? `input ${inputClass}` : 'input';
     const parentClassName = parentClass
@@ -103,6 +115,7 @@ class DirectionInput extends React.Component {
           required
           onBlur={this.onInputBlur}
         />
+        <span className='direction-input__hint-span'>{firstLocationInList}</span>
 
         <ul className='direction-input__list'>
           {directionList.length > 0

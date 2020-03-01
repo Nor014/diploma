@@ -14,7 +14,7 @@ class FindTickets extends React.Component {
   //   this.state = {
   //     redirect: false
   //   }
-  // }
+  // } 
 
   onFindTicketsSubmit = (event) => {
     event.preventDefault();

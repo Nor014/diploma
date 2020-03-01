@@ -11,6 +11,7 @@
   top: 50%;
   right: 17px;
   transform: translateY(-50%);
+  z-index: 5;
 }
 
 .direction-input__list {
@@ -50,4 +51,19 @@
 
 .direction-input__list-btn:hover, .direction-input__list-btn:focus {
   background: #FFA800;
+}
+
+.direction-input__hint-span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: none;
+  padding: 15px;
+  border-radius: 3px;
+  font-size: 16px;
+  line-height: 20px;
+  background: #fff;
+  color: #C4C4C4;
 }
