@@ -8,8 +8,39 @@ class RegistrationAside extends React.Component {
     const { pathDetails, ticketCategories } = this.props.orderDetailsData;
     const adultCategory = ticketCategories.find(el => el.categoryName === 'adult');
     const childrenCategory = ticketCategories.find(el => el.categoryName === 'children');
-    const adultCategoryCost = adultCategory.ticketsData.reduce((acc, ticket) => acc + ticket.totalCost, 0);
-    const childrenCategoryCost = childrenCategory.ticketsData.reduce((acc, ticket) => acc + ticket.totalCost, 0);
+    // стоимость по категориям и направлениям
+    let adultCategoryDepartureCost = 0;
+    let childrenCategoryDepartureCost = 0;
+    let adultCategoryArrivalCost = 0;
+    let childrenCategoryArrivalCost = 0;
+
+    adultCategory.ticketsData.forEach(direction => {
+      if (direction.name === 'departure') {
+        adultCategoryDepartureCost = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0)
+      }
+    });
+
+    childrenCategory.ticketsData.forEach(direction => {
+      if (direction.name === 'departure') {
+        childrenCategoryDepartureCost = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0)
+      }
+    });
+
+    adultCategory.ticketsData.forEach(direction => {
+      if (direction.name === 'arrival') {
+        adultCategoryArrivalCost = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0)
+      }
+    });
+
+    childrenCategory.ticketsData.forEach(direction => {
+      if (direction.name === 'arrival') {
+        childrenCategoryArrivalCost = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0)
+      }
+    });
+
+    console.log(adultCategoryDepartureCost)
+
+    // const childrenCategoryCost = childrenCategory.ticketsData.data.reduce((acc, ticket) => acc + ticket.totalCost, 0);
     console.log(this.props)
 
     return (
@@ -73,22 +104,40 @@ class RegistrationAside extends React.Component {
             title: 'Пассажиры',
             titleClass: 'drop-down_title-type_passengers'
           }}>
+
           <>
-            <div className="registration-aside__inner ">
-              <p className="registration-aside__label">{adultCategory.currentAmountOfTickets} Взрослых</p>
-              <p className="registration-aside__cost">{adultCategoryCost} <span className='registration-aside__ruble'>₽</span></p>
+            <div className="registration-aside__passengers">
+              <h2 className="registration-aside__passengers-title">Туда</h2>
+              <div className="registration-aside__inner">
+                <p className="registration-aside__label">{adultCategory.currentDepartureAmountOfTickets} Взрослых</p>
+                <p className="registration-aside__cost">{adultCategoryDepartureCost} <span className='registration-aside__ruble'>₽</span></p>
+              </div>
+
+              <div className="registration-aside__inner ">
+                <p className="registration-aside__label">{childrenCategory.currentDepartureAmountOfTickets} Детских</p>
+                <p className="registration-aside__cost">{childrenCategoryDepartureCost} <span className='registration-aside__ruble'>₽</span></p>
+              </div>
             </div>
 
-            <div className="registration-aside__inner ">
-              <p className="registration-aside__label">{childrenCategory.currentAmountOfTickets} Детских</p>
-              <p className="registration-aside__cost">{childrenCategoryCost} <span className='registration-aside__ruble'>₽</span></p>
+            <div className="registration-aside__passengers">
+              <h2 className="registration-aside__passengers-title">Обратно</h2>
+              <div className="registration-aside__inner">
+                <p className="registration-aside__label">{adultCategory.currentArrivalAmountOfTickets} Взрослых</p>
+                <p className="registration-aside__cost">{adultCategoryArrivalCost} <span className='registration-aside__ruble'>₽</span></p>
+              </div>
+
+              <div className="registration-aside__inner ">
+                <p className="registration-aside__label">{childrenCategory.currentArrivalAmountOfTickets} Детских</p>
+                <p className="registration-aside__cost">{childrenCategoryArrivalCost} <span className='registration-aside__ruble'>₽</span></p>
+              </div>
             </div>
+
           </>
         </DropDown>
 
         <div className="registration-aside__total-cost">
           <p className="registration-aside__total-cost-label">Итог</p>
-          <p className="registration-aside__total-cost-value">{adultCategoryCost + childrenCategoryCost}
+          <p className="registration-aside__total-cost-value">{adultCategoryDepartureCost + childrenCategoryDepartureCost + adultCategoryArrivalCost + childrenCategoryArrivalCost}
             <span className='registration-aside__ruble'>₽</span></p>
         </div>
       </div >

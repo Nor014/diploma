@@ -32,7 +32,7 @@ class OrderSeats extends React.Component {
         let directionName = direction.name;
 
         this.props.getSeatsData(url, directionName, 'OrderSeats');
-       
+
         // set path details
         const pathData = direction.data,
           pathDetailsObj = {
@@ -57,8 +57,8 @@ class OrderSeats extends React.Component {
     const { ticketCategories } = this.props.orderDetailsData;
     console.log(this.props)
 
-    // общее число выбранных пассажиров для дизейбла/активации кнопки перехода к оформлению пассажиров 
-    const passengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentAmountOfTickets, 0)
+    // общее число выбранных пассажиров для дизейбла/активации кнопки перехода к оформлению пассажиров (только по отправлению, заказ билета для arrival без departure не имеет смысла) 
+    const passengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentDepartureAmountOfTickets, 0)
     const toRegistrationLinkClass = passengersAmount > 0
       ? "link order-seats__to-registration-link btn btn_theme_yellow btn_size_small"
       : "link order-seats__to-registration-link btn btn_theme_yellow btn_size_small link_disabled"
@@ -82,7 +82,7 @@ class OrderSeats extends React.Component {
                 pathData={this.props.location.state.find(el => el.name === direction.name).data}
                 direction={direction.name} />
 
-              <Passengers />
+              <Passengers direction={direction.name} />
               <Coach direction={direction.name} />
             </div>
             : null

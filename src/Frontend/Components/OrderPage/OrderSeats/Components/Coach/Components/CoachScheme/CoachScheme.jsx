@@ -80,10 +80,14 @@ class CoachScheme extends React.Component {
     const seat = event.currentTarget,
       index = seat.dataset.number,
       selectedSeat = seat.dataset.selected,
-      ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active);
+      ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active),
+      direction = this.props.direction,
+      currentAmountOfTickets = direction === 'departure'
+        ? ticketCategory.currentDepartureAmountOfTickets
+        : ticketCategory.currentArrivalAmountOfTickets
 
-    if (selectedSeat === 'false' && ticketCategory.currentAmountOfTickets < ticketCategory.maxAmountOfTickets) {
-      this.props.chooseSeat(index, ticketCategory.categoryName, this.props.direction); // выбираем место 
+    if (selectedSeat === 'false' && currentAmountOfTickets < ticketCategory.maxAmountOfTickets) {
+      this.props.chooseSeat(index, ticketCategory.categoryName, direction); // выбираем место 
 
       // формируем информацию о билете
       const ticketPrice = Math.floor(seat.dataset.price * ticketCategory.categoryDiscountСoefficient);
@@ -92,6 +96,7 @@ class CoachScheme extends React.Component {
 
       const ticketDetails = {
         ticketCategory: ticketCategory.categoryName,
+        ticketDirection: direction,
         coachClass: this.props.coachClassName,
         wagonName: this.props.wagonName,
         seatNumber: seat.dataset.number,
@@ -104,8 +109,8 @@ class CoachScheme extends React.Component {
       this.props.setTicketDetails(ticketDetails); // dispatch всех данных о билете
 
     } else if (selectedSeat === 'true') {
-      this.props.chooseSeat(index, ticketCategory.categoryName, this.props.direction); // убираем выбор с места
-      this.props.removeTicketDetails(index, ticketCategory.categoryName); // убираем ранее выбранное место из reducer
+      this.props.chooseSeat(index, ticketCategory.categoryName, direction); // убираем выбор с места
+      this.props.removeTicketDetails(index, ticketCategory.categoryName, direction); // убираем ранее выбранное место из reducer
     }
   }
 
@@ -128,10 +133,15 @@ class CoachScheme extends React.Component {
   }
 
   render() {
-    const { coachClass, orderDetailsData } = this.props;
+    const { coachClass, orderDetailsData, direction } = this.props;
     let totalCost = 0;
+    
     orderDetailsData.ticketCategories.forEach(category => {
-      category.ticketsData.forEach(ticket => totalCost += ticket.totalCost);
+      category.ticketsData.forEach(ticketDirection => {
+        if (ticketDirection.name === direction) {
+          ticketDirection.data.forEach(ticket => totalCost += ticket.totalCost)
+        }
+      })
     })
 
     console.log(orderDetailsData)
@@ -173,7 +183,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     chooseSeat: (seatIndex, ticketCategory, direction) => dispatch(chooseSeat(seatIndex, ticketCategory, direction)),
     setTicketDetails: (ticketDetails) => dispatch(setTicketDetails(ticketDetails)),
-    removeTicketDetails: (seatIndex, ticketCategory) => dispatch(removeTicketDetails(seatIndex, ticketCategory))
+    removeTicketDetails: (seatIndex, ticketCategory, direction) => dispatch(removeTicketDetails(seatIndex, ticketCategory, direction))
   }
 }
 

@@ -239,12 +239,13 @@ export function setTicketDetails(ticketDetails) {
   }
 }
 
-export function removeTicketDetails(seatIndex, ticketCategory) {
+export function removeTicketDetails(seatIndex, ticketCategory, direction) {
   return {
     type: 'REMOVE_TICKET_DETAILS',
     payload: {
       seatIndex: seatIndex,
-      ticketCategory: ticketCategory
+      ticketCategory: ticketCategory,
+      direction: direction
     }
   }
 }

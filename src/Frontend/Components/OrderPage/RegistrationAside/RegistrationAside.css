@@ -116,6 +116,17 @@
 
 /* passengers */
 
+.registration-aside__passengers:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.registration-aside__passengers-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: #FFF;
+  margin-bottom: 20px;
+}
+
 .registration-aside__cost {
   font-weight: 500;
   font-size: 20px;

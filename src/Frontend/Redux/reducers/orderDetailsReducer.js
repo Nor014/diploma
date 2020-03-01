@@ -1,23 +1,52 @@
 const initState = {
-  pathDetails: [{ name: 'departure', details: null }, { name: 'arrival', details: null }],
+  pathDetails: [
+    {
+      name: 'departure',
+      details: null
+    },
+    {
+      name: 'arrival',
+      details: null
+    }
+  ],
   ticketCategories: [
     {
       categoryName: 'adult',
       categoryHint: 'взрослый',
       categoryDiscountСoefficient: 1,
       maxAmountOfTickets: 5,
-      currentAmountOfTickets: 0,
+      currentDepartureAmountOfTickets: 0,
+      currentArrivalAmountOfTickets: 0,
       active: true,
-      ticketsData: []
+      ticketsData: [
+        {
+          name: 'departure',
+          data: []
+        },
+        {
+          name: 'arrival',
+          data: []
+        }
+      ]
     },
     {
       categoryName: 'children',
       categoryHint: 'детский',
       categoryDiscountСoefficient: 0.4,
       maxAmountOfTickets: 4,
-      currentAmountOfTickets: 0,
+      currentDepartureAmountOfTickets: 0,
+      currentArrivalAmountOfTickets: 0,
       active: false,
-      ticketsData: []
+      ticketsData: [
+        {
+          name: 'departure',
+          data: []
+        },
+        {
+          name: 'arrival',
+          data: []
+        }
+      ]
     },
   ]
 }
@@ -37,21 +66,12 @@ export default function orderDetailsReducer(state = initState, action) {
   if (action.type === 'SET_PATH_DETAILS') {
     const { details, direction } = action.payload;
 
-    // let newState = { ...state, pathDetails };
-    // newState = pathDetails;
-    
-    console.log(state.pathDetails)
-
     let newState = state.pathDetails.map(el => {
-      console.log(el)
       if (el.name === direction) {
         el.details = details
       }
-
       return el
     })
-    
-    // console.log(newState)
 
     return { ...state, pathDetails: newState }
   }
@@ -61,9 +81,19 @@ export default function orderDetailsReducer(state = initState, action) {
 
     const newState = [...state.ticketCategories].map(category => {
       if (category.categoryName === ticketDetails.ticketCategory) {
-        category.ticketsData.push(ticketDetails);
-        category.currentAmountOfTickets = category.ticketsData.length;
+        category.ticketsData.map(direction => {
+          if (direction.name === ticketDetails.ticketDirection) {
+            direction.data.push(ticketDetails);
+
+            ticketDetails.ticketDirection === 'departure'
+              ? category.currentDepartureAmountOfTickets = direction.data.length
+              : category.currentArrivalAmountOfTickets = direction.data.length;
+          }
+
+          return direction
+        })
       }
+
       return category
     });
 
@@ -71,13 +101,24 @@ export default function orderDetailsReducer(state = initState, action) {
   }
 
   if (action.type === 'REMOVE_TICKET_DETAILS') {
-    const { seatIndex, ticketCategory } = action.payload;
+    const { seatIndex, ticketCategory, direction } = action.payload;
 
     const newState = [...state.ticketCategories].map(category => {
       if (category.categoryName === ticketCategory) {
-        category.ticketsData = category.ticketsData.filter(ticketData => ticketData.seatNumber !== seatIndex);
-        category.currentAmountOfTickets = category.ticketsData.length;
+        category.ticketsData.map(ticketDirection => {
+
+          if (ticketDirection.name === direction) {
+            ticketDirection.data = ticketDirection.data.filter(ticketData => ticketData.seatNumber !== seatIndex);
+
+            direction === 'departure'
+              ? category.currentDepartureAmountOfTickets = ticketDirection.data.length
+              : category.currentArrivalAmountOfTickets = ticketDirection.data.length;
+          }
+
+          return ticketDirection
+        })
       }
+      
       return category;
     })
 
@@ -87,25 +128,54 @@ export default function orderDetailsReducer(state = initState, action) {
   if (action.type === 'CLEAR_ORDER_DETAILS_DATA') {
     // по хорошему нужно было юзать например CloneDeep от Lodash и возвращать initState, так как spred оператор копирует только поверхностно
     return {
-      pathDetails: [{ name: 'departure', details: null }, { name: 'arrival', details: null }],
+      pathDetails: [
+        {
+          name: 'departure',
+          details: null
+        },
+        {
+          name: 'arrival',
+          details: null
+        }
+      ],
       ticketCategories: [
         {
           categoryName: 'adult',
           categoryHint: 'взрослый',
           categoryDiscountСoefficient: 1,
           maxAmountOfTickets: 5,
-          currentAmountOfTickets: 0,
+          currentDepartureAmountOfTickets: 0,
+          currentArrivalAmountOfTickets: 0,
           active: true,
-          ticketsData: []
+          ticketsData: [
+            {
+              name: 'departure',
+              data: []
+            },
+            {
+              name: 'arrival',
+              data: []
+            }
+          ]
         },
         {
           categoryName: 'children',
           categoryHint: 'детский',
           categoryDiscountСoefficient: 0.4,
           maxAmountOfTickets: 4,
-          currentAmountOfTickets: 0,
+          currentDepartureAmountOfTickets: 0,
+          currentArrivalAmountOfTickets: 0,
           active: false,
-          ticketsData: []
+          ticketsData: [
+            {
+              name: 'departure',
+              data: []
+            },
+            {
+              name: 'arrival',
+              data: []
+            }
+          ]
         },
       ]
     }
