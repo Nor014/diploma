@@ -16,54 +16,57 @@ class RegistrationAside extends React.Component {
       <div className="registration-aside">
         <h2 className="registration-aside__title">Детали поездки</h2>
 
-        <DropDown className='registration-aside__drop-down'
-          headContent={{
-            title: 'Туда',
-            date: pathDetails.from !== undefined ? pathDetails.from.fullDateToRender : '',
-            titleClass: 'drop-down_title-type_there'
-          }}>
+        {pathDetails.map((direction, index) => {
+          return direction.details !== null &&
+            <DropDown key={index} className='registration-aside__drop-down'
+              headContent={{
+                title: direction.name === 'departure' ? 'Туда' : 'Обратно',
+                date: direction.details.from.fullDateToRender,
+                titleClass: direction.name === 'departure' ? 'drop-down_title-type_there' : 'drop-down_title-type_back'
+              }}>
 
-          {pathDetails.from !== undefined &&
-            <>
-              <div className="registration-aside__info registration-aside_type_train">
-                <div className="registration-aside__inner">
-                  <p className="registration-aside__label">№ Поезда</p>
-                  <p className="registration-aside__train registration-aside_text-align_right">{pathDetails.train.name}</p>
+              <>
+                <div className="registration-aside__info registration-aside_type_train">
+                  <div className="registration-aside__inner">
+                    <p className="registration-aside__label">№ Поезда</p>
+                    <p className="registration-aside__train registration-aside_text-align_right">{direction.details.train.name}</p>
+                  </div>
+                  <div className="registration-aside__inner">
+                    <p className="registration-aside__label">Название</p>
+                    <p className="registration-aside__path registration-aside_text-align_right">{direction.details.from.city.name} <br />{direction.details.to.city.name}</p>
+                  </div>
                 </div>
-                <div className="registration-aside__inner">
-                  <p className="registration-aside__label">Название</p>
-                  <p className="registration-aside__path registration-aside_text-align_right">{pathDetails.from.city.name} <br />{pathDetails.to.city.name}</p>
-                </div>
-              </div>
 
-              <div className="registration-aside__info registration-aside_type_date">
-                <div className="registration-aside__inner ">
-                  <div className="registration-aside__date">
-                    <p className="registration-aside__datetime">{pathDetails.from.datetimeToRender}</p>
-                    <p className="registration-aside__full-date">{pathDetails.from.fullDateToRender}</p>
-                  </div>
-                  <p className="registration-aside__duration arrow-pointer arrow-pointer_type_departure"> {pathDetails.duration} </p>
-                  <div className="registration-aside__date registration-aside_text-align_right">
-                    <p className="registration-aside__datetime">{pathDetails.to.datetimeToRender}</p>
-                    <p className="registration-aside__full-date">{pathDetails.to.fullDateToRender}</p>
+                <div className="registration-aside__info registration-aside_type_date">
+                  <div className="registration-aside__inner ">
+                    <div className="registration-aside__date">
+                      <p className="registration-aside__datetime">{direction.details.from.datetimeToRender}</p>
+                      <p className="registration-aside__full-date">{direction.details.from.fullDateToRender}</p>
+                    </div>
+                    <p className={`registration-aside__duration arrow-pointer arrow-pointer_type_${direction.name === 'departure' ? 'departure' : 'arrival'}`}>
+                      {direction.details.duration} </p>
+                    <div className="registration-aside__date registration-aside_text-align_right">
+                      <p className="registration-aside__datetime">{direction.details.to.datetimeToRender}</p>
+                      <p className="registration-aside__full-date">{direction.details.to.fullDateToRender}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="registration-aside__info registration-aside_type_location">
-                <div className="registration-aside__inner ">
-                  <div className="registration-aside__location">
-                    <p className="registration-aside__city">{pathDetails.from.city.name}</p>
-                    <p className="registration-aside__station">{pathDetails.from.railway_station_name}</p>
-                  </div>
-                  <div className="registration-aside__location registration-aside_text-align_right">
-                    <p className="registration-aside__city">{pathDetails.to.city.name}</p>
-                    <p className="registration-aside__station">{pathDetails.to.railway_station_name}</p>
+                <div className="registration-aside__info registration-aside_type_location">
+                  <div className="registration-aside__inner ">
+                    <div className="registration-aside__location">
+                      <p className="registration-aside__city">{direction.details.from.city.name}</p>
+                      <p className="registration-aside__station">{direction.details.from.railway_station_name}</p>
+                    </div>
+                    <div className="registration-aside__location registration-aside_text-align_right">
+                      <p className="registration-aside__city">{direction.details.to.city.name}</p>
+                      <p className="registration-aside__station">{direction.details.to.railway_station_name}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </>}
-        </DropDown>
+              </>
+            </DropDown>
+        })}
 
         <DropDown className='registration-aside__drop-down'
           headContent={{

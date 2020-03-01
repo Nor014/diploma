@@ -21,6 +21,8 @@ class OrderSeats extends React.Component {
       block: 'start',
     });
 
+    this.backReducersToDefaultState(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из sessionStorage, в данном случае это не нужно
+
     // get seatsData
     const directions = this.props.location.state;
 
@@ -30,8 +32,7 @@ class OrderSeats extends React.Component {
         let directionName = direction.name;
 
         this.props.getSeatsData(url, directionName, 'OrderSeats');
-        // this.props.clearOrderDetailsData(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из sessionStorage, в данном случае это не нужно
-
+       
         // set path details
         const pathData = direction.data,
           pathDetailsObj = {
