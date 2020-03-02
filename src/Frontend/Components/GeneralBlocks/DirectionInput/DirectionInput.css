@@ -4,9 +4,9 @@
 
 .direction-input::before {
   content: '';
-  width: 21px;
-  height: 30px;
-  background: url('./input_type_direction.svg') no-repeat center;
+  width: 18px;
+  height: 26px;
+  background: url('./input_type_direction.svg') no-repeat center/cover;
   position: absolute;
   top: 50%;
   right: 17px;

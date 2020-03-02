@@ -1,12 +1,12 @@
 const initState = {
-  data: [],
+  lastTickets: [],
   loading: false,
   error: null
 }
 
 export default function lastTicketsReducer(state = initState, action) {
   if (action.type === 'SET_LAST_TICKETS') {
-    return { ...state, data: action.payload, loading: false, error: null }
+    return { ...state, lastTickets: action.payload, loading: false, error: null }
   }
 
   return state

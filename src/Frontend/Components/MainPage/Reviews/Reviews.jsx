@@ -38,7 +38,7 @@ export default class Reviews extends React.Component {
   render() {
     return (
       <div className="reviews container" id='reviews'>
-        <h2 className="reviews__title text text_level_second text_weight_500 text_transform_uppercase">отзывы</h2>
+        <h2 className="reviews__title text text_level_second text_weight_500 text_transform_uppercase">Отзывы</h2>
         <Slider slideContent={this.state.reviews} parentClassName='reviews__slider' />
       </div>
     )

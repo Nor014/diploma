@@ -14,9 +14,9 @@
 
 .react-datepicker__input-container::before {
   content: '';
-  width: 30px;
-  height: 34px;
-  background: url('./input_type_data.svg') no-repeat center;
+  width: 24px;
+  height: 28px;
+  background: url('./input_type_data.svg') no-repeat center/cover;
   position: absolute;
   top: 50%;
   right: 17px;

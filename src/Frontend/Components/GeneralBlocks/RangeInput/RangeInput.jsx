@@ -5,18 +5,13 @@ import { changeRangeParams } from '../../../Redux/actions/actions';
 
 import 'react-input-range/lib/css/index.css';
 
-
-
 class RangeInput extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       value: { min: this.props.startMin, max: this.props.startMax },
     };
   }
-
-
 
   onRangeChange = (value) => {
     this.setState({ value })
@@ -32,7 +27,6 @@ class RangeInput extends React.Component {
   render() {
     const { label, min, max, hint, className, step, format } = this.props;
     const rangeInputClass = className ? `range-input ${className}` : 'range-input'
-
 
     return (
       <div className={rangeInputClass}>
@@ -56,18 +50,10 @@ class RangeInput extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { findTicketsState } = state;
-
-  return {
-
-  }
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
     changeRangeParams: (params) => dispatch(changeRangeParams(params))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RangeInput)
+export default connect(null, mapDispatchToProps)(RangeInput)

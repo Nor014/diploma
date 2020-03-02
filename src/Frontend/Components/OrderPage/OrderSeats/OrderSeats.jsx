@@ -57,7 +57,8 @@ class OrderSeats extends React.Component {
     const { ticketCategories } = this.props.orderDetailsData;
     console.log(this.props)
 
-    // общее число выбранных пассажиров для дизейбла/активации кнопки перехода к оформлению пассажиров (только по отправлению, заказ билета для arrival без departure не имеет смысла) 
+    // общее число выбранных пассажиров для дизейбла/активации кнопки перехода к оформлению пассажиров 
+    // (только по отправлению, заказ билета для arrival без departure не имеет смысла) 
     const passengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentDepartureAmountOfTickets, 0)
     const toRegistrationLinkClass = passengersAmount > 0
       ? "link order-seats__to-registration-link btn btn_theme_yellow btn_size_small"

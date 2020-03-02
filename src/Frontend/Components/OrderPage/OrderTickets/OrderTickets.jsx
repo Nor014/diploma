@@ -7,7 +7,7 @@ import Tickets from './Components/Tickets/Tickets';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
 class OrderTickets extends React.Component {
-  constructor() {
+  constructor() { 
     super()
     this.state = {
       ticketsToShow: [

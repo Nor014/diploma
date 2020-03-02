@@ -76,7 +76,8 @@ class FindTickets extends React.Component {
                   name='fromLocation'
                   paramsName='from_city_id' />
 
-                <button className='btn find-tickets__change-direction-btn' type='button'
+                <button className='btn find-tickets__change-direction-btn'
+                  type='button'
                   onClick={() => this.props.changeDirectionValues()} />
 
                 <DirectionInput

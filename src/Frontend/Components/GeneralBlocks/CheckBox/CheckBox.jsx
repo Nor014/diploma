@@ -13,13 +13,16 @@ class CheckBox extends React.Component {
     return (
       <div className="checkbox">
         <label className={labelClass}>{label}
-          <input type="checkbox" className='check' checked={selected}
+          <input type="checkbox"
+            className='check'
+            checked={selected}
             onChange={() => this.props.changeFiltersParams(this.props.paramsName)} />
+            
           <span className='checkbox__toggle' />
         </label>
       </div>
     )
-  } 
+  }
 }
 
 const mapStateToProps = (state) => {

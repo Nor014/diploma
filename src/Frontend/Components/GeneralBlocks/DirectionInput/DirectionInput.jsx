@@ -83,7 +83,7 @@ class DirectionInput extends React.Component {
   }
 
   onInputBlur = () => {
-    if (!this.props.directionState[this.props.name].list.length > 0) {
+    if (this.props.directionState[this.props.name].list.length === 0) {
       this.closeList(false);
     }
   }
@@ -122,19 +122,15 @@ class DirectionInput extends React.Component {
 
         <ul className='direction-input__list'>
           {directionList.length > 0
-            ? directionList.map((el, index) =>
-              <li className="direction-input__list-item" key={el._id}>
-                {index === directionList.length - 1
-
-                  ? <button className='btn direction-input__list-btn' type='button'
-                    onClick={(event) => this.selectFromList(event.target.value, el._id)}
-                    name={name} value={el.name} onBlur={this.onListBlur}>{el.name}</button>
-
-                  : <button className='btn direction-input__list-btn' type='button'
-                    onClick={(event) => this.selectFromList(event.target.value, el._id)}
-                    name={name} value={el.name}>{el.name}</button>}
+            ? directionList.map((direction, index) =>
+              <li className="direction-input__list-item" key={direction._id}>
+                <button className='btn direction-input__list-btn'
+                  type='button'
+                  onClick={(event) => this.selectFromList(event.target.value, direction._id)}
+                  name={name}
+                  value={direction.name}
+                  onBlur={index === directionList.length - 1 ? this.onListBlur : null}>{direction.name}</button>
               </li>)
-
             : showHint && <p className='direction-input__hint'>Направления не найдены</p>}
         </ul>
       </div>
