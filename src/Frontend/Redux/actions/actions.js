@@ -54,16 +54,16 @@ export function setCityParams(id, paramsName) {
   }
 }
 
-export function clearDirectionInput(name) {
+export function clearCityParams(name) {
   return {
-    type: 'CLEAR_DIRECTION_INPUT',
+    type: 'CLEAR_CITY_PARAMS',
     payload: name
   }
 }
 
-export function clearCityParams(name) {
+export function clearDirectionInput(name) {
   return {
-    type: 'CLEAR_CITY_PARAMS',
+    type: 'CLEAR_DIRECTION_INPUT',
     payload: name
   }
 }

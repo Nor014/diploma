@@ -10,20 +10,22 @@ function* getDataSaga(action) {
   try {
     if (action.type === 'FIND_TICKETS') yield put(showLoading());
 
-    const { data, cancel } = yield race({
-      data: call(fetchData, url),
-      cancel: take('CANCEL_FETCH_DATA')
-    })
+    if (fromComponent === 'directionInput') { // необходимо для отмены последнего запроса при пустом инпуте выбора города
+      const { data, cancel } = yield race({
+        data: call(fetchData, url),
+        cancel: take('CANCEL_FETCH_DATA')
+      })
 
-    // console.log(data)
+      if (cancel) {
+        console.log('canceled', fromComponent)
+      }
 
-    if (cancel) {
-      console.log('canceled', fromComponent)
+      yield put(setDirectionList(data, action.payload.name))
     }
 
-    if (fromComponent === 'directionInput') {
-      yield put(setDirectionList(data, action.payload.name))
-    } else if (fromComponent === 'FindTickets') {
+    const data = yield call(fetchData, url);
+
+    if (fromComponent === 'FindTickets') {
       yield put(setTicketsData(data))
     } else if (fromComponent === 'LastTickets') {
       yield put(setLastTickets(data))

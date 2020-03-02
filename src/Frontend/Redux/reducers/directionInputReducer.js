@@ -1,4 +1,4 @@
-const initState = { 
+const initState = {  
   fromLocation: {
     value: '',
     list: [],
@@ -30,12 +30,6 @@ export default function directionInputReducer(state = initState, action) {
 
   if (action.type === 'SET_LOCATIONS') {
     const { directionList, name } = action.payload;
-
-    if (!Array.isArray(directionList)) {
-      const newState = { ...state[name], list: [], loading: false }
-      return { ...state, [name]: newState };
-    }
-
     const sortedList = directionList
       .filter(el => el.name.substring(0, state[name].value.length) === state[name].value.toLowerCase())
       .map(el => {
