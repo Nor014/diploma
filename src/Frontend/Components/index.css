@@ -10,5 +10,6 @@
 @import './GeneralBlocks/CheckBox/CheckBox.css';
 @import './GeneralBlocks/RangeInput/RangeInput.css';
 @import './GeneralBlocks/DropDown/DropDown.css';
+@import './GeneralBlocks/HoverDropDown/HoverDropDown.css';
 @import './GeneralBlocks/Preloader/Preloader.css';
 @import './GeneralBlocks/OptionCheckBox/OptionCheckBox.css';

@@ -58,6 +58,78 @@ export default function ticketDataReducer(state = initState, action) {
         ticket.arrival.to.fullDateToRender = moment(ticket.arrival.to.datetime * 1000).format('DD.MM.YYYY');
         ticket.arrival.durationToRender = secondsToDuration(ticket.departure.duration)
       }
+
+      let classes = []; // преобразуем данные для рендера в цикле
+
+      if (ticket.departure.have_first_class) {
+        classes.push({
+          className: 'Люкс',
+          seatsAmount: ticket.departure.available_seats_info.first,
+          seatsPrice: ticket.departure.price_info.first.price,
+          seatsDetails: [
+            {
+              seatsType: 'Люкс',
+              seatsPrice: ticket.departure.price_info.first.price
+            }
+          ]
+        })
+      }
+
+      if (ticket.departure.have_second_class) {
+        classes.push({
+          className: 'Купе',
+          seatsAmount: ticket.departure.available_seats_info.second,
+          seatsPrice: ticket.departure.price_info.second.top_price,
+          seatsDetails: [
+            {
+              seatsType: 'Верхние',
+              seatsPrice: ticket.departure.price_info.second.top_price
+            },
+            {
+              seatsType: 'Нижние',
+              seatsPrice: ticket.departure.price_info.second.bottom_price
+            }
+          ]
+        })
+      }
+
+      if (ticket.departure.have_third_class) {
+        classes.push({
+          className: 'Плацкарт',
+          seatsAmount: ticket.departure.available_seats_info.third,
+          seatsPrice: ticket.departure.price_info.third.top_price,
+          seatsDetails: [
+            {
+              seatsType: 'Верхние',
+              seatsPrice: ticket.departure.price_info.third.top_price
+            },
+            {
+              seatsType: 'Нижние',
+              seatsPrice: ticket.departure.price_info.third.bottom_price
+            },
+            {
+              seatsType: 'Боковые',
+              seatsPrice: ticket.departure.price_info.third.side_price
+            }
+          ]
+        })
+      }
+
+      if (ticket.departure.have_fourth_class) {
+        classes.push({
+          className: 'Сидячие',
+          seatsAmount: ticket.departure.available_seats_info.fourth,
+          seatsPrice: ticket.departure.price_info.fourth.bottom_price,
+          seatsDetails: [
+            {
+              seatsType: 'Сидячее',
+              seatsPrice: ticket.departure.price_info.fourth.bottom_price
+            },
+          ]
+        })
+      }
+
+      ticket.departure.classes = classes
     })
 
     return { ...state, data: sortedData, loading: false };
