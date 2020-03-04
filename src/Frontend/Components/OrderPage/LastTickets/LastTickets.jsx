@@ -2,9 +2,7 @@ import React from "react";
 import { getLastTickets } from '../../../Redux/actions/actions';
 import { connect } from 'react-redux';
 
-import { ReactComponent as WifiIcon } from '../OrderTickets/Components/Tickets/order-tickets_icon-wifi.svg';
-import { ReactComponent as Express } from '../OrderTickets/Components/Tickets/order-tickets_icon-express.svg';
-import { ReactComponent as Eating } from '../OrderTickets/Components/Tickets/order-tickets__icon-eating.svg';
+import SvgIcon from '../../GeneralBlocks/SvgIcon/SvgIcon';
 
 class LastTickets extends React.Component {
   componentDidMount = () => {
@@ -35,15 +33,17 @@ class LastTickets extends React.Component {
 
                   <div className="last-tickets__other-details">
                     <div className="last-tickets__services">
-                      {ticket.departure.have_wifi && <WifiIcon className='last-tickets__icon' />}
-                      {ticket.departure.is_express && <Express className='last-tickets__icon' />}
-                      <Eating className='last-tickets__icon' />
+                      {ticket.departure.have_wifi &&
+                        <SvgIcon icon='ticket-wifi' className='last-tickets__icon' />}
+                      {ticket.departure.is_express &&
+                        <SvgIcon icon='ticket-express' className='last-tickets__icon' />}
+
+                      <SvgIcon icon='ticket-food' className='last-tickets__icon' />
                     </div>
 
                     <p className="last-tickets__cost">от <span className='last-tickets__cost-span'>{ticket.departure.min_price}</span> <span className='last-tickets__ruble'>₽</span></p>
                   </div>
-                </div>
-              )}
+                </div>)}
             </div>
           </div >}
       </>

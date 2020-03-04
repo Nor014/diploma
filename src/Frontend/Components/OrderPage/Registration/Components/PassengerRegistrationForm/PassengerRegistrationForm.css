@@ -1,0 +1,78 @@
+.registration-form {
+  background: #FFFFFF;
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* head */
+
+.registration-form__head {
+  display: flex;
+  align-items: center;
+  padding: 43px 40px 32px 23px;
+  background: #F9F9F9;
+  border-bottom: 1px dashed #928F94;
+}
+
+.registration-form__toggle-btn {
+  margin-right: 16px;
+}
+
+.registration-form__btn {
+  line-height: 0;
+  transition: 0.2s opacity;
+}
+
+.registration-form__btn:hover, .registration-form__btn:focus {
+  opacity: 0.7;
+}
+
+.registration-form__toggle-icon .vertical-line {
+  opacity: 0;
+}
+
+.registration-form__toggle-icon_active .vertical-line {
+  opacity: 1;
+}
+
+.registration-form__toggle-icon_active .circle, .registration-form__toggle-icon_active .line {
+  stroke: #FFA800;
+}
+
+.registration-form__title {
+  font-size: 25px;
+  line-height: 30px;
+  color: #292929;
+  font-weight: 500;
+}
+
+.registration-form__close-btn {
+  margin-left: auto;
+}
+
+/* body */
+
+.registration-form__body {
+  padding: 38px 35px 30px 35px;
+}
+
+/* personal-data */
+
+.registration-form__ticket-type {
+  max-width: 230px;
+  border: 1px solid #928F94;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-bottom: 45px;
+}
+
+.registration-form__ticket-type:hover {
+  border: 1px solid transparent;
+}
+
+.registration-form__ticket-type .hover-drop-down__list {
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+}

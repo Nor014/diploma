@@ -99,6 +99,15 @@ export function findTickets(url, fromComponent) {
   }
 }
 
+// OrderSteps
+
+export function changeOrderStep(stepIndex) {
+  return {
+    type: 'CHANGE_ORDER_STEP',
+    payload: stepIndex
+  }
+}
+
 // CheckBox
 
 export function changeFiltersParams(paramsName) {
@@ -280,3 +289,4 @@ export function changePassengersCategory(category) {
     payload: category
   }
 }
+

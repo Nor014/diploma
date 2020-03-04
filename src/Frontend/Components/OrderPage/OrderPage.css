@@ -8,6 +8,7 @@
 @import './OrderSeats/Components/Passengers/Passengers.css';
 @import './OrderSeats/Components/Coach/Coach.css';
 @import './RegistrationAside/RegistrationAside.css';
+@import './Registration/Registration.css';
 /*  */
 
 .order-page__head {

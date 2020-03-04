@@ -120,7 +120,7 @@ export default function seatsDataReducer(state = initState, action) {
           checked: false
         },
         {
-          name: 'eating',
+          name: 'food',
           hint: 'питание',
           available: true,
           price: 0,
@@ -188,7 +188,7 @@ export default function seatsDataReducer(state = initState, action) {
   if (action.type === 'CHANGE_COACH_CLASS') {
     const { coachClass, direction } = action.payload;
 
-    const newData = [].concat(state.data).map(el => {
+    const newData = state.data.map(el => {
       if (el.name === direction) {
         el.directionSeatsData.map(seatsClass => {
           seatsClass.active = seatsClass.class === coachClass ? !seatsClass.active : false;
@@ -227,8 +227,6 @@ export default function seatsDataReducer(state = initState, action) {
   if (action.type === 'CHOOSE_SEAT') {
     const { seatIndex, ticketCategory, direction } = action.payload;
 
-    console.log(direction)
-
     const newData = state.data.map(pathDirection => {
       if (pathDirection.name === direction) {
         pathDirection.directionSeatsData.map(coachClass => {
@@ -252,8 +250,6 @@ export default function seatsDataReducer(state = initState, action) {
       }
       return pathDirection
     })
-
-    console.log(newData)
 
     return { ...state, data: newData }
   }

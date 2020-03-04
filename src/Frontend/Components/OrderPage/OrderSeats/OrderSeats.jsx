@@ -7,7 +7,7 @@ import Passengers from './Components/Passengers/Passengers';
 import Coach from './Components/Coach/Coach';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
-import { getSeatsData, setPathDetails, clearOrderDetailsData, clearSeatsData } from '../../../Redux/actions/actions';
+import { getSeatsData, setPathDetails, clearOrderDetailsData, clearSeatsData, changeOrderStep } from '../../../Redux/actions/actions';
 
 class OrderSeats extends React.Component {
   constructor(props) {
@@ -28,8 +28,8 @@ class OrderSeats extends React.Component {
 
     directions.forEach(direction => { // запрос данных для departure и arrival
       if (direction.data !== null) {
-        let url = `https://netology-trainbooking.herokuapp.com/routes/${direction.data._id}/seats?`;
-        let directionName = direction.name;
+        const url = `https://netology-trainbooking.herokuapp.com/routes/${direction.data._id}/seats?`;
+        const directionName = direction.name;
 
         this.props.getSeatsData(url, directionName, 'OrderSeats');
 
@@ -73,7 +73,7 @@ class OrderSeats extends React.Component {
         <h2 className="order-seats__title">Выбор мест</h2>
 
         {data.map((direction, index) => {
-          return direction.directionSeatsData !== null ?
+          return direction.directionSeatsData !== null &&
             <div className="order-seats__inner" key={index}>
               <div className={`order-seats__link-wrap order-seats__link_type_${direction.name === 'departure' ? 'to' : 'from'}`}>
                 <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.backReducersToDefaultState}>Выбрать другой поезд</Link>
@@ -86,11 +86,11 @@ class OrderSeats extends React.Component {
               <Passengers direction={direction.name} />
               <Coach direction={direction.name} />
             </div>
-            : null
         })}
 
         <div className="order-seats__to-registration-link-wrap">
-          <Link to='/order/registration' className={toRegistrationLinkClass}>Далее</Link>
+          <Link to='/order/registration' className={toRegistrationLinkClass}
+            onClick={() => this.props.changeOrderStep(2)}>Далее</Link>
         </div>
       </div>
     )
@@ -111,7 +111,8 @@ const mapDispatchToProps = (dispatch) => {
     getSeatsData: (url, directionName, fromComponent) => dispatch(getSeatsData(url, directionName, fromComponent)),
     setPathDetails: (ditails, direction) => dispatch(setPathDetails(ditails, direction)),
     clearOrderDetailsData: () => dispatch(clearOrderDetailsData()),
-    clearSeatsData: () => dispatch(clearSeatsData())
+    clearSeatsData: () => dispatch(clearSeatsData()),
+    changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex))
   }
 }
 
