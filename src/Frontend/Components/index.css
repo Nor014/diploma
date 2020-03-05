@@ -13,3 +13,6 @@
 @import './GeneralBlocks/HoverDropDown/HoverDropDown.css';
 @import './GeneralBlocks/Preloader/Preloader.css';
 @import './GeneralBlocks/OptionCheckBox/OptionCheckBox.css';
+@import './GeneralBlocks/RegistrationInput/RegistrationInput.css';
+@import './GeneralBlocks/RadioToggle/RadioToggle.css';
+@import './GeneralBlocks/RegistrationCheckBox/RegistrationCheckBox.css';

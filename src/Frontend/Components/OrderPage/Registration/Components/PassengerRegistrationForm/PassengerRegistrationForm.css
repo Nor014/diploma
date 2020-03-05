@@ -53,11 +53,12 @@
 
 /* body */
 
-.registration-form__body {
+/* personal-data */
+
+.registration-form__personal-data {
+  border-bottom: 1px dashed #928F94;
   padding: 38px 35px 30px 35px;
 }
-
-/* personal-data */
 
 .registration-form__ticket-type {
   max-width: 230px;
@@ -71,8 +72,30 @@
   border: 1px solid transparent;
 }
 
+.registration-form__ticket-type .hover-drop-down {
+  margin: -1px;
+}
+
 .registration-form__ticket-type .hover-drop-down__list {
   width: 100%;
   border-radius: 5px;
   overflow: hidden;
 }
+
+/* row */
+
+.registration-form__row {
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.registration-form__row:last-child {
+  margin-bottom: 0;
+}
+
+/* radio-toggle */
+
+.registration-form__radio-toggle {
+  margin-right: 35px;
+}
+

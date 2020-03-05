@@ -1,0 +1,22 @@
+.registration-input {
+  flex: 0 0 230px;
+}
+
+.registration-input:not(:last-child) {
+  margin-right: 25px;
+}
+
+.registration-input__label {
+  font-size: 16px;
+  line-height: 19px;
+  color: #928F94;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.registration-input__input {
+  width: 100%;
+  border: 1px solid #928F94;
+  border-radius: 5px;
+  padding: 7px 20px 7px 10px;
+}
