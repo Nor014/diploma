@@ -16,10 +16,11 @@ export default class PassengerRegistrationForm extends React.Component {
         { value: 'adult', innerText: 'Взрослый', active: true },
         { value: 'children', innerText: 'Детский', active: false },
       ],
-      fullName: {
-        surname: '',
+      personData: {
+        lastName: '',
         firstName: '',
-        patronymic: ''
+        patronymic: '',
+        dateOfBirth: ''
       },
       gender: {
         man: false,
@@ -42,13 +43,13 @@ export default class PassengerRegistrationForm extends React.Component {
     })
   }
 
-  onFullNameChange = (event) => {
+  onPersonDataChange = (event) => {
     const { id, value } = event.target;
-    const newState = { ...this.state.fullName };
+    const newState = { ...this.state.personData };
 
     newState[id] = value;
 
-    this.setState(prevState => ({ ...prevState, fullName: newState }));
+    this.setState(prevState => ({ ...prevState, personData: newState }));
   }
 
   changeGender = (event) => {
@@ -77,44 +78,56 @@ export default class PassengerRegistrationForm extends React.Component {
         </div>
 
         <div className="registration-form__body">
-          <form action="" className="registration-form__personal-data">
-            <div className="registration-form__ticket-type">
-              <HoverDropDown
-                currentValue={this.state.passengerCategory.find(category => category.active).innerText}
-                listItems={this.state.passengerCategory}
-                selectItem={this.changePassengerCategory} />
+          <form action="" className="registration-form__form">
+            <div className="registration-form__block">
+              <div className="registration-form__ticket-type">
+                <HoverDropDown
+                  currentValue={this.state.passengerCategory.find(category => category.active).innerText}
+                  listItems={this.state.passengerCategory}
+                  selectItem={this.changePassengerCategory} />
+              </div>
+
+              <div className="registration-form__row">
+                <RegistrationInput label='Фамилия'
+                  paramsName='lastName'
+                  value={this.state.personData.lastName}
+                  onChange={this.onPersonDataChange} />
+
+                <RegistrationInput label='Имя'
+                  paramsName='firstName'
+                  value={this.state.personData.firstName}
+                  onChange={this.onPersonDataChange} />
+
+                <RegistrationInput label='Отчество'
+                  paramsName='patronymic'
+                  value={this.state.personData.patronymic}
+                  onChange={this.onPersonDataChange} />
+              </div>
+
+              <div className="registration-form__row">
+                <RadioToggle label='Пол' parentClass='registration-form__radio-toggle'
+                  paramsName='gender'
+                  radioName='gender'
+                  firstItem={{ radioId: 'man', valueToDisable: 'woman', labelValue: 'М', checked: this.state.gender.man }}
+                  secondItem={{ radioId: 'woman', valueToDisable: 'man', labelValue: 'Ж', checked: this.state.gender.woman }}
+                  changeGender={this.changeGender} />
+
+                <RegistrationInput
+                  label='Дата рождения'
+                  paramsName='dateOfBirth'
+                  placeholder='ДД/ММ/ГГ'
+                  mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+                  value={this.state.personData.dateOfBirth}
+                  onChange={this.onPersonDataChange} />
+              </div>
+
+              <div className="registration-form__row">
+                <RegistrationCheckBox label='ограниченная подвижность' paramsName='' />
+              </div>
             </div>
 
-            <div className="registration-form__row">
-              <RegistrationInput label='Фамилия'
-                paramsName='surname'
-                value={this.state.fullName.surname}
-                onChange={this.onFullNameChange} />
-
-              <RegistrationInput label='Имя'
-                paramsName='firstName'
-                value={this.state.fullName.firstName}
-                onChange={this.onFullNameChange} />
-
-              <RegistrationInput label='Отчество'
-                paramsName='patronymic'
-                value={this.state.fullName.patronymic}
-                onChange={this.onFullNameChange} />
-            </div>
-
-            <div className="registration-form__row">
-              <RadioToggle label='Пол' parentClass='registration-form__radio-toggle'
-                paramsName='gender'
-                radioName='gender'
-                firstItem={{ radioId: 'man', valueToDisable: 'woman', labelValue: 'М', checked: this.state.gender.man }}
-                secondItem={{ radioId: 'woman', valueToDisable: 'man', labelValue: 'Ж', checked: this.state.gender.woman }}
-                changeGender={this.changeGender} />
-
-              <RegistrationInput label='Дата рождения' paramsName='dateOfBirth' placeholder='ДД/ММ/ГГ' />
-            </div>
-
-            <div className="registration-form__row">
-              <RegistrationCheckBox label='ограниченная подвижность' paramsName='' />
+            <div className="registration-form__block">
+              
             </div>
           </form>
         </div>
