@@ -5,14 +5,20 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
+.registration-form__block {
+  padding: 38px 35px 30px 35px;
+}
+
+.registration-form__block:not(:last-child) {
+  border-bottom: 1px dashed #928F94;
+}
+
 /* head */
 
 .registration-form__head {
   display: flex;
   align-items: center;
-  padding: 43px 40px 32px 23px;
   background: #F9F9F9;
-  border-bottom: 1px dashed #928F94;
 }
 
 .registration-form__toggle-btn {
@@ -32,11 +38,15 @@
   opacity: 0;
 }
 
-.registration-form__toggle-icon_active .vertical-line {
+.registration-form__toggle-btn_hidden .registration-form__toggle-icon .vertical-line {
   opacity: 1;
 }
 
-.registration-form__toggle-icon_active .circle, .registration-form__toggle-icon_active .line {
+.registration-form__toggle-btn_hidden .registration-form__toggle-icon .line {
+  stroke: #FFA800;
+}
+
+.registration-form__toggle-btn_hidden .registration-form__toggle-icon .circle {
   stroke: #FFA800;
 }
 
@@ -55,28 +65,38 @@
 
 /* personal-data */
 
-.registration-form__block {
-  border-bottom: 1px dashed #928F94;
-  padding: 38px 35px 30px 35px;
-}
-
-.registration-form__ticket-type {
+.registration-form__drop-down {
   max-width: 230px;
   border: 1px solid #928F94;
   box-sizing: border-box;
   border-radius: 5px;
+  position: relative;
+}
+
+.registration-form__drop-down::before {
+  content: '';
+  width: 12px;
+  height: 5px;
+  background: url('./registration-form_icon_drop-down.svg') no-repeat center;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+}
+
+.registration-form__ticket-type {
   margin-bottom: 45px;
 }
 
-.registration-form__ticket-type:hover {
+.registration-form__drop-down:hover {
   border: 1px solid transparent;
 }
 
-.registration-form__ticket-type .hover-drop-down {
+.registration-form__drop-down .hover-drop-down {
   margin: -1px;
 }
 
-.registration-form__ticket-type .hover-drop-down__list {
+.registration-form__drop-down .hover-drop-down__list {
   width: 100%;
   border-radius: 5px;
   overflow: hidden;
@@ -99,3 +119,69 @@
   margin-right: 35px;
 }
 
+/* documents */
+
+.registration-form__block_type_documents {
+  display: flex;
+  align-items: flex-start;
+}
+
+.registration-form__drop-down-wrap {
+  flex: 0 0 270px;
+  margin-right: 35px;
+}
+
+.registration-form__drop-down-wrap .registration-form__drop-down {
+  max-width: 100%;
+}
+
+.registration-form__drop-down-label {
+  font-size: 16px;
+  line-height: 19px;
+  color: #928F94;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.registration-input.registration-form__document-input {
+  flex: 0 0 150px;
+}
+
+/* submit */
+
+.registration-form__block_type_submit {
+  display: flex;
+  align-items: center;
+}
+
+.registration-form__validation-text {
+  max-width: 480px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #292929;
+  display: flex;
+  align-items: center;
+}
+
+.registration-form__validation-text::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  margin-right: 16px;
+}
+
+.registration-form__validation-text_not-valid::before {
+  background: url('./registration-form_icon_non-valid.svg') no-repeat center;
+}
+
+.registration-form__validation-text_valid::before {
+  background: url('./registration-form_icon_valid.svg') no-repeat center;
+}
+
+.registration-form__submit-btn {
+  margin-left: auto;
+  border: 1px solid #292929;
+  border-radius: 5px;
+  padding: 10px 20px;
+}

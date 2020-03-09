@@ -17,7 +17,8 @@ export default class RadioToggle extends React.Component {
               data-value-to-disable={firstItem.valueToDisable}
               name={radioName}
               checked={firstItem.checked}
-              onChange={changeGender} />
+              onChange={changeGender}
+            />
 
             <label htmlFor={firstItem.radioId} className='radio-toogle__form-label'>{firstItem.labelValue}</label>
           </div>
@@ -29,8 +30,9 @@ export default class RadioToggle extends React.Component {
               data-value-to-disable={secondItem.valueToDisable}
               name={radioName}
               checked={secondItem.checked}
-              onChange={changeGender} />
-              
+              onChange={changeGender}
+            />
+
             <label htmlFor={secondItem.radioId} className='radio-toogle__form-label'>{secondItem.labelValue}</label>
           </div>
         </div>

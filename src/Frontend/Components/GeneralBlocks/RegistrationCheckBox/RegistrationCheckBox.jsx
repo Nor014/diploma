@@ -6,7 +6,7 @@ export default class RegistrationCheckBox extends React.Component {
     
     return (
       <div className="registration-check-box">
-        <input className='registration-check-box__input' type="checkbox" id='checkBox' />
+        <input className='registration-check-box__input' type="checkbox" id='checkBox'/>
         <label htmlFor='checkBox' className='registration-check-box__label'>{label}</label>
       </div>
     )

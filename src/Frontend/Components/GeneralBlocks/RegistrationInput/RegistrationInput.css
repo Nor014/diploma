@@ -2,6 +2,14 @@
   flex: 0 0 230px;
 }
 
+.registration-input_size_middle {
+  flex: 0 0 210px;
+}
+
+.registration-input_size_small {
+  flex: 0 0 140px;
+}
+
 .registration-input:not(:last-child) {
   margin-right: 25px;
 }
