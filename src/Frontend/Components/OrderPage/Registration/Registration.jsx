@@ -7,16 +7,46 @@ class Registration extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+      departure: {
+        adult: {
+          ticketsAmount: this.props.orderDetailsData.ticketCategories
+            .find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets,
+          ticketRegistered: 0
+        },
+        children: {
+          ticketsAmount: this.props.orderDetailsData.ticketCategories
+            .find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
+          ticketRegistered: 0
+        }
+      },
+      arrival: {
+        adult: {
+          ticketsAmount: this.props.orderDetailsData.ticketCategories
+            .find(category => category.categoryName === 'adult').currentArrivalAmountOfTickets,
+          ticketRegistered: 0
+        },
+        children: {
+          ticketsAmount: this.props.orderDetailsData.ticketCategories
+            .find(category => category.categoryName === 'children').currentArrivalAmountOfTickets,
+          ticketRegistered: 0
+        }
+      },
+      totalTicketsAmount: this.props.orderDetailsData.ticketCategories
+        .find(category => category.categoryName === 'adult').totalAmountOfTickets + this.props.orderDetailsData.ticketCategories
+          .find(category => category.categoryName === 'children').totalAmountOfTickets,
+      ticketsWithOpenForm: 3
     }
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.state);
+    const amountOfRegistrationFormsToRender = Array(this.state.totalTicketsAmount).fill('');
 
     return (
       <div className="registration">
-        <PassengerRegistrationForm />
+        {amountOfRegistrationFormsToRender.map((el, index) => {
+          return <PassengerRegistrationForm key={index} formNumber={index + 1} isOpenForm={index <= 1 ? true : false} />
+        })}
       </div>
     )
   }

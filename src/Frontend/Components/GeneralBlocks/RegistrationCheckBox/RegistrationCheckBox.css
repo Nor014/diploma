@@ -24,5 +24,10 @@
 }
 
 .registration-check-box__input:checked~.registration-check-box__label::before {
-  background: #FFA800 url('./registration-check-box__icon.svg') no-repeat center/60%;
+  content: '\2714';
+  font-size: 15px;
+  background: #FFA800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

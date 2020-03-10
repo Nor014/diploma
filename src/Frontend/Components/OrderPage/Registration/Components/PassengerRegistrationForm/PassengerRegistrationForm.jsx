@@ -13,7 +13,7 @@ export default class PassengerRegistrationForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isFormActive: true,
+      isFormActive: this.props.isOpenForm,
       passengerCategory: [
         {
           value: 'adult',
@@ -208,7 +208,7 @@ export default class PassengerRegistrationForm extends React.Component {
             <ToggleIcon className='registration-form__toggle-icon' />
           </button>
 
-          <h2 className='registration-form__title'>Пассажир 1</h2>
+          <h2 className='registration-form__title'>Пассажир {this.props.formNumber}</h2>
 
           <button className="btn registration-form__btn registration-form__close-btn">
             <CloseIcon className='registration-form__toggle-icon' />

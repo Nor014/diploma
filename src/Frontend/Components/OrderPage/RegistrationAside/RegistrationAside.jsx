@@ -38,9 +38,6 @@ class RegistrationAside extends React.Component {
       }
     });
 
-    console.log(adultCategoryDepartureCost)
-
-    // const childrenCategoryCost = childrenCategory.ticketsData.data.reduce((acc, ticket) => acc + ticket.totalCost, 0);
     console.log(this.props)
 
     return (
