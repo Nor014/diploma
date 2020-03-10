@@ -86,7 +86,11 @@ class CoachScheme extends React.Component {
         ? ticketCategory.currentDepartureAmountOfTickets
         : ticketCategory.currentArrivalAmountOfTickets
 
-    if (selectedSeat === 'false' && currentAmountOfTickets < ticketCategory.maxAmountOfTickets) {
+    const maxAmountOfTickets = direction === 'departure' // если направление arrival, максимальное количество билетов - текущее значение билетов для departure 
+      ? ticketCategory.maxAmountOfTickets
+      : ticketCategory.currentDepartureAmountOfTickets
+
+    if (selectedSeat === 'false' && currentAmountOfTickets < maxAmountOfTickets) {
       this.props.chooseSeat(index, ticketCategory.categoryName, direction); // выбираем место 
 
       // формируем информацию о билете
@@ -135,7 +139,7 @@ class CoachScheme extends React.Component {
   render() {
     const { coachClass, orderDetailsData, direction } = this.props;
     let totalCost = 0;
-    
+
     orderDetailsData.ticketCategories.forEach(category => {
       category.ticketsData.forEach(ticketDirection => {
         if (ticketDirection.name === direction) {

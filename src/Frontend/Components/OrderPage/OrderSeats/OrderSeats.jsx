@@ -25,7 +25,7 @@ class OrderSeats extends React.Component {
 
     // get seatsData
     const directions = this.props.location.state;
-
+    
     directions.forEach(direction => { // запрос данных для departure и arrival
       if (direction.data !== null) {
         const url = `https://netology-trainbooking.herokuapp.com/routes/${direction.data._id}/seats?`;
@@ -55,14 +55,19 @@ class OrderSeats extends React.Component {
   render() {
     const { data, loading, error } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
+
     console.log(this.props)
 
-    // общее число выбранных пассажиров для дизейбла/активации кнопки перехода к оформлению пассажиров 
-    // (только по отправлению, заказ билета для arrival без departure не имеет смысла) 
-    const passengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentDepartureAmountOfTickets, 0)
-    const toRegistrationLinkClass = passengersAmount > 0
-      ? "link order-seats__to-registration-link btn btn_theme_yellow btn_size_small"
-      : "link order-seats__to-registration-link btn btn_theme_yellow btn_size_small link_disabled"
+    const arraivalData = data.find(direction => direction.name === 'arrival').directionSeatsData;
+    const departurePassengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentDepartureAmountOfTickets, 0);
+    const arrivalPassengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentArrivalAmountOfTickets, 0);
+    const toRegistrationLinkClass = arraivalData === null // кнопка активна если нет arrival и есть хотябы один выбранный билет
+      ? departurePassengersAmount > 0
+        ? "link_active"
+        : "link_disabled"
+      : departurePassengersAmount !== 0 && departurePassengersAmount === arrivalPassengersAmount // кнопка активна если количество билетов arrival и departure совпадают 
+        ? "link_active"
+        : "link_disabled";
 
     if (loading) {
       return <Preloader />
@@ -71,6 +76,9 @@ class OrderSeats extends React.Component {
     return (
       <div className="order-seats" ref={this.seatsRef}>
         <h2 className="order-seats__title">Выбор мест</h2>
+
+        {arraivalData !== null &&
+          <p className='order-seats__attention-info'>Количество билетов для отправления и прибытия должно быть одинаково, т.е. предполагается, что человек покупает билет для одних и тех же людей в обе стороны!</p>}
 
         {data.map((direction, index) => {
           return direction.directionSeatsData !== null &&
@@ -89,10 +97,10 @@ class OrderSeats extends React.Component {
         })}
 
         <div className="order-seats__to-registration-link-wrap">
-          <Link to='/order/registration' className={toRegistrationLinkClass}
+          <Link to='/order/registration' className={`link order-seats__to-registration-link btn btn_theme_yellow btn_size_small ${toRegistrationLinkClass}`}
             onClick={() => this.props.changeOrderStep(2)}>Далее</Link>
         </div>
-      </div>
+      </div >
     )
   }
 }

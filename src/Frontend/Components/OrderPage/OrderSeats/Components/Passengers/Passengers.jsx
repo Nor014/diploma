@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { changePassengersCategory } from '../../../../../Redux/actions/actions';
 
 class Passengers extends React.Component {
-
   onInputFocus = (event) => {
     const category = event.target.dataset.category;
     this.props.changePassengersCategory(category)
@@ -22,7 +21,7 @@ class Passengers extends React.Component {
       <div className="passengers">
         <h2 className="passengers__title">Количество билетов</h2>
 
-        <form action="" className="passengers__form">
+        <div className="passengers__form">
           <div className={activeCategory.categoryName === 'adult'
             ? 'passengers__form-item form-item_active'
             : 'passengers__form-item'}>
@@ -36,7 +35,7 @@ class Passengers extends React.Component {
 
             <p className="passengers__form-hint">Можно добавить еще {direction === 'departure'
               ? adultCategory.maxAmountOfTickets - adultCategory.currentDepartureAmountOfTickets
-              : adultCategory.maxAmountOfTickets - adultCategory.currentArrivalAmountOfTickets
+              : adultCategory.currentDepartureAmountOfTickets - adultCategory.currentArrivalAmountOfTickets
             } пассажиров</p>
           </div>
 
@@ -53,7 +52,7 @@ class Passengers extends React.Component {
 
             <p className="passengers__form-hint">Можно добавить еще {direction === 'departure'
               ? childrenCategory.maxAmountOfTickets - childrenCategory.currentDepartureAmountOfTickets
-              : childrenCategory.maxAmountOfTickets - childrenCategory.currentArrivalAmountOfTickets
+              : childrenCategory.currentDepartureAmountOfTickets - childrenCategory.currentArrivalAmountOfTickets
             } детей до 10 лет.Свое место в вагоне, как  взрослых, но дешевле в среднем на 50-65%</p>
           </div>
 
@@ -64,7 +63,7 @@ class Passengers extends React.Component {
               value={`Детских "без места" - 0`}
               disabled />
           </div>
-        </form>
+        </div>
       </div>
     )
   }

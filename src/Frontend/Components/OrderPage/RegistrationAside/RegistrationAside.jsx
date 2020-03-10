@@ -38,6 +38,7 @@ class RegistrationAside extends React.Component {
       }
     });
 
+
     console.log(this.props)
 
     return (

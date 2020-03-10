@@ -17,7 +17,6 @@ const initState = {
       maxAmountOfTickets: 5,
       currentDepartureAmountOfTickets: 0,
       currentArrivalAmountOfTickets: 0,
-      totalAmountOfTickets: 0,
       active: true,
       ticketsData: [
         {
@@ -37,7 +36,6 @@ const initState = {
       maxAmountOfTickets: 4,
       currentDepartureAmountOfTickets: 0,
       currentArrivalAmountOfTickets: 0,
-      totalAmountOfTickets: 0,
       active: false,
       ticketsData: [
         {
@@ -90,8 +88,6 @@ export default function orderDetailsReducer(state = initState, action) {
             ticketDetails.ticketDirection === 'departure'
               ? category.currentDepartureAmountOfTickets = direction.data.length
               : category.currentArrivalAmountOfTickets = direction.data.length;
-
-            category.totalAmountOfTickets = category.currentDepartureAmountOfTickets + category.currentArrivalAmountOfTickets;
           }
 
           return direction
@@ -117,8 +113,6 @@ export default function orderDetailsReducer(state = initState, action) {
             direction === 'departure'
               ? category.currentDepartureAmountOfTickets = ticketDirection.data.length
               : category.currentArrivalAmountOfTickets = ticketDirection.data.length;
-
-            category.totalAmountOfTickets = category.currentDepartureAmountOfTickets + category.currentArrivalAmountOfTickets;
           }
 
           return ticketDirection
@@ -152,7 +146,6 @@ export default function orderDetailsReducer(state = initState, action) {
           maxAmountOfTickets: 5,
           currentDepartureAmountOfTickets: 0,
           currentArrivalAmountOfTickets: 0,
-          totalAmountOfTickets: 0,
           active: true,
           ticketsData: [
             {
@@ -172,7 +165,6 @@ export default function orderDetailsReducer(state = initState, action) {
           maxAmountOfTickets: 4,
           currentDepartureAmountOfTickets: 0,
           currentArrivalAmountOfTickets: 0,
-          totalAmountOfTickets: 0,
           active: false,
           ticketsData: [
             {
