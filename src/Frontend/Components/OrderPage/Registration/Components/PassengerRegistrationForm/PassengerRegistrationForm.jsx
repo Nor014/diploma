@@ -1,4 +1,5 @@
 import React from 'react';
+// import nanoid from 'nanoid';
 
 import HoverDropDown from '../../../../GeneralBlocks/HoverDropDown/HoverDropDown';
 import RegistrationInput from '../../../../GeneralBlocks/RegistrationInput/RegistrationInput';
@@ -88,8 +89,7 @@ export default class PassengerRegistrationForm extends React.Component {
       ],
       validation: {
         valid: null,
-        errorMessage: '',
-        validationPassMessage: 'Готово'
+        message: '',
       }
     }
   }
@@ -104,12 +104,10 @@ export default class PassengerRegistrationForm extends React.Component {
     const selectedCategory = event.target.value;
     const stateCategory = event.target.dataset.name === 'ticket-type-drop-down' ? 'passengerCategory' : 'documents';
 
-    const newState = this.state[stateCategory]
-      .map(category => {
-        category.active = category.value === selectedCategory ? true : false;
-        return category
-      })
-      .sort((a, b) => b.active - a.active);
+    const newState = this.state[stateCategory].map(category => {
+      category.active = category.value === selectedCategory ? true : false;
+      return category
+    }).sort((a, b) => b.active - a.active);
 
     this.setState(prevState => {
       return { ...prevState, [stateCategory]: newState };
@@ -123,7 +121,6 @@ export default class PassengerRegistrationForm extends React.Component {
       if (el.name === id) {
         el.value = value
       }
-
       return el
     });
 
@@ -146,22 +143,29 @@ export default class PassengerRegistrationForm extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault();
 
-    const dateToValidate = this.state.personData;
     const documentToValidate = this.state.documents.find(document => document.active).value;
+    const dateToValidate = this.state.personData.filter(date => { // исключаем формы в зависимости от выбранного документа
+      if (documentToValidate === 'passport') {
+        return date.name !== 'birthCertificate';
+      }
+
+      if (documentToValidate === 'birth-certificate') {
+        if (date.name === 'passportSeries') {
+          return false
+        }
+
+        if (date.name === 'passportNumber') {
+          return false
+        }
+
+        return true
+      }
+    })
 
     let valid = true;
-    let errorMessage = '';
+    let errorMessage = null;
 
     for (let i = 0; i <= dateToValidate.length - 1; i++) { // валидация форм до первой ошибки
-      if (documentToValidate === 'passport' && dateToValidate[i].name === 'birthCertificate') {
-        continue
-      }
-
-      if (documentToValidate === 'birth-certificate' &&
-        (dateToValidate[i].name === 'passportSeries' || dateToValidate[i].name === 'passportNumber')) {
-        continue
-      }
-
       if (dateToValidate[i].name !== 'gender') {
         if (!dateToValidate[i].pattern.test(dateToValidate[i].value)) {
           valid = false;
@@ -180,7 +184,7 @@ export default class PassengerRegistrationForm extends React.Component {
     this.setState(prevState => {
       const newState = { ...prevState.validation };
       newState.valid = valid;
-      newState.errorMessage = errorMessage;
+      newState.message = errorMessage !== null ? errorMessage : 'Готово';
 
       return { ...prevState, validation: newState }
     })
@@ -190,6 +194,12 @@ export default class PassengerRegistrationForm extends React.Component {
     const toggleButtonClass = `btn registration-form__btn registration-form__toggle-btn ${!this.state.isFormActive ? 'registration-form__toggle-btn_hidden' : ''}`;
     const activeDocumentType = this.state.documents.find(document => document.active).value;
     const isValidForm = this.state.validation.valid;
+
+    const submitBlockClass = isValidForm !== null
+      ? !isValidForm
+        ? 'registration-form__submit_type_invalid'
+        : 'registration-form__submit_type_valid'
+      : '';
 
     return (
       <div className="registration-form">
@@ -208,7 +218,7 @@ export default class PassengerRegistrationForm extends React.Component {
         {this.state.isFormActive &&
           <div className="registration-form__body">
             <form action="" onSubmit={this.onFormSubmit} className="registration-form__form">
-              <div className="registration-form__block registration-form_border_dashed">
+              <div className="registration-form__block">
                 <div className="registration-form__ticket-type registration-form__drop-down">
                   <HoverDropDown
                     currentValue={this.state.passengerCategory.find(category => category.active).innerText}
@@ -221,20 +231,17 @@ export default class PassengerRegistrationForm extends React.Component {
                   <RegistrationInput label='Фамилия'
                     paramsName='lastName'
                     value={this.state.personData.find(el => el.name === 'lastName').value}
-                    onChange={this.onPersonDataChange}
-                  />
+                    onChange={this.onPersonDataChange} />
 
                   <RegistrationInput label='Имя'
                     paramsName='firstName'
                     value={this.state.personData.find(el => el.name === 'firstName').value}
-                    onChange={this.onPersonDataChange}
-                  />
+                    onChange={this.onPersonDataChange} />
 
                   <RegistrationInput label='Отчество'
                     paramsName='patronymic'
                     value={this.state.personData.find(el => el.name === 'patronymic').value}
-                    onChange={this.onPersonDataChange}
-                  />
+                    onChange={this.onPersonDataChange} />
                 </div>
 
                 <div className="registration-form__row">
@@ -305,8 +312,8 @@ export default class PassengerRegistrationForm extends React.Component {
                     size='middle' />}
               </div>
 
-              <div className="registration-form__block registration-form__block_type_submit ">
-                <p className="registration-form__validation-text"></p>
+              <div className={`registration-form__block registration-form__submit ${submitBlockClass}`} >
+                <p className="registration-form__validation-text">{this.state.validation.message !== null ? this.state.validation.message : ''}</p>
                 <button type='submit' className="btn registration-form__submit-btn">Следующий пассажир</button>
               </div>
             </form>

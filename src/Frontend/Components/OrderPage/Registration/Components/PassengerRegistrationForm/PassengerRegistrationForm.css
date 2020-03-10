@@ -149,9 +149,17 @@
 
 /* submit */
 
-.registration-form__block_type_submit {
+.registration-form__submit {
   display: flex;
   align-items: center;
+}
+
+.registration-form__submit_type_invalid {
+  background: rgba(255, 61, 0, 0.38);
+}
+
+.registration-form__submit_type_valid {
+  background: #B2F6A1;
 }
 
 .registration-form__validation-text {
@@ -171,11 +179,11 @@
   margin-right: 16px;
 }
 
-.registration-form__validation-text_not-valid::before {
+.registration-form__submit_type_invalid .registration-form__validation-text::before {
   background: url('./registration-form_icon_non-valid.svg') no-repeat center;
 }
 
-.registration-form__validation-text_valid::before {
+.registration-form__submit_type_valid .registration-form__validation-text::before {
   background: url('./registration-form_icon_valid.svg') no-repeat center;
 }
 
