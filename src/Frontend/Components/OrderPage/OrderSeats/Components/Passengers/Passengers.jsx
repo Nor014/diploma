@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
 import { changePassengersCategory } from '../../../../../Redux/actions/actions';
 
@@ -6,7 +7,7 @@ class Passengers extends React.Component {
   onInputFocus = (event) => {
     const category = event.target.dataset.category;
     this.props.changePassengersCategory(category)
-  }
+  } 
 
   render() {
     const { ticketCategories } = this.props.orderDetailsData;

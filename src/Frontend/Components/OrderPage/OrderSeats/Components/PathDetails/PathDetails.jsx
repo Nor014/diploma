@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export default class PathDetails extends React.Component {
   secondsToDuration = (seconds) => {
     const totalDuration = seconds / 60 / 60;
@@ -11,13 +10,10 @@ export default class PathDetails extends React.Component {
   }
 
   render() {
-    const { pathData, className, direction } = this.props;
-    const componentClass = className
-      ? `path-details ${className}`
-      : "path-details";
+    const { pathData, direction } = this.props;
 
     return (
-      <div className={componentClass}>
+      <div className="path-details">
         <div className="path-details__item path-details_type_train">
           <div className="path-details__inner">
             <p className="path-details__train-name">{pathData.train.name}</p>

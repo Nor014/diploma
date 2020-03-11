@@ -34,7 +34,7 @@ store.subscribe(() => { // при изменении состояния ново
   saveState({
     orderDetailsData: store.getState().orderDetailsData,
     ticketsData: store.getState().ticketsData,
-    seatsData: store.getState().seatsData,
+    // seatsData: store.getState().seatsData,
     orderStepsData: store.getState().orderStepsData
   })
 })

@@ -18,8 +18,8 @@ class Registration extends React.Component {
         ticketRegistered: 0
       },
       totalTicketsAmount: this.props.orderDetailsData.ticketCategories
-        .find(category => category.categoryName === 'adult').totalAmountOfTickets + this.props.orderDetailsData.ticketCategories
-          .find(category => category.categoryName === 'children').totalAmountOfTickets,
+        .find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets + this.props.orderDetailsData.ticketCategories
+          .find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
       ticketsWithOpenForm: 3
     }
   }

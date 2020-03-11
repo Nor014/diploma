@@ -25,7 +25,7 @@ class OrderSeats extends React.Component {
 
     // get seatsData
     const directions = this.props.location.state;
-    
+
     directions.forEach(direction => { // запрос данных для departure и arrival
       if (direction.data !== null) {
         const url = `https://netology-trainbooking.herokuapp.com/routes/${direction.data._id}/seats?`;
@@ -33,8 +33,7 @@ class OrderSeats extends React.Component {
 
         this.props.getSeatsData(url, directionName, 'OrderSeats');
 
-        // set path details
-        const pathData = direction.data,
+        const pathData = direction.data, // set path details
           pathDetailsObj = {
             train: pathData.train,
             from: pathData.from,
@@ -56,11 +55,11 @@ class OrderSeats extends React.Component {
     const { data, loading, error } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
 
-    console.log(this.props)
-
+    console.log(this.props);
     const arraivalData = data.find(direction => direction.name === 'arrival').directionSeatsData;
     const departurePassengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentDepartureAmountOfTickets, 0);
     const arrivalPassengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentArrivalAmountOfTickets, 0);
+
     const toRegistrationLinkClass = arraivalData === null // кнопка активна если нет arrival и есть хотябы один выбранный билет
       ? departurePassengersAmount > 0
         ? "link_active"
@@ -80,21 +79,17 @@ class OrderSeats extends React.Component {
         {arraivalData !== null &&
           <p className='order-seats__attention-info'>Количество билетов для отправления и прибытия должно быть одинаково, т.е. предполагается, что человек покупает билет для одних и тех же людей в обе стороны!</p>}
 
-        {data.map((direction, index) => {
-          return direction.directionSeatsData !== null &&
-            <div className="order-seats__inner" key={index}>
-              <div className={`order-seats__link-wrap order-seats__link_type_${direction.name === 'departure' ? 'to' : 'from'}`}>
-                <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.backReducersToDefaultState}>Выбрать другой поезд</Link>
-              </div>
-
-              <PathDetails className='order-seats__path-details'
-                pathData={this.props.location.state.find(el => el.name === direction.name).data}
-                direction={direction.name} />
-
-              <Passengers direction={direction.name} />
-              <Coach direction={direction.name} />
+        {data.map((direction, index) => direction.directionSeatsData !== null &&
+          <div className="order-seats__inner" key={index}>
+            <div className={`order-seats__link-wrap order-seats__link_type_${direction.name === 'departure' ? 'to' : 'from'}`}>
+              <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.backReducersToDefaultState}>Выбрать другой поезд</Link>
             </div>
-        })}
+
+            <PathDetails pathData={this.props.location.state.find(el => el.name === direction.name).data} direction={direction.name} />
+            <Passengers direction={direction.name} />
+            <Coach direction={direction.name} />
+          </div>
+        )}
 
         <div className="order-seats__to-registration-link-wrap">
           <Link to='/order/registration' className={`link order-seats__to-registration-link btn btn_theme_yellow btn_size_small ${toRegistrationLinkClass}`}

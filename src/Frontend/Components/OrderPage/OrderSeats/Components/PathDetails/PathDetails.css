@@ -1,5 +1,6 @@
 .path-details {
   display: flex;
+  margin-bottom: 40px;
 }
 
 .path-details__item {
