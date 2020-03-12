@@ -133,6 +133,10 @@ export default class PassengerRegistrationForm extends React.Component {
 
       return { ...prevState, validation: newState }
     })
+
+    if (valid) { // диспач данных о пассажире и билете для Post запроса
+
+    }
   }
 
   render() {
@@ -140,11 +144,16 @@ export default class PassengerRegistrationForm extends React.Component {
     const activeDocumentType = this.state.documents.find(document => document.active).value;
     const isValidForm = this.state.validation.valid;
 
+    const { adultAvailableAmountOfTickets, childrenAvailableAmountOfTickets } = this.props;
+
+
     const submitBlockClass = isValidForm !== null
       ? !isValidForm
         ? 'registration-form__submit_type_invalid'
         : 'registration-form__submit_type_valid'
       : '';
+
+    console.log(this.props)
 
     return (
       <div className="registration-form">

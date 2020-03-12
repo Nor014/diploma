@@ -31,7 +31,12 @@ class Registration extends React.Component {
     return (
       <div className="registration">
         {amountOfRegistrationFormsToRender.map((el, index) => {
-          return <PassengerRegistrationForm key={index} formNumber={index + 1} isOpenForm={index <= 1 ? true : false} />
+          return <PassengerRegistrationForm
+            key={index}
+            formNumber={index + 1}
+            isOpenForm={index <= 1 ? true : false}
+            adultAvailableAmountOfTickets={Number(this.state.adult.ticketsAmount) - this.state.adult.ticketRegistered}
+            childrenAvailableAmountOfTickets={Number(this.state.children.ticketsAmount) - this.state.children.ticketRegistered} />
         })}
       </div>
     )
