@@ -1,5 +1,7 @@
 import React from 'react';
-// import nanoid from 'nanoid';
+import nanoid from 'nanoid';
+
+import { validateParams } from '../../../../../index';
 
 import HoverDropDown from '../../../../GeneralBlocks/HoverDropDown/HoverDropDown';
 import RegistrationInput from '../../../../GeneralBlocks/RegistrationInput/RegistrationInput';
@@ -13,84 +15,27 @@ export default class PassengerRegistrationForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      formId: nanoid(),
       isFormActive: this.props.isOpenForm,
       passengerCategory: [
-        {
-          value: 'adult',
-          innerText: 'Взрослый',
-          active: true
-        },
-        {
-          value: 'children',
-          innerText: 'Детский',
-          active: false
-        },
+        { value: 'adult', innerText: 'Взрослый', active: true },
+        { value: 'children', innerText: 'Детский', active: false },
       ],
       documents: [
-        {
-          value: 'passport',
-          innerText: 'Паспорт',
-          active: true
-        },
-        {
-          value: 'birth-certificate',
-          innerText: 'Свидетельство о рождении',
-          active: false
-        }
+        { value: 'passport', innerText: 'Паспорт', active: true },
+        { value: 'birth-certificate', innerText: 'Свидетельство о рождении', active: false }
       ],
       personData: [
-        {
-          name: 'lastName',
-          value: '',
-          pattern: /^[А-я]{1,15}/,
-          errorMessage: 'Поле Фамилия заполнено не верно. Пример - Михайлов'
-        },
-        {
-          name: 'firstName',
-          value: '',
-          pattern: /^[А-я]{1,15}/,
-          errorMessage: 'Поле Имя заполнено не верно. Пример - Стас'
-        },
-        {
-          name: 'patronymic',
-          value: '',
-          pattern: /^[А-я]{1,15}/,
-          errorMessage: 'Поле Отчество заполнено не верно. Пример - Михайлович'
-        },
-        {
-          name: 'gender',
-          gender: { man: false, woman: false },
-          errorMessage: 'Не выбран пол'
-        },
-        {
-          name: 'dateOfBirth',
-          value: '',
-          pattern: /(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}/,
-          errorMessage: 'Поле Дата рождения заполнено не верно. Пример - 01.01.2000'
-        },
-        {
-          name: 'passportSeries',
-          value: '',
-          pattern: /[0-9]{1} [0-9]{1} [0-9]{1} [0-9]{1}/,
-          errorMessage: 'Поле Серия паспорта заполнено не верно. Пример - 0 0 0 0'
-        },
-        {
-          name: 'passportNumber',
-          value: '',
-          pattern: /[0-9]{1} [0-9]{1} [0-9]{1} [0-9]{1} [0-9]{1} [0-9]{1}/,
-          errorMessage: 'Поле Номер паспорта заполнено не верно. Пример - 0 0 0 0 0 0'
-        },
-        {
-          name: 'birthCertificate',
-          value: '',
-          pattern: /[0-9]{1} [0-9]{1} [0-9]{1} [0-9]{1}—[А-я]{1} [А-я]{1}—[0-9]{1} [0-9]{1} [0-9]{1} [0-9]{1} [0-9]{1} [0-9]{1}/,
-          errorMessage: 'Номер свидетельства о рожденни указан некорректно. Пример: 1212 - ЫП - 123456'
-        },
+        { name: 'lastName', value: '', },
+        { name: 'firstName', value: '', },
+        { name: 'patronymic', value: '', },
+        { name: 'dateOfBirth', value: '', },
+        { name: 'passportSeries', value: '', },
+        { name: 'passportNumber', value: '', },
+        { name: 'birthCertificate', value: '', },
+        { name: 'gender', gender: { man: false, woman: false }, errorMessage: 'Не выбран пол' },
       ],
-      validation: {
-        valid: null,
-        message: '',
-      }
+      validation: { valid: null, message: '', }
     }
   }
 
@@ -128,7 +73,7 @@ export default class PassengerRegistrationForm extends React.Component {
   }
 
   changeGender = (event) => {
-    const valueToChoose = event.target.id;
+    const valueToChoose = event.target.dataset.valueToChoose;
     const valueToDisable = event.target.dataset.valueToDisable;
     const newState = [... this.state.personData];
 
@@ -167,9 +112,9 @@ export default class PassengerRegistrationForm extends React.Component {
 
     for (let i = 0; i <= dateToValidate.length - 1; i++) { // валидация форм до первой ошибки
       if (dateToValidate[i].name !== 'gender') {
-        if (!dateToValidate[i].pattern.test(dateToValidate[i].value)) {
+        if (!validateParams[dateToValidate[i].name].pattern.test(dateToValidate[i].value)) {
           valid = false;
-          errorMessage = dateToValidate[i].errorMessage;
+          errorMessage = validateParams[dateToValidate[i].name].errorMessage;
           break;
         }
       } else {
@@ -246,10 +191,10 @@ export default class PassengerRegistrationForm extends React.Component {
 
                 <div className="registration-form__row">
                   <RadioToggle label='Пол' parentClass='registration-form__radio-toggle'
+                    id={this.state.formId}
                     paramsName='gender'
-                    radioName='gender'
-                    firstItem={{ radioId: 'man', valueToDisable: 'woman', labelValue: 'М', checked: this.state.personData.find(el => el.name === 'gender').gender.man }}
-                    secondItem={{ radioId: 'woman', valueToDisable: 'man', labelValue: 'Ж', checked: this.state.personData.find(el => el.name === 'gender').gender.woman }}
+                    firstItem={{ valueToChoose: 'man', valueToDisable: 'woman', labelValue: 'М', checked: this.state.personData.find(el => el.name === 'gender').gender.man }}
+                    secondItem={{ valueToChoose: 'woman', valueToDisable: 'man', labelValue: 'Ж', checked: this.state.personData.find(el => el.name === 'gender').gender.woman }}
                     changeGender={this.changeGender} />
 
                   <RegistrationInput
@@ -263,7 +208,10 @@ export default class PassengerRegistrationForm extends React.Component {
                 </div>
 
                 <div className="registration-form__row">
-                  <RegistrationCheckBox label='ограниченная подвижность' paramsName='' />
+                  <RegistrationCheckBox label='ограниченная подвижность'
+                    id={`limited-mobility-${this.state.formId}`}
+                    paramsName='limited-mobility'
+                  />
                 </div>
               </div>
 

@@ -17,7 +17,6 @@ export default class RegistrationInput extends React.Component {
             className='input registration-input__input'
             value={value}
             placeholder={placeholder ? placeholder : null}
-            pattern={pattern ? pattern : null}
             onChange={onChange}
             autoComplete='off'
             required />
@@ -25,7 +24,6 @@ export default class RegistrationInput extends React.Component {
           : <MaskedInput
             id={paramsName}
             mask={mask}
-            pattern={pattern ? pattern : null}
             placeholder={placeholder ? placeholder : null}
             guide={false}
             className='input registration-input__input'

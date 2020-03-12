@@ -33,13 +33,13 @@ class OrderSeats extends React.Component {
 
         this.props.getSeatsData(url, directionName, 'OrderSeats');
 
-        const pathData = direction.data, // set path details
-          pathDetailsObj = {
-            train: pathData.train,
-            from: pathData.from,
-            to: pathData.to,
-            duration: pathData.durationToRender
-          }
+        const pathData = direction.data; // set path details
+        const pathDetailsObj = {
+          train: pathData.train,
+          from: pathData.from,
+          to: pathData.to,
+          duration: pathData.durationToRender
+        }
 
         this.props.setPathDetails(pathDetailsObj, direction.name);
       }
