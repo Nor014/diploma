@@ -18,8 +18,8 @@ export default class PassengerRegistrationForm extends React.Component {
       formId: nanoid(),
       isFormActive: this.props.isOpenForm,
       passengerCategory: [
-        { value: 'adult', innerText: 'Взрослый', active: true },
-        { value: 'children', innerText: 'Детский', active: false },
+        { value: 'adult', innerText: 'Взрослый', active: true, disabled: false },
+        { value: 'children', innerText: 'Детский', active: false, disabled: false },
       ],
       documents: [
         { value: 'passport', innerText: 'Паспорт', active: true },
@@ -135,7 +135,17 @@ export default class PassengerRegistrationForm extends React.Component {
     })
 
     if (valid) { // диспач данных о пассажире и билете для Post запроса
+      const category = this.state.passengerCategory.find(category => category.active).value;
+      this.props.changeTicketRegisteredAmount(category)
 
+      // проверка доступности билетов adult/children
+      const { adultAvailableAmountOfTickets, childrenAvailableAmountOfTickets } = this.props;
+
+      if (category === 'children') {
+        childrenAvailableAmountOfTickets - 1 === 0 && console.log(1111111)
+      }
+
+      // console.log()
     }
   }
 
@@ -145,7 +155,15 @@ export default class PassengerRegistrationForm extends React.Component {
     const isValidForm = this.state.validation.valid;
 
     const { adultAvailableAmountOfTickets, childrenAvailableAmountOfTickets } = this.props;
+    let availableTicketTypes = this.state.passengerCategory;
 
+    if (adultAvailableAmountOfTickets === 0) {
+      availableTicketTypes = this.state.passengerCategory.filter(category => category.value !== 'adult')
+    }
+
+    if (childrenAvailableAmountOfTickets === 0) {
+      availableTicketTypes = this.state.passengerCategory.filter(category => category.value !== 'children')
+    }
 
     const submitBlockClass = isValidForm !== null
       ? !isValidForm

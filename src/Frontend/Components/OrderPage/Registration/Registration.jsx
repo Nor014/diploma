@@ -24,6 +24,19 @@ class Registration extends React.Component {
     }
   }
 
+  changeTicketRegisteredAmount = (category, action = 'add') => {
+    if (action === 'add') {
+      this.setState(prevState => {
+        const newState = { ...prevState[category] }
+        newState.ticketRegistered++;
+
+        return { ...prevState, [category]: newState }
+      }, () => console.log(this.state))
+    }
+
+    console.log(category, action)
+  }
+
   render() {
     console.log(this.state);
     const amountOfRegistrationFormsToRender = Array(this.state.totalTicketsAmount).fill('');
@@ -36,7 +49,9 @@ class Registration extends React.Component {
             formNumber={index + 1}
             isOpenForm={index <= 1 ? true : false}
             adultAvailableAmountOfTickets={Number(this.state.adult.ticketsAmount) - this.state.adult.ticketRegistered}
-            childrenAvailableAmountOfTickets={Number(this.state.children.ticketsAmount) - this.state.children.ticketRegistered} />
+            childrenAvailableAmountOfTickets={Number(this.state.children.ticketsAmount) - this.state.children.ticketRegistered}
+            changeTicketRegisteredAmount={this.changeTicketRegisteredAmount}
+          />
         })}
       </div>
     )

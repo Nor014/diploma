@@ -194,3 +194,7 @@
   border-radius: 5px;
   padding: 10px 20px;
 }
+
+.registration-form__submit-btn:hover, .registration-form__submit-btn:focus {
+  opacity: 0.7;
+}

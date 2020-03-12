@@ -10,6 +10,7 @@ export default class RegistrationCheckBox extends React.Component {
           type="checkbox"
           id={id}
           data-params-name={paramsName} />
+
         <label htmlFor={id} className='registration-check-box__label'>{label}</label>
       </div>
     )
