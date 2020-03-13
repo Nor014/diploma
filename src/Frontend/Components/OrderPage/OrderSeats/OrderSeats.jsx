@@ -25,6 +25,7 @@ class OrderSeats extends React.Component {
 
     // get seatsData
     const directions = this.props.location.state;
+    console.log(directions)
 
     directions.forEach(direction => { // запрос данных для departure и arrival
       if (direction.data !== null) {

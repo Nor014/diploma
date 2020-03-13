@@ -110,6 +110,8 @@ class CoachScheme extends React.Component {
         totalCost: totalCost,
       }
 
+      console.log(this.props)
+
       this.props.setTicketDetails(ticketDetails); // dispatch всех данных о билете
 
     } else if (selectedSeat === 'true') {

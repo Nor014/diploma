@@ -7,34 +7,21 @@ class Registration extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      adult: {
-        ticketsAmount: this.props.orderDetailsData.ticketCategories
-          .find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets,
-        ticketRegistered: 0
-      },
-      children: {
-        ticketsAmount: this.props.orderDetailsData.ticketCategories
-          .find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
-        ticketRegistered: 0
-      },
+      adult: this.props.orderDetailsData.ticketCategories.find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets,
+      children: this.props.orderDetailsData.ticketCategories.find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
       totalTicketsAmount: this.props.orderDetailsData.ticketCategories
         .find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets + this.props.orderDetailsData.ticketCategories
           .find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
-      ticketsWithOpenForm: 3
+      ticketsWithOpenForm: 1
     }
   }
 
-  changeTicketRegisteredAmount = (category, action = 'add') => {
-    if (action === 'add') {
+  changePassengersAmountAvailableToRegistration = (category, action = 'subtraction') => {
+    if (action === 'subtraction') {
       this.setState(prevState => {
-        const newState = { ...prevState[category] }
-        newState.ticketRegistered++;
-
-        return { ...prevState, [category]: newState }
+        return { ...prevState, [category]: prevState[category] - 1 }
       }, () => console.log(this.state))
     }
-
-    console.log(category, action)
   }
 
   render() {
@@ -47,10 +34,10 @@ class Registration extends React.Component {
           return <PassengerRegistrationForm
             key={index}
             formNumber={index + 1}
-            isOpenForm={index <= 1 ? true : false}
-            adultAvailableAmountOfTickets={Number(this.state.adult.ticketsAmount) - this.state.adult.ticketRegistered}
-            childrenAvailableAmountOfTickets={Number(this.state.children.ticketsAmount) - this.state.children.ticketRegistered}
-            changeTicketRegisteredAmount={this.changeTicketRegisteredAmount}
+            isOpenForm={index < this.state.ticketsWithOpenForm ? true : false}
+            adultAvailableAmountOfTickets={this.state.adult}
+            childrenAvailableAmountOfTickets={this.state.children}
+            changePassengersAmountAvailableToRegistration={this.changePassengersAmountAvailableToRegistration}
           />
         })}
       </div>

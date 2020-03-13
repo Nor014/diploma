@@ -18,8 +18,8 @@ export default class PassengerRegistrationForm extends React.Component {
       formId: nanoid(),
       isFormActive: this.props.isOpenForm,
       passengerCategory: [
-        { value: 'adult', innerText: 'Взрослый', active: true, disabled: false },
-        { value: 'children', innerText: 'Детский', active: false, disabled: false },
+        { value: 'adult', innerText: 'Взрослый', active: true, chosen: false },
+        { value: 'children', innerText: 'Детский', active: false, chosen: false },
       ],
       documents: [
         { value: 'passport', innerText: 'Паспорт', active: true },
@@ -40,9 +40,7 @@ export default class PassengerRegistrationForm extends React.Component {
   }
 
   toggleFormVisibility = () => {
-    this.setState(prevState => {
-      return { ...prevState, isFormActive: !prevState.isFormActive }
-    })
+    this.setState(prevState => ({ ...prevState, isFormActive: !prevState.isFormActive }))
   }
 
   changeDropDownCategory = (event) => {
@@ -63,9 +61,7 @@ export default class PassengerRegistrationForm extends React.Component {
     const { id, value } = event.target;
 
     const newState = this.state.personData.map(el => {
-      if (el.name === id) {
-        el.value = value
-      }
+      if (el.name === id) el.value = value
       return el
     });
 
@@ -95,15 +91,7 @@ export default class PassengerRegistrationForm extends React.Component {
       }
 
       if (documentToValidate === 'birth-certificate') {
-        if (date.name === 'passportSeries') {
-          return false
-        }
-
-        if (date.name === 'passportNumber') {
-          return false
-        }
-
-        return true
+        return date.name === 'passportSeries' || date.name === 'passportNumber' ? false : true;
       }
     })
 
@@ -118,11 +106,27 @@ export default class PassengerRegistrationForm extends React.Component {
           break;
         }
       } else {
-        if (!dateToValidate[i].gender.man && !dateToValidate[i].gender.woman) {
+        if (!dateToValidate[i].gender.man && !dateToValidate[i].gender.woman) { // не выбран пол
           valid = false;
           errorMessage = dateToValidate[i].errorMessage;
           break;
         }
+      }
+    }
+
+    if (valid) { // валидация на доступность категории adult/children
+
+      const category = this.state.passengerCategory.find(category => category.active).value;
+      const { adultAvailableAmountOfTickets, childrenAvailableAmountOfTickets } = this.props;
+
+      if (category === 'adult' && adultAvailableAmountOfTickets === 0) {
+        valid = false;
+        errorMessage = 'Все пассажиры для категории "Взрослый" уже зарегестрированны, выберите другую категорию';
+      } else if (category === 'children' && childrenAvailableAmountOfTickets === 0) {
+        valid = false;
+        errorMessage = 'Все пассажиры для категории "Детский" уже зарегестрированны, выберите другую категорию';
+      } else {
+        this.props.changePassengersAmountAvailableToRegistration(category)
       }
     }
 
@@ -134,36 +138,26 @@ export default class PassengerRegistrationForm extends React.Component {
       return { ...prevState, validation: newState }
     })
 
-    if (valid) { // диспач данных о пассажире и билете для Post запроса
-      const category = this.state.passengerCategory.find(category => category.active).value;
-      this.props.changeTicketRegisteredAmount(category)
-
-      // проверка доступности билетов adult/children
-      const { adultAvailableAmountOfTickets, childrenAvailableAmountOfTickets } = this.props;
-
-      if (category === 'children') {
-        childrenAvailableAmountOfTickets - 1 === 0 && console.log(1111111)
+    if (valid) { // dispatch данных о пассажире и месте в поезде
+      const dataObj = {
+        
       }
-
-      // console.log()
     }
   }
 
   render() {
-    const toggleButtonClass = `btn registration-form__btn registration-form__toggle-btn ${!this.state.isFormActive ? 'registration-form__toggle-btn_hidden' : ''}`;
+    const toggleButtonClass = `btn registration-form__btn registration-form__toggle-btn ${!this.state.isFormActive
+      ? 'registration-form__toggle-btn_hidden'
+      : ''}`;
+
     const activeDocumentType = this.state.documents.find(document => document.active).value;
     const isValidForm = this.state.validation.valid;
 
-    const { adultAvailableAmountOfTickets, childrenAvailableAmountOfTickets } = this.props;
-    let availableTicketTypes = this.state.passengerCategory;
-
-    if (adultAvailableAmountOfTickets === 0) {
-      availableTicketTypes = this.state.passengerCategory.filter(category => category.value !== 'adult')
-    }
-
-    if (childrenAvailableAmountOfTickets === 0) {
-      availableTicketTypes = this.state.passengerCategory.filter(category => category.value !== 'children')
-    }
+    const formClass = isValidForm !== null
+      ? !isValidForm
+        ? 'registration-form__form registration-form__form_invalid'
+        : 'registration-form__form registration-form__form_valid'
+      : 'registration-form__form';
 
     const submitBlockClass = isValidForm !== null
       ? !isValidForm
@@ -177,19 +171,17 @@ export default class PassengerRegistrationForm extends React.Component {
       <div className="registration-form">
         <div className="registration-form__head registration-form__block">
           <button className={toggleButtonClass} onClick={this.toggleFormVisibility}>
-            <ToggleIcon className='registration-form__toggle-icon' />
-          </button>
+            <ToggleIcon className='registration-form__toggle-icon' /></button>
 
           <h2 className='registration-form__title'>Пассажир {this.props.formNumber}</h2>
 
           <button className="btn registration-form__btn registration-form__close-btn">
-            <CloseIcon className='registration-form__toggle-icon' />
-          </button>
+            <CloseIcon className='registration-form__toggle-icon' /></button>
         </div>
 
         {this.state.isFormActive &&
           <div className="registration-form__body">
-            <form action="" onSubmit={this.onFormSubmit} className="registration-form__form">
+            <form action="" onSubmit={this.onFormSubmit} className={formClass} ref={this.formRef}>
               <div className="registration-form__block">
                 <div className="registration-form__ticket-type registration-form__drop-down">
                   <HoverDropDown
