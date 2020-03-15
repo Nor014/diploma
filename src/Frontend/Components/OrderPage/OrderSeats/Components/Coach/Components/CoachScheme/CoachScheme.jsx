@@ -99,6 +99,7 @@ class CoachScheme extends React.Component {
       this.props.selectedServises.forEach(service => totalCost += service.price);
 
       const ticketDetails = {
+        coachId: this.props.coachId,
         ticketCategory: ticketCategory.categoryName,
         ticketDirection: direction,
         coachClass: this.props.coachClassName,

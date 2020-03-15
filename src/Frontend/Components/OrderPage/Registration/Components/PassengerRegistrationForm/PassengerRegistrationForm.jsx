@@ -1,5 +1,7 @@
 import React from 'react';
+
 import nanoid from 'nanoid';
+import moment from 'moment';
 
 import { validateParams } from '../../../../../index';
 
@@ -65,7 +67,7 @@ export default class PassengerRegistrationForm extends React.Component {
       return el
     });
 
-    this.setState(prevState => ({ ...prevState, personData: newState }), () => console.log(this.state));
+    this.setState(prevState => ({ ...prevState, personData: newState }));
   }
 
   changeGender = (event) => {
@@ -85,6 +87,9 @@ export default class PassengerRegistrationForm extends React.Component {
     event.preventDefault();
 
     const documentToValidate = this.state.documents.find(document => document.active).value;
+    const category = this.state.passengerCategory.find(category => category.active).value;
+    const { adultCategory, childrenCategory } = this.props;
+
     const dateToValidate = this.state.personData.filter(date => { // исключаем формы в зависимости от выбранного документа
       if (documentToValidate === 'passport') {
         return date.name !== 'birthCertificate';
@@ -116,13 +121,10 @@ export default class PassengerRegistrationForm extends React.Component {
 
     if (valid) { // валидация на доступность категории adult/children
 
-      const category = this.state.passengerCategory.find(category => category.active).value;
-      const { adultAvailableAmountOfTickets, childrenAvailableAmountOfTickets } = this.props;
-
-      if (category === 'adult' && adultAvailableAmountOfTickets === 0) {
+      if (category === 'adult' && adultCategory.availableAmountOfPassengersToRegistrate === 0) {
         valid = false;
         errorMessage = 'Все пассажиры для категории "Взрослый" уже зарегестрированны, выберите другую категорию';
-      } else if (category === 'children' && childrenAvailableAmountOfTickets === 0) {
+      } else if (category === 'children' && childrenCategory.availableAmountOfPassengersToRegistrate === 0) {
         valid = false;
         errorMessage = 'Все пассажиры для категории "Детский" уже зарегестрированны, выберите другую категорию';
       } else {
@@ -139,9 +141,33 @@ export default class PassengerRegistrationForm extends React.Component {
     })
 
     if (valid) { // dispatch данных о пассажире и месте в поезде
-      const dataObj = {
-        
+      const gender = this.state.personData.find(el => el.name === 'gender').gender;
+      const documentData = documentToValidate === 'passport'
+        ? (this.state.personData.find(el => el.name === 'passportSeries').value + this.state.personData.find(el => el.name === 'passportNumber').value)
+          .replace(/([0-9]{2})([0-9]{8})/g, "$1 $2")
+        : this.state.personData.find(el => el.name === 'birthCertificate').value;
+
+      const coachId = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData.find(el => el.name === 'departure').data;
+      console.log(coachId)
+
+      const ticketData = {
+        coach_id: null,
+        person_info: {
+          is_adult: category === 'adult' ? true : false,
+          first_name: this.state.personData.find(el => el.name === 'firstName').value,
+          last_name: this.state.personData.find(el => el.name === 'lastName').value,
+          patronymic: this.state.personData.find(el => el.name === 'patronymic').value,
+          gender: gender.man === true ? true : false,
+          birthday: moment(this.state.personData.find(el => el.name === 'dateOfBirth').value).format('YYYY-MM-DD'),
+          document_type: documentToValidate === 'passport' ? 'паспрорт' : 'свидетельство о рождении',
+          document_data: documentData
+        },
+        seat_number: null,
+        is_child: category !== 'adult' ? true : false,
+        include_children_seat: false
       }
+
+      console.log(ticketData)
     }
   }
 
@@ -252,7 +278,7 @@ export default class PassengerRegistrationForm extends React.Component {
                       label='Серия'
                       paramsName='passportSeries'
                       placeholder='_ _ _ _'
-                      mask={[/\d/, ' ', /\d/, ' ', /\d/, ' ', /\d/]}
+                      mask={[/\d/, /\d/, /\d/, /\d/]}
                       value={this.state.personData.find(el => el.name === 'passportSeries').value}
                       onChange={this.onPersonDataChange}
                       size='small' />
@@ -261,7 +287,7 @@ export default class PassengerRegistrationForm extends React.Component {
                       label='Номер'
                       paramsName='passportNumber'
                       placeholder='_ _ _ _ _ _'
-                      mask={[/\d/, ' ', /\d/, ' ', /\d/, ' ', /\d/, ' ', /\d/, ' ', /\d/]}
+                      mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
                       value={this.state.personData.find(el => el.name === 'passportNumber').value}
                       onChange={this.onPersonDataChange}
                       size='small' />
@@ -273,7 +299,7 @@ export default class PassengerRegistrationForm extends React.Component {
                     label='Номер'
                     paramsName='birthCertificate'
                     placeholder='_ _ _ _ _ _ _ _ _ _ _ _'
-                    mask={[/\d/, ' ', /\d/, ' ', /\d/, ' ', /\d/, '—', /^[А-я]+$/, ' ', /^[А-я]+$/, '—', /\d/, ' ', /\d/, ' ', /\d/, ' ', /\d/, ' ', /\d/, ' ', /\d/]}
+                    mask={[/\d/, /\d/, /\d/, /\d/, ' ', /^[А-я]+$/, /^[А-я]+$/, ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
                     value={this.state.personData.find(el => el.name === 'birthCertificate').value}
                     onChange={this.onPersonDataChange}
                     size='middle' />}

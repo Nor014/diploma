@@ -15,6 +15,8 @@ export default class CoachDetails extends React.Component {
       }
     })
 
+    console.log(activeCoach)
+
     return (
       <>
         <div className="coach__details">
@@ -60,6 +62,7 @@ export default class CoachDetails extends React.Component {
         </div>
 
         <CoachScheme // Схема вагонов, выбор мест
+          coachId={activeCoach.coach._id}
           seatsData={activeCoach.seats}
           wagonName={activeCoach.coach.name}
           coachClass={activeCoach.coach.class_type}

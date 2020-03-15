@@ -7,8 +7,14 @@ class Registration extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      adult: this.props.orderDetailsData.ticketCategories.find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets,
-      children: this.props.orderDetailsData.ticketCategories.find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
+      adult: {
+        availableAmountOfPassengersToRegistrate: this.props.orderDetailsData.ticketCategories.find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets,
+        alreadyRegistered: 0
+      },
+      children: {
+        availableAmountOfPassengersToRegistrate: this.props.orderDetailsData.ticketCategories.find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
+        alreadyRegistered: 0
+      },
       totalTicketsAmount: this.props.orderDetailsData.ticketCategories
         .find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets + this.props.orderDetailsData.ticketCategories
           .find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
@@ -19,7 +25,12 @@ class Registration extends React.Component {
   changePassengersAmountAvailableToRegistration = (category, action = 'subtraction') => {
     if (action === 'subtraction') {
       this.setState(prevState => {
-        return { ...prevState, [category]: prevState[category] - 1 }
+        const newState = { ...prevState[category] };
+
+        newState.availableAmountOfPassengersToRegistrate -= 1;
+        newState.alreadyRegistered += 1;
+
+        return { ...prevState, [category]: newState }
       }, () => console.log(this.state))
     }
   }
@@ -31,14 +42,14 @@ class Registration extends React.Component {
     return (
       <div className="registration">
         {amountOfRegistrationFormsToRender.map((el, index) => {
-          return <PassengerRegistrationForm
-            key={index}
+          return <PassengerRegistrationForm key={index}
             formNumber={index + 1}
             isOpenForm={index < this.state.ticketsWithOpenForm ? true : false}
-            adultAvailableAmountOfTickets={this.state.adult}
-            childrenAvailableAmountOfTickets={this.state.children}
+            adultCategory={this.state.adult}
+            childrenCategory={this.state.children}
             changePassengersAmountAvailableToRegistration={this.changePassengersAmountAvailableToRegistration}
-          />
+            orderDetailsData={this.props.orderDetailsData}
+            withArrivalPath={this.props.orderDetailsData.pathDetails.find(el => el.name === 'arrival').details !== null ? true : false} />
         })}
       </div>
     )
