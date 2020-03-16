@@ -11,6 +11,7 @@ import lastTicketsReducer from '../reducers/lastTicketsReducer';
 import seatsDataReducer from '../reducers/seatsDataReducer';
 import orderDetailsReducer from '../reducers/orderDetailsReducer';
 import orderStepsReducer from '../reducers/orderStepsReducer';
+import submitTicketsDataReducer from '../reducers/submitTicketsDataReducer';
 
 import { loadingBarReducer } from 'react-redux-loading-bar';
 
@@ -22,7 +23,8 @@ const generalReducer = combineReducers({
   lastTicketsData: lastTicketsReducer,
   seatsData: seatsDataReducer,
   orderDetailsData: orderDetailsReducer,
-  orderStepsData: orderStepsReducer
+  orderStepsData: orderStepsReducer,
+  submitTicketsDataData: submitTicketsDataReducer,
 })
 
 const sagaMiddleware = createSagaMiddleware();
@@ -35,7 +37,8 @@ store.subscribe(() => { // при изменении состояния ново
     orderDetailsData: store.getState().orderDetailsData,
     ticketsData: store.getState().ticketsData,
     // seatsData: store.getState().seatsData,
-    orderStepsData: store.getState().orderStepsData
+    orderStepsData: store.getState().orderStepsData,
+    submitTicketsDataData: store.getState().submitTicketsDataData
   })
 })
 

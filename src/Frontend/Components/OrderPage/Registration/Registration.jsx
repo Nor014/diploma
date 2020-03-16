@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
+import { setRouteDirectionId } from '../../../Redux/actions/actions';
 
 import PassengerRegistrationForm from './Components/PassengerRegistrationForm/PassengerRegistrationForm';
 
@@ -20,6 +22,14 @@ class Registration extends React.Component {
           .find(category => category.categoryName === 'children').currentDepartureAmountOfTickets,
       ticketsWithOpenForm: 1
     }
+  }
+
+  componentDidMount = () => {
+    this.props.orderDetailsData.pathDetails.forEach(path => {
+      if (path.details !== null) {
+        this.props.setRouteDirectionId(path.name, path.details.pathId)
+      }
+    })
   }
 
   changePassengersAmountAvailableToRegistration = (category, action = 'subtraction') => {
@@ -66,7 +76,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    setRouteDirectionId: (direction, id) => dispatch(setRouteDirectionId(direction, id))
   }
 }
 

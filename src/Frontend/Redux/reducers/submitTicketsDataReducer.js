@@ -17,3 +17,17 @@ const initState = {
   }
 }
 
+
+
+export default function submitTicketsDataReducer(state = initState, action) {
+  if (action.type === 'SET_ROUTE_DIRECTION_ID') {
+    const { direction, id } = action.payload;
+
+    const newState = { ...state[direction] };
+    newState.route_direction_id = id;
+
+    return { ...state, [direction]: newState };
+  }
+
+  return state
+}

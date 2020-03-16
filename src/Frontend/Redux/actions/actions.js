@@ -290,3 +290,15 @@ export function changePassengersCategory(category) {
   }
 }
 
+// Registration
+
+export function setRouteDirectionId(direction, id) {
+  return {
+    type: 'SET_ROUTE_DIRECTION_ID',
+    payload: {
+      direction: direction,
+      id: id
+    }
+  }
+}
+

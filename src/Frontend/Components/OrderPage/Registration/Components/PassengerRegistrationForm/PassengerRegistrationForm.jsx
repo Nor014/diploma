@@ -148,8 +148,7 @@ export default class PassengerRegistrationForm extends React.Component {
       const ticketIndex = category === 'adult' ? this.props.adultCategory.alreadyRegistered : this.props.childrenCategory.alreadyRegistered;
       const currentTicketDetails = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData
         .find(el => el.name === 'departure').data[ticketIndex];
-      const departurePathId = this.props.orderDetailsData.pathDetails.find(el => el.name === 'departure').details.pathId;
-
+     
       const departureTicketData = {
         coach_id: currentTicketDetails.coachId,
         person_info: {
@@ -171,12 +170,10 @@ export default class PassengerRegistrationForm extends React.Component {
         const arrivalTicketData = { ...departureTicketData };
         const currentArrivalTicketDetails = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData
           .find(el => el.name === 'arrival').data[ticketIndex];
-        const arrivalPathId = this.props.orderDetailsData.pathDetails.find(el => el.name === 'arrival').details.pathId;
-
+        
         arrivalTicketData.coach_id = currentArrivalTicketDetails.coachId;
         arrivalTicketData.seat_number = currentArrivalTicketDetails.seatNumber;
       }
-
 
       this.props.changePassengersAmountAvailableToRegistration(category) // меняем информацию о доступных к регистрации пассажиров и количестве уже зарегестрированных
     }
