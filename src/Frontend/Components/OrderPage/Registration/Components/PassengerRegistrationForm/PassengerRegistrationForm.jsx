@@ -127,8 +127,6 @@ export default class PassengerRegistrationForm extends React.Component {
       } else if (category === 'children' && childrenCategory.availableAmountOfPassengersToRegistrate === 0) {
         valid = false;
         errorMessage = 'Все пассажиры для категории "Детский" уже зарегестрированны, выберите другую категорию';
-      } else {
-        this.props.changePassengersAmountAvailableToRegistration(category)
       }
     }
 
@@ -147,11 +145,13 @@ export default class PassengerRegistrationForm extends React.Component {
           .replace(/([0-9]{2})([0-9]{8})/g, "$1 $2")
         : this.state.personData.find(el => el.name === 'birthCertificate').value;
 
-      const coachId = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData.find(el => el.name === 'departure').data;
-      console.log(coachId)
+      const ticketIndex = category === 'adult' ? this.props.adultCategory.alreadyRegistered : this.props.childrenCategory.alreadyRegistered;
+      const currentTicketDetails = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData
+        .find(el => el.name === 'departure').data[ticketIndex];
+      const departurePathId = this.props.orderDetailsData.pathDetails.find(el => el.name === 'departure').details.pathId;
 
-      const ticketData = {
-        coach_id: null,
+      const departureTicketData = {
+        coach_id: currentTicketDetails.coachId,
         person_info: {
           is_adult: category === 'adult' ? true : false,
           first_name: this.state.personData.find(el => el.name === 'firstName').value,
@@ -162,12 +162,23 @@ export default class PassengerRegistrationForm extends React.Component {
           document_type: documentToValidate === 'passport' ? 'паспрорт' : 'свидетельство о рождении',
           document_data: documentData
         },
-        seat_number: null,
+        seat_number: currentTicketDetails.seatNumber,
         is_child: category !== 'adult' ? true : false,
         include_children_seat: false
       }
 
-      console.log(ticketData)
+      if (this.props.withArrivalPath) {
+        const arrivalTicketData = { ...departureTicketData };
+        const currentArrivalTicketDetails = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData
+          .find(el => el.name === 'arrival').data[ticketIndex];
+        const arrivalPathId = this.props.orderDetailsData.pathDetails.find(el => el.name === 'arrival').details.pathId;
+
+        arrivalTicketData.coach_id = currentArrivalTicketDetails.coachId;
+        arrivalTicketData.seat_number = currentArrivalTicketDetails.seatNumber;
+      }
+
+
+      this.props.changePassengersAmountAvailableToRegistration(category) // меняем информацию о доступных к регистрации пассажиров и количестве уже зарегестрированных
     }
   }
 
