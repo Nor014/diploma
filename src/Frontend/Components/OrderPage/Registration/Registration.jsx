@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import { connect } from 'react-redux';
 import { setRouteDirectionId } from '../../../Redux/actions/actions';
@@ -48,19 +49,28 @@ class Registration extends React.Component {
   render() {
     console.log(this.state);
     const amountOfRegistrationFormsToRender = Array(this.state.totalTicketsAmount).fill('');
+    const registrationLinkClass = this.state.adult.availableAmountOfPassengersToRegistrate === 0 && this.state.children.availableAmountOfPassengersToRegistrate === 0
+      ? 'registration__link_active'
+      : 'registration__link_disabled';
 
     return (
-      <div className="registration">
-        {amountOfRegistrationFormsToRender.map((el, index) => {
-          return <PassengerRegistrationForm key={index}
-            formNumber={index + 1}
-            isOpenForm={index < this.state.ticketsWithOpenForm ? true : false}
-            adultCategory={this.state.adult}
-            childrenCategory={this.state.children}
-            changePassengersAmountAvailableToRegistration={this.changePassengersAmountAvailableToRegistration}
-            orderDetailsData={this.props.orderDetailsData}
-            withArrivalPath={this.props.orderDetailsData.pathDetails.find(el => el.name === 'arrival').details !== null ? true : false} />
-        })}
+      <div className='registration'>
+        <div className="registration__inner">
+          {amountOfRegistrationFormsToRender.map((el, index) => {
+            return <PassengerRegistrationForm key={index}
+              formNumber={index + 1}
+              isOpenForm={index < this.state.ticketsWithOpenForm ? true : false}
+              adultCategory={this.state.adult}
+              childrenCategory={this.state.children}
+              changePassengersAmountAvailableToRegistration={this.changePassengersAmountAvailableToRegistration}
+              orderDetailsData={this.props.orderDetailsData}
+              withArrivalPath={this.props.orderDetailsData.pathDetails.find(el => el.name === 'arrival').details !== null ? true : false} />
+          })}
+        </div>
+
+        <div className="registration__link-wrap">
+          <Link to='' className={`link btn btn_theme_yellow btn_size_small registration__link ${registrationLinkClass}`}>Далее</Link>
+        </div>
       </div>
     )
   }

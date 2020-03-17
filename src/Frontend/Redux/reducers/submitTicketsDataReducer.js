@@ -29,5 +29,29 @@ export default function submitTicketsDataReducer(state = initState, action) {
     return { ...state, [direction]: newState };
   }
 
+  if (action.type === 'SET_SUBMIT_TICKET_DATA') {
+    const { direction, data } = action.payload;
+
+    const newState = { ...state[direction] };
+    newState.seats.push(data);
+
+    console.log(state)
+    return { ...state, [direction]: newState };
+  }
+
+  if (action.type === 'REMOVE_SUBMIT_TICKET_DATA') {
+    const id = action.payload;
+
+    const newState = { ...state };
+    newState.departure.seats = newState.departure.seats.filter(seat => seat.passengerId !== id);
+
+    if (newState.arrival.seats.length > 0) {
+      newState.arrival.seats = newState.arrival.seats.filter(seat => seat.passengerId !== id);
+    }
+
+    console.log(newState)
+    return newState;
+  }
+
   return state
 }

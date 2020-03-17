@@ -2,8 +2,10 @@ import React from 'react';
 
 import nanoid from 'nanoid';
 import moment from 'moment';
+import { connect } from 'react-redux';
 
 import { validateParams } from '../../../../../index';
+import { setSubmitTicketData, removeSubmitTicketData } from '../../../../../Redux/actions/actions';
 
 import HoverDropDown from '../../../../GeneralBlocks/HoverDropDown/HoverDropDown';
 import RegistrationInput from '../../../../GeneralBlocks/RegistrationInput/RegistrationInput';
@@ -13,7 +15,7 @@ import RegistrationCheckBox from '../../../../GeneralBlocks/RegistrationCheckBox
 import { ReactComponent as ToggleIcon } from '../PassengerRegistrationForm/registration-form_icon_toggle.svg';
 import { ReactComponent as CloseIcon } from '../PassengerRegistrationForm/registration-form_icon_close.svg';
 
-export default class PassengerRegistrationForm extends React.Component {
+class PassengerRegistrationForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,6 +41,7 @@ export default class PassengerRegistrationForm extends React.Component {
       ],
       validation: { valid: null, message: '', }
     }
+    this.baseState = this.state;
   }
 
   toggleFormVisibility = () => {
@@ -148,8 +151,9 @@ export default class PassengerRegistrationForm extends React.Component {
       const ticketIndex = category === 'adult' ? this.props.adultCategory.alreadyRegistered : this.props.childrenCategory.alreadyRegistered;
       const currentTicketDetails = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData
         .find(el => el.name === 'departure').data[ticketIndex];
-     
+
       const departureTicketData = {
+        passengerId: this.state.formId,
         coach_id: currentTicketDetails.coachId,
         person_info: {
           is_adult: category === 'adult' ? true : false,
@@ -166,17 +170,53 @@ export default class PassengerRegistrationForm extends React.Component {
         include_children_seat: false
       }
 
-      if (this.props.withArrivalPath) {
+      this.props.setSubmitTicketData('departure', departureTicketData); // dispatch данных о текущем билете
+
+      if (this.props.withArrivalPath) { // dispatch данных о текущем билете для arrival
         const arrivalTicketData = { ...departureTicketData };
         const currentArrivalTicketDetails = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData
           .find(el => el.name === 'arrival').data[ticketIndex];
-        
+
         arrivalTicketData.coach_id = currentArrivalTicketDetails.coachId;
         arrivalTicketData.seat_number = currentArrivalTicketDetails.seatNumber;
-      }
 
-      this.props.changePassengersAmountAvailableToRegistration(category) // меняем информацию о доступных к регистрации пассажиров и количестве уже зарегестрированных
+        this.props.setSubmitTicketData('arrival', arrivalTicketData);
+      }
+      // меняем информацию о доступных к регистрации пассажиров и количестве уже зарегестрированных
+      this.props.changePassengersAmountAvailableToRegistration(category);
     }
+  }
+
+  formToDefaultState = () => {
+    if (this.state.validation.valid) { // если форма уже валидированна, убираем данные из редьюсера
+      console.log(this.state.formId)
+      this.props.removeSubmitTicketData(this.state.formId);
+      
+    }
+
+    this.setState({
+      formId: nanoid(),
+      isFormActive: this.props.isOpenForm,
+      passengerCategory: [
+        { value: 'adult', innerText: 'Взрослый', active: true, chosen: false },
+        { value: 'children', innerText: 'Детский', active: false, chosen: false },
+      ],
+      documents: [
+        { value: 'passport', innerText: 'Паспорт', active: true },
+        { value: 'birth-certificate', innerText: 'Свидетельство о рождении', active: false }
+      ],
+      personData: [
+        { name: 'lastName', value: '', },
+        { name: 'firstName', value: '', },
+        { name: 'patronymic', value: '', },
+        { name: 'dateOfBirth', value: '', },
+        { name: 'passportSeries', value: '', },
+        { name: 'passportNumber', value: '', },
+        { name: 'birthCertificate', value: '', },
+        { name: 'gender', gender: { man: false, woman: false }, errorMessage: 'Не выбран пол' },
+      ],
+      validation: { valid: null, message: '', }
+    })
   }
 
   render() {
@@ -199,7 +239,7 @@ export default class PassengerRegistrationForm extends React.Component {
         : 'registration-form__submit_type_valid'
       : '';
 
-    console.log(this.props)
+    console.log(this.props, this.state.formId)
 
     return (
       <div className="registration-form">
@@ -209,7 +249,7 @@ export default class PassengerRegistrationForm extends React.Component {
 
           <h2 className='registration-form__title'>Пассажир {this.props.formNumber}</h2>
 
-          <button className="btn registration-form__btn registration-form__close-btn">
+          <button className="btn registration-form__btn registration-form__close-btn" onClick={this.formToDefaultState}>
             <CloseIcon className='registration-form__toggle-icon' /></button>
         </div>
 
@@ -322,4 +362,13 @@ export default class PassengerRegistrationForm extends React.Component {
       </div>
     )
   }
-} 
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSubmitTicketData: (directiond, data) => dispatch(setSubmitTicketData(directiond, data)),
+    removeSubmitTicketData: (id) => dispatch(removeSubmitTicketData(id))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(PassengerRegistrationForm)

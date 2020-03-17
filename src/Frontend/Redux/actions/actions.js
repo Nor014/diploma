@@ -302,3 +302,19 @@ export function setRouteDirectionId(direction, id) {
   }
 }
 
+export function setSubmitTicketData(direction, data) {
+  return {
+    type: 'SET_SUBMIT_TICKET_DATA',
+    payload: {
+      direction: direction,
+      data: data
+    }
+  }
+}
+
+export function removeSubmitTicketData(id) {
+  return {
+    type: 'REMOVE_SUBMIT_TICKET_DATA',
+    payload: id
+  }
+}
