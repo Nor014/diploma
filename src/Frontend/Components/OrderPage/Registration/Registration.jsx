@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import { connect } from 'react-redux';
-import { setRouteDirectionId } from '../../../Redux/actions/actions';
+import { setRouteDirectionId, changeOrderStep } from '../../../Redux/actions/actions';
 
 import PassengerRegistrationForm from './Components/PassengerRegistrationForm/PassengerRegistrationForm';
 
@@ -44,6 +44,17 @@ class Registration extends React.Component {
         return { ...prevState, [category]: newState }
       }, () => console.log(this.state))
     }
+
+    if (action === 'add') {
+      this.setState(prevState => {
+        const newState = { ...prevState[category] };
+
+        newState.availableAmountOfPassengersToRegistrate += 1;
+        newState.alreadyRegistered -= 1;
+
+        return { ...prevState, [category]: newState }
+      }, () => console.log(this.state))
+    }
   }
 
   render() {
@@ -69,7 +80,8 @@ class Registration extends React.Component {
         </div>
 
         <div className="registration__link-wrap">
-          <Link to='' className={`link btn btn_theme_yellow btn_size_small registration__link ${registrationLinkClass}`}>Далее</Link>
+          <Link to='/order/payment' className={`link btn btn_theme_yellow btn_size_small registration__link ${registrationLinkClass}`}
+            onClick={() => this.props.changeOrderStep(3)}>Далее</Link>
         </div>
       </div>
     )
@@ -86,7 +98,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setRouteDirectionId: (direction, id) => dispatch(setRouteDirectionId(direction, id))
+    setRouteDirectionId: (direction, id) => dispatch(setRouteDirectionId(direction, id)),
+    changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex))
   }
 }
 

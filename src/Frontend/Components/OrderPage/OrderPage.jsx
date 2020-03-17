@@ -8,6 +8,7 @@ import OrderTickets from './OrderTickets/OrderTickets';
 import OrderSeats from './OrderSeats/OrderSeats';
 import Registration from './Registration/Registration';
 import RegistrationAside from './RegistrationAside/RegistrationAside';
+import Payment from './Payment/Payment';
 
 
 export default class OrderPage extends React.Component {
@@ -33,6 +34,7 @@ export default class OrderPage extends React.Component {
               <Switch>
                 <Route exact path='/order' component={OrderAside} />
                 <Route exact path='/order/registration' component={RegistrationAside} />
+                <Route exact path='/order/payment' component={RegistrationAside} />
                 <Route exact path='/order/:id' component={OrderAside} />
               </Switch>
             </div>
@@ -40,6 +42,7 @@ export default class OrderPage extends React.Component {
               <Switch>
                 <Route exact path='/order' component={OrderTickets} />
                 <Route exact path='/order/registration' component={Registration} />
+                <Route exact path='/order/payment' component={Payment} />
                 <Route exact path='/order/:id' component={OrderSeats} />
               </Switch>
             </div>

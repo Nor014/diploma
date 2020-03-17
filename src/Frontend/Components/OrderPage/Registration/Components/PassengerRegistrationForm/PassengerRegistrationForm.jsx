@@ -189,14 +189,15 @@ class PassengerRegistrationForm extends React.Component {
 
   formToDefaultState = () => {
     if (this.state.validation.valid) { // если форма уже валидированна, убираем данные из редьюсера
-      console.log(this.state.formId)
+      const category = this.state.passengerCategory.find(category => category.active).value;
+
       this.props.removeSubmitTicketData(this.state.formId);
-      
+      this.props.changePassengersAmountAvailableToRegistration(category, 'add');
     }
 
     this.setState({
       formId: nanoid(),
-      isFormActive: this.props.isOpenForm,
+      isFormActive: this.state.isFormActive, // стейт по умолчанию с сохранением открытости/закрытости тела формы
       passengerCategory: [
         { value: 'adult', innerText: 'Взрослый', active: true, chosen: false },
         { value: 'children', innerText: 'Детский', active: false, chosen: false },
@@ -355,7 +356,7 @@ class PassengerRegistrationForm extends React.Component {
 
               <div className={`registration-form__block registration-form__submit ${submitBlockClass}`} >
                 <p className="registration-form__validation-text">{this.state.validation.message !== null ? this.state.validation.message : ''}</p>
-                <button type='submit' className="btn registration-form__submit-btn">Следующий пассажир</button>
+                <button type='submit' className="btn registration-form__submit-btn">Зарегестировать пассажира</button>
               </div>
             </form>
           </div>}
