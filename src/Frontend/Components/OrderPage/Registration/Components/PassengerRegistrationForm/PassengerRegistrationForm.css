@@ -205,5 +205,6 @@
 }
 
 .registration-form__submit_type_valid .registration-form__submit-btn {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 }

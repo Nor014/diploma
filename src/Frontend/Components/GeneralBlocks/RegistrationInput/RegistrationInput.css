@@ -2,6 +2,10 @@
   flex: 0 0 230px;
 }
 
+.registration-input_size_big {
+  flex: 0 0 275px;
+}
+
 .registration-input_size_middle {
   flex: 0 0 210px;
 }

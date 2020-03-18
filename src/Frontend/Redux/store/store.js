@@ -24,7 +24,7 @@ const generalReducer = combineReducers({
   seatsData: seatsDataReducer,
   orderDetailsData: orderDetailsReducer,
   orderStepsData: orderStepsReducer,
-  submitTicketsDataData: submitTicketsDataReducer,
+  submitTicketsData: submitTicketsDataReducer,
 })
 
 const sagaMiddleware = createSagaMiddleware();
@@ -38,7 +38,7 @@ store.subscribe(() => { // при изменении состояния ново
     ticketsData: store.getState().ticketsData,
     // seatsData: store.getState().seatsData,
     orderStepsData: store.getState().orderStepsData,
-    submitTicketsDataData: store.getState().submitTicketsDataData
+    submitTicketsData: store.getState().submitTicketsData
   })
 })
 

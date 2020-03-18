@@ -43,8 +43,6 @@ class OrderSeats extends React.Component {
           duration: pathData.durationToRender
         }
 
-        console.log(pathData)
-
         this.props.setPathDetails(pathDetailsObj, direction.name);
       }
     })

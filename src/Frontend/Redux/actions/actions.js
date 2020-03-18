@@ -318,3 +318,21 @@ export function removeSubmitTicketData(id) {
     payload: id
   }
 }
+
+export function submitDataToDefaultState() {
+  return {
+    type: 'SUBMIT_DATA_TO_DEFAULT_STATE'
+  }
+}
+
+// Payment
+
+export function setUserParams(paramsName, value) {
+  return {
+    type: 'SET_USER_PARAMS',
+    payload: {
+      paramsName: paramsName,
+      value: value
+    }
+  }
+}

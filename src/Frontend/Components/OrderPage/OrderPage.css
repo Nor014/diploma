@@ -9,6 +9,7 @@
 @import './OrderSeats/Components/Coach/Coach.css';
 @import './RegistrationAside/RegistrationAside.css';
 @import './Registration/Registration.css';
+@import './Payment/Payment.css';
 /*  */
 
 .order-page__head {

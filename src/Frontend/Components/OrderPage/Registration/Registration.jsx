@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import { connect } from 'react-redux';
-import { setRouteDirectionId, changeOrderStep } from '../../../Redux/actions/actions';
+import { setRouteDirectionId, changeOrderStep, submitDataToDefaultState } from '../../../Redux/actions/actions';
 
 import PassengerRegistrationForm from './Components/PassengerRegistrationForm/PassengerRegistrationForm';
 
 class Registration extends React.Component {
   constructor(props) {
     super(props)
+    this.registrationRef = React.createRef();
     this.state = {
       adult: {
         availableAmountOfPassengersToRegistrate: this.props.orderDetailsData.ticketCategories.find(category => category.categoryName === 'adult').currentDepartureAmountOfTickets,
@@ -26,6 +27,13 @@ class Registration extends React.Component {
   }
 
   componentDidMount = () => {
+    this.registrationRef.current.scrollIntoView({ // scroll to top
+      behavior: 'smooth',
+      block: 'start',
+    });
+
+    this.props.submitDataToDefaultState(); // возврат дефолтного состояния редьюсера - для работы с sessionStorage
+
     this.props.orderDetailsData.pathDetails.forEach(path => {
       if (path.details !== null) {
         this.props.setRouteDirectionId(path.name, path.details.pathId)
@@ -66,7 +74,7 @@ class Registration extends React.Component {
 
     return (
       <div className='registration'>
-        <div className="registration__inner">
+        <div className="registration__inner" ref={this.registrationRef}>
           {amountOfRegistrationFormsToRender.map((el, index) => {
             return <PassengerRegistrationForm key={index}
               formNumber={index + 1}
@@ -99,7 +107,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setRouteDirectionId: (direction, id) => dispatch(setRouteDirectionId(direction, id)),
-    changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex))
+    changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex)),
+    submitDataToDefaultState: () => dispatch(submitDataToDefaultState())
   }
 }
 

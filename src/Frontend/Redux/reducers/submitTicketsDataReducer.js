@@ -17,8 +17,6 @@ const initState = {
   }
 }
 
-
-
 export default function submitTicketsDataReducer(state = initState, action) {
   if (action.type === 'SET_ROUTE_DIRECTION_ID') {
     const { direction, id } = action.payload;
@@ -51,6 +49,36 @@ export default function submitTicketsDataReducer(state = initState, action) {
 
     console.log(newState)
     return newState;
+  }
+
+  if (action.type === 'SET_USER_PARAMS') {
+    const { paramsName, value } = action.payload;
+    const newState = { ...state.user };
+
+    newState[paramsName] = value;
+
+    return { ...state, user: newState };
+  }
+
+  if (action.type === 'SUBMIT_DATA_TO_DEFAULT_STATE') {
+    return {
+      user: {
+        first_name: '',
+        last_name: '',
+        patronymic: '',
+        phone: '',
+        email: '',
+        payment_method: null
+      },
+      departure: {
+        route_direction_id: null,
+        seats: []
+      },
+      arrival: {
+        route_direction_id: null,
+        seats: []
+      }
+    }
   }
 
   return state

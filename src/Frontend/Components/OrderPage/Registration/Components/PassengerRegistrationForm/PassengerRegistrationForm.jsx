@@ -240,8 +240,6 @@ class PassengerRegistrationForm extends React.Component {
         : 'registration-form__submit_type_valid'
       : '';
 
-    console.log(this.props, this.state.formId)
-
     return (
       <div className="registration-form">
         <div className="registration-form__head registration-form__block">
