@@ -64,11 +64,11 @@ class OrderSeats extends React.Component {
 
     const toRegistrationLinkClass = arraivalData === null // кнопка активна если нет arrival и есть хотябы один выбранный билет
       ? departurePassengersAmount > 0
-        ? "link_active"
-        : "link_disabled"
+        ? "order-page__link_active"
+        : "order-page__link_disabled"
       : departurePassengersAmount !== 0 && departurePassengersAmount === arrivalPassengersAmount // кнопка активна если количество билетов arrival и departure совпадают 
-        ? "link_active"
-        : "link_disabled";
+        ? "order-page__link_active"
+        : "order-page__link_disabled";
 
     if (loading) {
       return <Preloader />
@@ -93,8 +93,8 @@ class OrderSeats extends React.Component {
           </div>
         )}
 
-        <div className="order-seats__to-registration-link-wrap">
-          <Link to='/order/registration' className={`link order-seats__to-registration-link btn btn_theme_yellow btn_size_small ${toRegistrationLinkClass}`}
+        <div className="order-page__link-wrap">
+          <Link to='/order/registration' className={`link order-page__link btn btn_theme_yellow btn_size_small ${toRegistrationLinkClass}`}
             onClick={() => this.props.changeOrderStep(2)}>Далее</Link>
         </div>
       </div >

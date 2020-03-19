@@ -3,31 +3,41 @@ import { Link } from "react-router-dom";
 
 import { connect } from 'react-redux';
 import { setUserParams } from '../../../Redux/actions/actions';
+import { validateParams } from '../../../index';
 
 import RegistrationInput from '../../GeneralBlocks/RegistrationInput/RegistrationInput';
 
 class Payment extends React.Component {
+  onFormSubmit = () => {
+    const { user } = this.props.submitTicketsData;
+    const phone = user.phone.replace(/-/g, '');
+
+    console.log(validateParams.phone.pattern.test(user.phone.replace(/-/g, '')))
+  }
 
   changeFormState = (event) => {
-    const { id, value } = event.target;
-    this.props.setUserParams(id, value);
+    let target = event.target;
+    let paramsName, value;
+
+    paramsName = target.type === 'text' ? target.id : target.name;
+    value = target.type === 'text' ? target.value : target.id;
+
+    this.props.setUserParams(paramsName, value);
   }
 
   render() {
     console.log(this.props)
-
     const formState = this.props.submitTicketsData.user;
 
     return (
       <div className='payment'>
-
         <form action="" className='payment__form'>
           <div className="payment__form-section">
-            <div className="payment__form-head">
+            <div className="payment__form-head payment__form_border_dashed">
               <h2 className="payment__form-title">Персональные данные</h2>
             </div>
 
-            <div className="payment__form-body">
+            <div className="payment__form-body payment__form_border_dashed">
               <div className="payment__form-inner">
                 <RegistrationInput label='Фамилия'
                   paramsName='last_name'
@@ -50,7 +60,7 @@ class Payment extends React.Component {
                   label='Контактный телефон'
                   paramsName='phone'
                   placeholder='+7 ___ ___ __ __'
-                  mask={[/\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ' ', /\d/, /\d/]}
+                  mask={[/\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
                   value={formState.phone}
                   onChange={this.changeFormState}
                   size='big' />
@@ -68,15 +78,15 @@ class Payment extends React.Component {
           </div>
 
           <div className="payment__form-section">
-            <div className="payment__form-head">
+            <div className="payment__form-head payment__form_border_dashed">
               <h2 className="payment__form-title">Способ оплаты</h2>
             </div>
 
-            <div className="payment__form-body">
-              <div className="payment__form-radio">
-                <div className="payment__form-radio-inner">
-                  <input className='payment__form-radio-input' type="radio" name='patment__method' id='payment-online' />
-                  <label htmlFor="payment-online" className='payment__form-label'>Онлайн</label>
+            <div className="payment__form-content payment__form_border_dashed">
+              <div className="payment__method ">
+                <div className="payment__form-radio">
+                  <input className='payment__form-radio-input' type="radio" name='payment_method' id='online' onChange={this.changeFormState} />
+                  <label htmlFor="online" className='payment__form-label'>Онлайн</label>
                 </div>
 
                 <div className="payment__form-methods">
@@ -87,9 +97,21 @@ class Payment extends React.Component {
               </div>
             </div>
 
-            
+            <div className="payment__form-content">
+              <div className="payment__method ">
+                <div className="payment__form-radio">
+                  <input className='payment__form-radio-input' type="radio" name='payment_method' id='cash' onChange={this.changeFormState} />
+                  <label htmlFor="cash" className='payment__form-label'>Наличными</label>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
+
+        <div className="order-page__link-wrap">
+          <button to='/order/payment' className={`link btn btn_theme_yellow btn_size_big order-page__link`}
+            onClick={this.onFormSubmit}>Купить билеты</button>
+        </div>
       </div>
     )
   }

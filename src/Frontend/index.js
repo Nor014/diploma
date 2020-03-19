@@ -1,9 +1,9 @@
 export const validateParams = {
-  lastName: {
+  last_name: {
     pattern: /^[А-я]{1,15}/,
     errorMessage: 'Поле Фамилия заполнено не верно. Пример - Михайлов'
   },
-  firstName: {
+  first_name: {
     pattern: /^[А-я]{1,15}/,
     errorMessage: 'Поле Имя заполнено не верно. Пример - Стас'
   },
@@ -27,4 +27,13 @@ export const validateParams = {
     pattern: /[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1} [А-я]{1}[А-я]{1} [0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}/,
     errorMessage: 'Номер свидетельства о рожденни указан некорректно. Пример: 1212 - ЫП - 123456'
   },
+  phone: {
+    pattern: /[8-9]{1}[0-9]{10}/,
+    errorMessage: 'Номер телефона введен неверно'
+  },
+  email: {
+    pattern: /^ ([A - Za - z0 -9_\-\.]) +\@([A - Za - z0 -9_\-\.]) +\.([A - Za - z]{ 2, 4 }) $ /,
+    errorMessage: 'Email введен неверно'
+  }
 }
+

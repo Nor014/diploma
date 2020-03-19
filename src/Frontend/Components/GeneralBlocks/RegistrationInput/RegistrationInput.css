@@ -1,17 +1,21 @@
 .registration-input {
   flex: 0 0 230px;
+  max-width: 230px;
 }
 
 .registration-input_size_big {
   flex: 0 0 275px;
+  max-width: 275px;
 }
 
 .registration-input_size_middle {
   flex: 0 0 210px;
+  max-width: 210px;
 }
 
 .registration-input_size_small {
   flex: 0 0 140px;
+  max-width: 140px;
 }
 
 .registration-input:not(:last-child) {

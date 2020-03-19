@@ -63,18 +63,3 @@
   opacity: 0.8;
 }
 
-.order-seats__to-registration-link-wrap {
-  text-align: right;
-}
-
-.order-seats__to-registration-link {
-  min-width: 200px;
-  display: inline-block;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.link_disabled {
-  background: #928F94;
-  pointer-events: none;
-}

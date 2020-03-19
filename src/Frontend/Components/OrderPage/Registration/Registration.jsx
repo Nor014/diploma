@@ -68,9 +68,9 @@ class Registration extends React.Component {
   render() {
     console.log(this.state);
     const amountOfRegistrationFormsToRender = Array(this.state.totalTicketsAmount).fill('');
-    const registrationLinkClass = this.state.adult.availableAmountOfPassengersToRegistrate === 0 && this.state.children.availableAmountOfPassengersToRegistrate === 0
-      ? 'registration__link_active'
-      : 'registration__link_disabled';
+    const orderPageLinkClass = this.state.adult.availableAmountOfPassengersToRegistrate === 0 && this.state.children.availableAmountOfPassengersToRegistrate === 0
+      ? 'order-page__link_active'
+      : 'order-page__link_disabled';
 
     return (
       <div className='registration'>
@@ -87,8 +87,8 @@ class Registration extends React.Component {
           })}
         </div>
 
-        <div className="registration__link-wrap">
-          <Link to='/order/payment' className={`link btn btn_theme_yellow btn_size_small registration__link ${registrationLinkClass}`}
+        <div className="order-page__link-wrap">
+          <Link to='/order/payment' className={`link btn btn_theme_yellow btn_size_small order-page__link ${orderPageLinkClass}`}
             onClick={() => this.props.changeOrderStep(3)}>Далее</Link>
         </div>
       </div>

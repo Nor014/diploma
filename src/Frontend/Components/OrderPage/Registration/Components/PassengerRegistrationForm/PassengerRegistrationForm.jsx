@@ -30,8 +30,8 @@ class PassengerRegistrationForm extends React.Component {
         { value: 'birth-certificate', innerText: 'Свидетельство о рождении', active: false }
       ],
       personData: [
-        { name: 'lastName', value: '', },
-        { name: 'firstName', value: '', },
+        { name: 'last_name', value: '', },
+        { name: 'first_name', value: '', },
         { name: 'patronymic', value: '', },
         { name: 'dateOfBirth', value: '', },
         { name: 'passportSeries', value: '', },
@@ -157,8 +157,8 @@ class PassengerRegistrationForm extends React.Component {
         coach_id: currentTicketDetails.coachId,
         person_info: {
           is_adult: category === 'adult' ? true : false,
-          first_name: this.state.personData.find(el => el.name === 'firstName').value,
-          last_name: this.state.personData.find(el => el.name === 'lastName').value,
+          first_name: this.state.personData.find(el => el.name === 'first_name').value,
+          last_name: this.state.personData.find(el => el.name === 'last_name').value,
           patronymic: this.state.personData.find(el => el.name === 'patronymic').value,
           gender: gender.man === true ? true : false,
           birthday: moment(this.state.personData.find(el => el.name === 'dateOfBirth').value).format('YYYY-MM-DD'),
@@ -193,31 +193,11 @@ class PassengerRegistrationForm extends React.Component {
 
       this.props.removeSubmitTicketData(this.state.formId);
       this.props.changePassengersAmountAvailableToRegistration(category, 'add');
-    }
 
-    this.setState({
-      formId: nanoid(),
-      isFormActive: this.state.isFormActive, // стейт по умолчанию с сохранением открытости/закрытости тела формы
-      passengerCategory: [
-        { value: 'adult', innerText: 'Взрослый', active: true, chosen: false },
-        { value: 'children', innerText: 'Детский', active: false, chosen: false },
-      ],
-      documents: [
-        { value: 'passport', innerText: 'Паспорт', active: true },
-        { value: 'birth-certificate', innerText: 'Свидетельство о рождении', active: false }
-      ],
-      personData: [
-        { name: 'lastName', value: '', },
-        { name: 'firstName', value: '', },
-        { name: 'patronymic', value: '', },
-        { name: 'dateOfBirth', value: '', },
-        { name: 'passportSeries', value: '', },
-        { name: 'passportNumber', value: '', },
-        { name: 'birthCertificate', value: '', },
-        { name: 'gender', gender: { man: false, woman: false }, errorMessage: 'Не выбран пол' },
-      ],
-      validation: { valid: null, message: '', }
-    })
+      this.setState(prevState => {
+        return { ...prevState, validation: { valid: null, message: '' } }
+      })
+    }
   }
 
   render() {
@@ -266,13 +246,13 @@ class PassengerRegistrationForm extends React.Component {
 
                 <div className="registration-form__row">
                   <RegistrationInput label='Фамилия'
-                    paramsName='lastName'
-                    value={this.state.personData.find(el => el.name === 'lastName').value}
+                    paramsName='last_name'
+                    value={this.state.personData.find(el => el.name === 'last_name').value}
                     onChange={this.onPersonDataChange} />
 
                   <RegistrationInput label='Имя'
-                    paramsName='firstName'
-                    value={this.state.personData.find(el => el.name === 'firstName').value}
+                    paramsName='first_name'
+                    value={this.state.personData.find(el => el.name === 'first_name').value}
                     onChange={this.onPersonDataChange} />
 
                   <RegistrationInput label='Отчество'

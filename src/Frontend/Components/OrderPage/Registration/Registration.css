@@ -2,19 +2,3 @@
 .registration__inner {
   margin-bottom: 100px;
 }
-
-.registration__link-wrap {
-  text-align: right;
-}
-
-.registration__link {
-  min-width: 200px;
-  display: inline-block;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.registration__link_disabled {
-  background: #928F94;
-  pointer-events: none;
-}

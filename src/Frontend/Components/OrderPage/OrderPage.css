@@ -34,3 +34,21 @@
 .order-page__content {
   flex: 1 1 auto;
 }
+
+/* link */
+
+.order-page__link-wrap {
+  text-align: right;
+}
+
+.order-page__link {
+  min-width: 200px;
+  display: inline-block;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.order-page__link_disabled {
+  background: #928F94;
+  pointer-events: none;
+}
