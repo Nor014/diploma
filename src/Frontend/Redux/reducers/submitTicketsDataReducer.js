@@ -52,8 +52,10 @@ export default function submitTicketsDataReducer(state = initState, action) {
   }
 
   if (action.type === 'SET_USER_PARAMS') {
-    const { paramsName, value } = action.payload;
+    let { paramsName, value } = action.payload;
     const newState = { ...state.user };
+
+    if (paramsName === 'phone') value = value.replace(/-/g, '');
 
     newState[paramsName] = value;
 

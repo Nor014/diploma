@@ -32,7 +32,7 @@ export const validateParams = {
     errorMessage: 'Номер телефона введен неверно'
   },
   email: {
-    pattern: /^ ([A - Za - z0 -9_\-\.]) +\@([A - Za - z0 -9_\-\.]) +\.([A - Za - z]{ 2, 4 }) $ /,
+    pattern: /\S+@\S+\.\S+/,
     errorMessage: 'Email введен неверно'
   }
 }

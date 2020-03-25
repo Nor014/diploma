@@ -8,11 +8,39 @@ import { validateParams } from '../../../index';
 import RegistrationInput from '../../GeneralBlocks/RegistrationInput/RegistrationInput';
 
 class Payment extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      validation: {
+        valid: null,
+        errorMessage: ''
+      }
+    }
+  }
+
   onFormSubmit = () => {
     const { user } = this.props.submitTicketsData;
-    const phone = user.phone.replace(/-/g, '');
 
     console.log(validateParams.phone.pattern.test(user.phone.replace(/-/g, '')))
+    console.log(validateParams.email.pattern.test(user.email))
+
+    let valid = true, errorMessage = '';
+
+    for (let [key, value] of Object.entries(user)) {
+      if (key !== 'payment_method' && !validateParams[key].pattern.test(value)) {
+        valid = false;
+        errorMessage = validateParams[key].errorMessage;
+        break;
+      }
+
+      if (key === 'payment_method' && value === null) {
+        valid = false;
+        errorMessage = 'Не выбран способ оплаты';
+        break;
+      }
+    }
+
+    this.setState(prevState => ({ ...prevState, validation: { valid: valid, errorMessage: errorMessage } }), () => console.log(this.state))
   }
 
   changeFormState = (event) => {
@@ -85,7 +113,12 @@ class Payment extends React.Component {
             <div className="payment__form-content payment__form_border_dashed">
               <div className="payment__method ">
                 <div className="payment__form-radio">
-                  <input className='payment__form-radio-input' type="radio" name='payment_method' id='online' onChange={this.changeFormState} />
+                  <input className='payment__form-radio-input'
+                    type="radio"
+                    name='payment_method'
+                    id='online'
+                    onChange={this.changeFormState}
+                    checked={formState.payment_method !== null && formState.payment_method === 'online' ? true : false} />
                   <label htmlFor="online" className='payment__form-label'>Онлайн</label>
                 </div>
 
@@ -100,7 +133,12 @@ class Payment extends React.Component {
             <div className="payment__form-content">
               <div className="payment__method ">
                 <div className="payment__form-radio">
-                  <input className='payment__form-radio-input' type="radio" name='payment_method' id='cash' onChange={this.changeFormState} />
+                  <input className='payment__form-radio-input'
+                    type="radio"
+                    name='payment_method'
+                    id='cash'
+                    onChange={this.changeFormState}
+                    checked={formState.payment_method !== null && formState.payment_method === 'cash' ? true : false} />
                   <label htmlFor="cash" className='payment__form-label'>Наличными</label>
                 </div>
               </div>
