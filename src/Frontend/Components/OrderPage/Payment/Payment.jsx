@@ -6,6 +6,7 @@ import { setUserParams } from '../../../Redux/actions/actions';
 import { validateParams } from '../../../index';
 
 import RegistrationInput from '../../GeneralBlocks/RegistrationInput/RegistrationInput';
+import AttentionPopup from '../../GeneralBlocks/AttentionPopup/AttentionPopup';
 
 class Payment extends React.Component {
   constructor(props) {
@@ -20,10 +21,6 @@ class Payment extends React.Component {
 
   onFormSubmit = () => {
     const { user } = this.props.submitTicketsData;
-
-    console.log(validateParams.phone.pattern.test(user.phone.replace(/-/g, '')))
-    console.log(validateParams.email.pattern.test(user.email))
-
     let valid = true, errorMessage = '';
 
     for (let [key, value] of Object.entries(user)) {
@@ -54,11 +51,11 @@ class Payment extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const formState = this.props.submitTicketsData.user;
 
     return (
       <div className='payment'>
+
         <form action="" className='payment__form'>
           <div className="payment__form-section">
             <div className="payment__form-head payment__form_border_dashed">
@@ -67,17 +64,23 @@ class Payment extends React.Component {
 
             <div className="payment__form-body payment__form_border_dashed">
               <div className="payment__form-inner">
-                <RegistrationInput label='Фамилия'
+                <RegistrationInput
+                  id='last_name'
+                  label='Фамилия'
                   paramsName='last_name'
                   value={formState.last_name}
                   onChange={this.changeFormState} />
 
-                <RegistrationInput label='Имя'
+                <RegistrationInput
+                  id='first_name'
+                  label='Имя'
                   paramsName='first_name'
                   value={formState.first_name}
                   onChange={this.changeFormState} />
 
-                <RegistrationInput label='Отчество'
+                <RegistrationInput
+                  id='patronymic'
+                  label='Отчество'
                   paramsName='patronymic'
                   value={formState.patronymic}
                   onChange={this.changeFormState} />
@@ -85,6 +88,7 @@ class Payment extends React.Component {
 
               <div className="payment__form-inner">
                 <RegistrationInput
+                  id='phone'
                   label='Контактный телефон'
                   paramsName='phone'
                   placeholder='+7 ___ ___ __ __'
@@ -95,7 +99,9 @@ class Payment extends React.Component {
               </div>
 
               <div className="payment__form-inner">
-                <RegistrationInput label='E-mail'
+                <RegistrationInput
+                  id='email'
+                  label='E-mail'
                   paramsName='email'
                   placeholder='inbox@gmail.ru'
                   value={formState.email}

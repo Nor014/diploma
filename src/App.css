@@ -9,6 +9,7 @@
   font-size: 20px;
   line-height: 25px;
   color: #292929;
+  position: relative;
 }
 
 .container {
@@ -22,4 +23,3 @@
   text-decoration: none;
   color: #fff;
 }
-

@@ -12,6 +12,7 @@ import seatsDataReducer from '../reducers/seatsDataReducer';
 import orderDetailsReducer from '../reducers/orderDetailsReducer';
 import orderStepsReducer from '../reducers/orderStepsReducer';
 import submitTicketsDataReducer from '../reducers/submitTicketsDataReducer';
+import attentionPopupReducer from '../reducers/attentionPopupReducer';
 
 import { loadingBarReducer } from 'react-redux-loading-bar';
 
@@ -25,6 +26,7 @@ const generalReducer = combineReducers({
   orderDetailsData: orderDetailsReducer,
   orderStepsData: orderStepsReducer,
   submitTicketsData: submitTicketsDataReducer,
+  attentionPopupData: attentionPopupReducer,
 })
 
 const sagaMiddleware = createSagaMiddleware();

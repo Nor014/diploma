@@ -29,19 +29,18 @@ class PassengerRegistrationForm extends React.Component {
         { value: 'passport', innerText: 'Паспорт', active: true },
         { value: 'birth-certificate', innerText: 'Свидетельство о рождении', active: false }
       ],
-      personData: [
-        { name: 'last_name', value: '', },
-        { name: 'first_name', value: '', },
-        { name: 'patronymic', value: '', },
-        { name: 'dateOfBirth', value: '', },
-        { name: 'passportSeries', value: '', },
-        { name: 'passportNumber', value: '', },
-        { name: 'birthCertificate', value: '', },
-        { name: 'gender', gender: { man: false, woman: false }, errorMessage: 'Не выбран пол' },
-      ],
+      personData: {
+        last_name: '',
+        first_name: '',
+        patronymic: '',
+        dateOfBirth: '',
+        passportSeries: '',
+        passportNumber: '',
+        birthCertificate: '',
+        gender: { values: { man: false, woman: false }, errorMessage: 'Не выбран пол' }
+      },
       validation: { valid: null, message: '', }
     }
-    this.baseState = this.state;
   }
 
   toggleFormVisibility = () => {
@@ -63,12 +62,11 @@ class PassengerRegistrationForm extends React.Component {
   }
 
   onPersonDataChange = (event) => {
-    const { id, value } = event.target;
+    const paramsName = event.target.dataset.paramsName;
+    const value = event.target.value;
 
-    const newState = this.state.personData.map(el => {
-      if (el.name === id) el.value = value
-      return el
-    });
+    const newState = { ...this.state.personData };
+    newState[paramsName] = value;
 
     this.setState(prevState => ({ ...prevState, personData: newState }));
   }
@@ -76,12 +74,10 @@ class PassengerRegistrationForm extends React.Component {
   changeGender = (event) => {
     const valueToChoose = event.target.dataset.valueToChoose;
     const valueToDisable = event.target.dataset.valueToDisable;
-    const newState = [... this.state.personData];
+    const newState = { ... this.state.personData };
 
-    const genderField = newState.find(el => el.name === 'gender');
-
-    genderField.gender[valueToChoose] = true;
-    genderField.gender[valueToDisable] = false;
+    newState.gender.values[valueToChoose] = true;
+    newState.gender.values[valueToDisable] = false;
 
     this.setState(prevState => ({ ...prevState, personData: newState }));
   }
@@ -93,30 +89,24 @@ class PassengerRegistrationForm extends React.Component {
     const category = this.state.passengerCategory.find(category => category.active).value;
     const { adultCategory, childrenCategory } = this.props;
 
-    const dateToValidate = this.state.personData.filter(date => { // исключаем формы в зависимости от выбранного документа
-      if (documentToValidate === 'passport') {
-        return date.name !== 'birthCertificate';
-      }
-
-      if (documentToValidate === 'birth-certificate') {
-        return date.name === 'passportSeries' || date.name === 'passportNumber' ? false : true;
-      }
-    })
-
     let valid = true;
     let errorMessage = null;
 
-    for (let i = 0; i <= dateToValidate.length - 1; i++) { // валидация форм до первой ошибки
-      if (dateToValidate[i].name !== 'gender') {
-        if (!validateParams[dateToValidate[i].name].pattern.test(dateToValidate[i].value)) {
+    for (let [key, value] of Object.entries(this.state.personData)) {
+      if (documentToValidate === 'passport' && key === 'birthCertificate') continue;
+      if (documentToValidate === 'birth-certificate' && key === 'passportSeries') continue;
+      if (documentToValidate === 'birth-certificate' && key === 'passportNumber') continue;
+
+      if (key !== 'gender') {
+        if (!validateParams[key].pattern.test(value)) {
           valid = false;
-          errorMessage = validateParams[dateToValidate[i].name].errorMessage;
+          errorMessage = validateParams[key].errorMessage;
           break;
         }
       } else {
-        if (!dateToValidate[i].gender.man && !dateToValidate[i].gender.woman) { // не выбран пол
+        if (!this.state.personData.gender.values.man && !this.state.personData.gender.values.woman) { // не выбран пол
           valid = false;
-          errorMessage = dateToValidate[i].errorMessage;
+          errorMessage = this.state.personData.gender.errorMessage;
           break;
         }
       }
@@ -142,11 +132,10 @@ class PassengerRegistrationForm extends React.Component {
     })
 
     if (valid) { // dispatch данных о пассажире и месте в поезде
-      const gender = this.state.personData.find(el => el.name === 'gender').gender;
+      const gender = this.state.personData.gender.values;
       const documentData = documentToValidate === 'passport'
-        ? (this.state.personData.find(el => el.name === 'passportSeries').value + this.state.personData.find(el => el.name === 'passportNumber').value)
-          .replace(/([0-9]{2})([0-9]{8})/g, "$1 $2")
-        : this.state.personData.find(el => el.name === 'birthCertificate').value;
+        ? (this.state.personData.passportSeries + this.state.personData.passportNumber).replace(/([0-9]{2})([0-9]{8})/g, "$1 $2")
+        : this.state.personData.birthCertificate;
 
       const ticketIndex = category === 'adult' ? this.props.adultCategory.alreadyRegistered : this.props.childrenCategory.alreadyRegistered;
       const currentTicketDetails = this.props.orderDetailsData.ticketCategories.find(el => el.categoryName === category).ticketsData
@@ -157,11 +146,11 @@ class PassengerRegistrationForm extends React.Component {
         coach_id: currentTicketDetails.coachId,
         person_info: {
           is_adult: category === 'adult' ? true : false,
-          first_name: this.state.personData.find(el => el.name === 'first_name').value,
-          last_name: this.state.personData.find(el => el.name === 'last_name').value,
-          patronymic: this.state.personData.find(el => el.name === 'patronymic').value,
+          first_name: this.state.personData.first_name,
+          last_name: this.state.personData.last_name,
+          patronymic: this.state.personData.patronymic,
           gender: gender.man === true ? true : false,
-          birthday: moment(this.state.personData.find(el => el.name === 'dateOfBirth').value).format('YYYY-MM-DD'),
+          birthday: moment(this.state.personData.dateOfBirth).format('YYYY-MM-DD'),
           document_type: documentToValidate === 'passport' ? 'паспрорт' : 'свидетельство о рождении',
           document_data: documentData
         },
@@ -246,35 +235,39 @@ class PassengerRegistrationForm extends React.Component {
 
                 <div className="registration-form__row">
                   <RegistrationInput label='Фамилия'
+                    id={`last_name-${this.state.formId}`}
                     paramsName='last_name'
-                    value={this.state.personData.find(el => el.name === 'last_name').value}
+                    value={this.state.personData.last_name}
                     onChange={this.onPersonDataChange} />
 
                   <RegistrationInput label='Имя'
+                    id={`first_name-${this.state.formId}`}
                     paramsName='first_name'
-                    value={this.state.personData.find(el => el.name === 'first_name').value}
+                    value={this.state.personData.first_name}
                     onChange={this.onPersonDataChange} />
 
                   <RegistrationInput label='Отчество'
+                    id={`patronymic-${this.state.formId}`}
                     paramsName='patronymic'
-                    value={this.state.personData.find(el => el.name === 'patronymic').value}
+                    value={this.state.personData.patronymic}
                     onChange={this.onPersonDataChange} />
                 </div>
 
                 <div className="registration-form__row">
                   <RadioToggle label='Пол' parentClass='registration-form__radio-toggle'
-                    id={this.state.formId}
+                    id={`gender-${this.state.formId}`}
                     paramsName='gender'
-                    firstItem={{ valueToChoose: 'man', valueToDisable: 'woman', labelValue: 'М', checked: this.state.personData.find(el => el.name === 'gender').gender.man }}
-                    secondItem={{ valueToChoose: 'woman', valueToDisable: 'man', labelValue: 'Ж', checked: this.state.personData.find(el => el.name === 'gender').gender.woman }}
+                    firstItem={{ valueToChoose: 'man', valueToDisable: 'woman', labelValue: 'М', checked: this.state.personData.gender.values.man }}
+                    secondItem={{ valueToChoose: 'woman', valueToDisable: 'man', labelValue: 'Ж', checked: this.state.personData.gender.values.woman }}
                     changeGender={this.changeGender} />
 
                   <RegistrationInput
+                    id={`dateOfBirth-${this.state.formId}`}
                     label='Дата рождения'
                     paramsName='dateOfBirth'
                     placeholder='ДД/ММ/ГГ'
                     mask={[/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/]}
-                    value={this.state.personData.find(el => el.name === 'dateOfBirth').value}
+                    value={this.state.personData.dateOfBirth}
                     onChange={this.onPersonDataChange}
                     size='middle' />
                 </div>
@@ -302,20 +295,22 @@ class PassengerRegistrationForm extends React.Component {
                 {activeDocumentType === 'passport' &&
                   <>
                     <RegistrationInput
+                      id={`passportSeries-${this.state.formId}`}
                       label='Серия'
                       paramsName='passportSeries'
                       placeholder='_ _ _ _'
                       mask={[/\d/, /\d/, /\d/, /\d/]}
-                      value={this.state.personData.find(el => el.name === 'passportSeries').value}
+                      value={this.state.personData.passportSeries}
                       onChange={this.onPersonDataChange}
                       size='small' />
 
                     <RegistrationInput
+                      id={`passportNumber-${this.state.formId}`}
                       label='Номер'
                       paramsName='passportNumber'
                       placeholder='_ _ _ _ _ _'
                       mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-                      value={this.state.personData.find(el => el.name === 'passportNumber').value}
+                      value={this.state.personData.passportNumber}
                       onChange={this.onPersonDataChange}
                       size='small' />
                   </>
@@ -323,11 +318,12 @@ class PassengerRegistrationForm extends React.Component {
 
                 {activeDocumentType === 'birth-certificate' &&
                   <RegistrationInput
+                    id={`birthCertificate-${this.state.formId}`}
                     label='Номер'
                     paramsName='birthCertificate'
                     placeholder='_ _ _ _ _ _ _ _ _ _ _ _'
                     mask={[/\d/, /\d/, /\d/, /\d/, ' ', /^[А-я]+$/, /^[А-я]+$/, ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-                    value={this.state.personData.find(el => el.name === 'birthCertificate').value}
+                    value={this.state.personData.birthCertificate}
                     onChange={this.onPersonDataChange}
                     size='middle' />}
               </div>

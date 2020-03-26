@@ -8,15 +8,20 @@ import Header from './Frontend/Components/Header/Header';
 import Footer from './Frontend/Components/Footer/Footer';
 import MainPage from './Frontend/Components/MainPage/MainPage';
 import OrderPage from './Frontend/Components/OrderPage/OrderPage';
+import AttentionPopup from './Frontend/Components/GeneralBlocks/AttentionPopup/AttentionPopup';
 
 import './Frontend/index.css';
 
 
 function App() {
+  
   return (
     <Provider store={store}>
       <Router>
         <div className="App">
+
+          <AttentionPopup /> 
+
           <Header />
           <main className='main'>
             <Switch>
