@@ -17,8 +17,9 @@
 }
 
 .popup {
-  position: fixed;
+  position: absolute;
   max-width: 440px;
+  width: 100%;
   background: #FFFFFF;
   border: 1px solid #C4C4C4;
   box-sizing: border-box;

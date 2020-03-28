@@ -10,7 +10,8 @@
 @import './RegistrationAside/RegistrationAside.css';
 @import './Registration/Registration.css';
 @import './Payment/Payment.css';
-/*  */
+@import './DataConfirmation/DataConfirmation.css';
+/* //////////////////// */
 
 .order-page__head {
   padding-top: 265px;
@@ -33,7 +34,6 @@
 
 .order-page__content {
   flex: 1 1 auto;
-  position: relative;
 }
 
 /* link */

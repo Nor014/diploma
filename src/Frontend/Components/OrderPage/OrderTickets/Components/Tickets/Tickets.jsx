@@ -79,10 +79,8 @@ export default class Tickets extends React.Component {
               </div>
 
               <div className="ticket-card__seats-services">
-                {el.departure.have_wifi
-                  && <SvgIcon icon='ticket-wifi' className='ticket-card__seats-service' />}
-                {el.departure.is_express
-                  && <SvgIcon icon='ticket-express' className='ticket-card__seats-service' />}
+                {el.departure.have_wifi && <SvgIcon icon='ticket-wifi' className='ticket-card__seats-service' />}
+                {el.departure.is_express && <SvgIcon icon='ticket-express' className='ticket-card__seats-service' />}
 
                 <SvgIcon icon='ticket-food' className='ticket-card__seats-service' />
               </div>

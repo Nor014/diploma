@@ -1,25 +1,27 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 
 import { connect } from 'react-redux';
-import { setUserParams } from '../../../Redux/actions/actions';
+import { setUserParams, setError, changeOrderStep } from '../../../Redux/actions/actions';
 import { validateParams } from '../../../index';
 
 import RegistrationInput from '../../GeneralBlocks/RegistrationInput/RegistrationInput';
-import AttentionPopup from '../../GeneralBlocks/AttentionPopup/AttentionPopup';
 
 class Payment extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      validation: {
-        valid: null,
-        errorMessage: ''
-      }
-    }
+    this.ref = React.createRef();
   }
 
-  onFormSubmit = () => {
+  componentDidMount = () => {
+    this.ref.current.scrollIntoView({ // scroll to top
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+
+  onFormSubmit = (event) => {
+    event.preventDefault();
+
     const { user } = this.props.submitTicketsData;
     let valid = true, errorMessage = '';
 
@@ -37,7 +39,14 @@ class Payment extends React.Component {
       }
     }
 
-    this.setState(prevState => ({ ...prevState, validation: { valid: valid, errorMessage: errorMessage } }), () => console.log(this.state))
+    if (!valid) {
+      this.props.setError('error', errorMessage)
+    }
+
+    if (valid) {
+      this.props.changeOrderStep(4);
+      this.props.history.push('confirmation');
+    }
   }
 
   changeFormState = (event) => {
@@ -54,9 +63,8 @@ class Payment extends React.Component {
     const formState = this.props.submitTicketsData.user;
 
     return (
-      <div className='payment'>
-
-        <form action="" className='payment__form'>
+      <div className='payment' ref={this.ref}>
+        <form id='payment-form' onSubmit={this.onFormSubmit} className='payment__form'>
           <div className="payment__form-section">
             <div className="payment__form-head payment__form_border_dashed">
               <h2 className="payment__form-title">Персональные данные</h2>
@@ -153,8 +161,7 @@ class Payment extends React.Component {
         </form>
 
         <div className="order-page__link-wrap">
-          <button to='/order/payment' className={`link btn btn_theme_yellow btn_size_big order-page__link`}
-            onClick={this.onFormSubmit}>Купить билеты</button>
+          <button type='submit' form='payment-form' className={`link btn btn_theme_yellow btn_size_big order-page__link`}>Купить билеты</button>
         </div>
       </div>
     )
@@ -171,7 +178,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUserParams: (paramsName, value) => dispatch(setUserParams(paramsName, value))
+    setUserParams: (paramsName, value) => dispatch(setUserParams(paramsName, value)),
+    setError: (error_type, message) => dispatch(setError(error_type, message)),
+    changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex)),
   }
 }
 

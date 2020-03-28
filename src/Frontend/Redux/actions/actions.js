@@ -336,3 +336,21 @@ export function setUserParams(paramsName, value) {
     }
   }
 }
+
+// AttentionPopup
+
+export function setError(error_type, message) {
+  return {
+    type: 'SET_ERROR',
+    payload: {
+      error_type,
+      message
+    }
+  }
+}
+
+export function removeError() {
+  return {
+    type: 'REMOVE_ERROR'
+  }
+}

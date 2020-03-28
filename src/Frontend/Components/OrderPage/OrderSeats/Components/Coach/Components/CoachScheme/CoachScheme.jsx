@@ -126,16 +126,16 @@ class CoachScheme extends React.Component {
     const ticketCategory = this.props.orderDetailsData.ticketCategories.find(category => category.active);
     const price = Math.floor(event.target.dataset.price * ticketCategory.categoryDiscountСoefficient);
 
-    const hint = document.querySelector('.coach-scheme__hint');
+    const hint = this.coachSchemeRef.current.querySelector('.coach-scheme__hint');
     hint.innerHTML = `Место - ${type} <br> Категория - ${ticketCategory.categoryHint} <br> Цена - ${price} ₽`;
 
-    hint.style.left = event.pageX + 'px';
-    hint.style.top = event.pageY + 25 + 'px';
+    hint.style.left = event.offsetX + 20 + 'px';
+    hint.style.top = event.offsetY + 25 + 'px';
     hint.style.display = 'block';
   }
 
   hideHint = () => {
-    const hint = document.querySelector('.coach-scheme__hint');
+    const hint = this.coachSchemeRef.current.querySelector('.coach-scheme__hint');
     hint.style.display = 'none';
   }
 
@@ -155,23 +155,26 @@ class CoachScheme extends React.Component {
 
     return (
       <div className='coach-scheme' ref={this.coachSchemeRef}>
-        <div className="coach-scheme__hint"></div>
+        <div className="coach-scheme__wrap">
+          {coachClass === 'first'
+            ? <FirstClassScheme className='coach-scheme__svg' />
+            : null}
 
-        {coachClass === 'first'
-          ? <FirstClassScheme className='coach-scheme__svg' />
-          : null}
+          {coachClass === 'second'
+            ? <SecondClassScheme className='coach-scheme__svg' />
+            : null}
 
-        {coachClass === 'second'
-          ? <SecondClassScheme className='coach-scheme__svg' />
-          : null}
+          {coachClass === 'third'
+            ? <ThirdClassScheme className='coach-scheme__svg' />
+            : null}
 
-        {coachClass === 'third'
-          ? <ThirdClassScheme className='coach-scheme__svg' />
-          : null}
+          {coachClass === 'fourth'
+            ? <FourthClassScheme className='coach-scheme__svg' />
+            : null}
 
-        {coachClass === 'fourth'
-          ? <FourthClassScheme className='coach-scheme__svg' />
-          : null}
+          <div className="coach-scheme__hint"></div>
+        </div>
+
         <p className="coach-scheme__total-cost">{totalCost} <span className='coach__seats-ruble'>₽</span></p>
       </div >
     )
