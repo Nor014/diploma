@@ -189,7 +189,7 @@ export function setPathDetails(details, direction) {
     type: 'SET_PATH_DETAILS',
     payload: {
       details: details,
-      direction: direction
+      direction: direction,
     }
   }
 }
@@ -203,6 +203,13 @@ export function clearOrderDetailsData() {
 export function clearSeatsData() {
   return {
     type: 'CLEAR_SEATS_DATA'
+  }
+}
+
+export function setFullPathData(data) {
+  return {
+    type: 'SET_FULL_PATH_DATA',
+    payload: data
   }
 }
 

@@ -1,4 +1,5 @@
 const initState = {
+  fullPathData: null,
   pathDetails: [
     {
       name: 'departure',
@@ -76,6 +77,10 @@ export default function orderDetailsReducer(state = initState, action) {
     return { ...state, pathDetails: newState }
   }
 
+  if (action.type === 'SET_FULL_PATH_DATA') {
+    return { ...state, fullPathData: action.payload };
+  }
+
   if (action.type === 'SET_TICKET_DETAILS') {
     const ticketDetails = action.payload;
 
@@ -128,6 +133,7 @@ export default function orderDetailsReducer(state = initState, action) {
   if (action.type === 'CLEAR_ORDER_DETAILS_DATA') {
     // по хорошему нужно было юзать например CloneDeep от Lodash, Immer и т.д. и возвращать initState, так как spred оператор копирует только поверхностно
     return {
+      fullPathData: null,
       pathDetails: [
         {
           name: 'departure',

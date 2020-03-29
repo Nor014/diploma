@@ -7,7 +7,7 @@ import Passengers from './Components/Passengers/Passengers';
 import Coach from './Components/Coach/Coach';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
-import { getSeatsData, setPathDetails, clearOrderDetailsData, clearSeatsData, changeOrderStep } from '../../../Redux/actions/actions';
+import { getSeatsData, setPathDetails, clearOrderDetailsData, clearSeatsData, changeOrderStep, setFullPathData } from '../../../Redux/actions/actions';
 
 class OrderSeats extends React.Component {
   constructor(props) {
@@ -24,8 +24,7 @@ class OrderSeats extends React.Component {
     this.backReducersToDefaultState(); // очищаем данные о пассажирах при перезагрузке, иначе отразятся данные из sessionStorage, в данном случае это не нужно
 
     // get seatsData
-    const directions = this.props.location.state;
-    console.log(directions)
+    const directions = this.props.location.state.date_with_breakdown;
 
     directions.forEach(direction => { // запрос данных для departure и arrival
       if (direction.data !== null) {
@@ -45,6 +44,8 @@ class OrderSeats extends React.Component {
 
         this.props.setPathDetails(pathDetailsObj, direction.name);
       }
+
+      this.props.setFullPathData(this.props.location.state.full_path_date); // костыль специально для рендера карточки на странице подтверждения данных
     })
   }
 
@@ -57,7 +58,6 @@ class OrderSeats extends React.Component {
     const { data, loading, error } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
 
-    console.log(this.props);
     const arraivalData = data.find(direction => direction.name === 'arrival').directionSeatsData;
     const departurePassengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentDepartureAmountOfTickets, 0);
     const arrivalPassengersAmount = ticketCategories.reduce((acc, el) => acc + el.currentArrivalAmountOfTickets, 0);
@@ -87,7 +87,7 @@ class OrderSeats extends React.Component {
               <Link to='/order' className="link order-seats__cahnge-train-link" onClick={this.backReducersToDefaultState}>Выбрать другой поезд</Link>
             </div>
 
-            <PathDetails pathData={this.props.location.state.find(el => el.name === direction.name).data} direction={direction.name} />
+            <PathDetails pathData={this.props.location.state.date_with_breakdown.find(el => el.name === direction.name).data} direction={direction.name} />
             <Passengers direction={direction.name} />
             <Coach direction={direction.name} />
           </div>
@@ -117,7 +117,8 @@ const mapDispatchToProps = (dispatch) => {
     setPathDetails: (ditails, direction) => dispatch(setPathDetails(ditails, direction)),
     clearOrderDetailsData: () => dispatch(clearOrderDetailsData()),
     clearSeatsData: () => dispatch(clearSeatsData()),
-    changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex))
+    changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex)),
+    setFullPathData: (data) => dispatch(setFullPathData(data)),
   }
 }
 

@@ -89,7 +89,10 @@ export default class Tickets extends React.Component {
                 <Link className='ticket-card__btn link btn btn_theme_yellow btn_size_small'
                   to={{
                     pathname: `/order/${el.departure._id}`,
-                    state: [{ name: 'departure', data: el.departure }, { name: 'arrival', data: el.arrival || null }]
+                    state: {
+                      date_with_breakdown: [{ name: 'departure', data: el.departure }, { name: 'arrival', data: el.arrival || null }],
+                      full_path_date: el
+                    }
                   }}>Выбрать места</Link>
               </div>
             </div>
