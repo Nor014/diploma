@@ -2,7 +2,7 @@
 @import './OrderFilters/OrderFilters.css';
 @import './LastTickets/LastTickets.css';
 @import './OrderTickets/OrderTickets.css';
-@import './OrderTickets/Components/Tickets/Tickets.css';
+@import './Tickets/Tickets.css';
 @import './OrderSeats/OrderSeats.css';
 @import './OrderSeats/Components/PathDetails/PathDetails.css';
 @import './OrderSeats/Components/Passengers/Passengers.css';

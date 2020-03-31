@@ -49,7 +49,8 @@ const initState = {
         }
       ]
     },
-  ]
+  ],
+  total_cost: 0,
 }
 
 export default function orderDetailsReducer(state = initState, action) {
@@ -84,6 +85,8 @@ export default function orderDetailsReducer(state = initState, action) {
   if (action.type === 'SET_TICKET_DETAILS') {
     const ticketDetails = action.payload;
 
+    console.log(ticketDetails)
+
     const newState = [...state.ticketCategories].map(category => {
       if (category.categoryName === ticketDetails.ticketCategory) {
         category.ticketsData.map(direction => {
@@ -102,7 +105,10 @@ export default function orderDetailsReducer(state = initState, action) {
       return category
     });
 
-    return { ...state, ticketCategories: newState }
+    let newTotalCost = state.total_cost;
+    newTotalCost += ticketDetails.totalCost;
+
+    return { ...state, ticketCategories: newState, total_cost: newTotalCost }
   }
 
   if (action.type === 'REMOVE_TICKET_DETAILS') {
@@ -183,7 +189,8 @@ export default function orderDetailsReducer(state = initState, action) {
             }
           ]
         },
-      ]
+      ],
+      total_cost: 0,
     }
   }
 

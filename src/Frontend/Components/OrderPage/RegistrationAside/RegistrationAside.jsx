@@ -15,29 +15,14 @@ class RegistrationAside extends React.Component {
     let childrenCategoryArrivalCost = 0;
 
     adultCategory.ticketsData.forEach(direction => {
-      if (direction.name === 'departure') {
-        adultCategoryDepartureCost = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0)
-      }
+      const result = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0);
+      direction.name === 'departure' ? adultCategoryDepartureCost = result: adultCategoryArrivalCost = result;
     });
 
     childrenCategory.ticketsData.forEach(direction => {
-      if (direction.name === 'departure') {
-        childrenCategoryDepartureCost = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0)
-      }
+      const result = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0);
+      direction.name === 'departure' ? childrenCategoryDepartureCost = result: childrenCategoryArrivalCost = result;
     });
-
-    adultCategory.ticketsData.forEach(direction => {
-      if (direction.name === 'arrival') {
-        adultCategoryArrivalCost = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0)
-      }
-    });
-
-    childrenCategory.ticketsData.forEach(direction => {
-      if (direction.name === 'arrival') {
-        childrenCategoryArrivalCost = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0)
-      }
-    });
-
 
     console.log(this.props)
 

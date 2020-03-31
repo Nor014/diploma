@@ -10,6 +10,7 @@
   transition: 0.1s all;
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
+  text-align: center;
 }
 
 .btn_theme_yellow {
@@ -35,6 +36,23 @@
   background: #FFF;
 }
 
+.btn_theme_white {
+  background: #FFF;
+  border: 1px solid #292929;
+  color: #292929;
+}
+
+.btn_theme_white:hover, .btn_theme_wthite:focus {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: #FFA800;
+}
+
+.btn_theme_white:active {
+  color: #292929;
+  background: #FFCA62;
+  border: 1px solid #FFCA62;
+}
+
 .btn_size_big {
   padding: 13px;
   max-width: 250px;
@@ -46,5 +64,5 @@
 }
 
 .btn_size_small {
-  padding: 10px ;
+  padding: 10px;
 }

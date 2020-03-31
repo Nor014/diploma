@@ -134,7 +134,8 @@ class PassengerRegistrationForm extends React.Component {
     if (valid) { // dispatch данных о пассажире и месте в поезде
       const gender = this.state.personData.gender.values;
       const documentData = documentToValidate === 'passport'
-        ? (this.state.personData.passportSeries + this.state.personData.passportNumber).replace(/([0-9]{2})([0-9]{8})/g, "$1 $2")
+        // ? (this.state.personData.passportSeries + this.state.personData.passportNumber).replace(/([0-9]{2})([0-9]{8})/g, "$1 $2")
+        ? (this.state.personData.passportSeries + ' ' + this.state.personData.passportNumber)
         : this.state.personData.birthCertificate;
 
       const ticketIndex = category === 'adult' ? this.props.adultCategory.alreadyRegistered : this.props.childrenCategory.alreadyRegistered;
@@ -150,8 +151,9 @@ class PassengerRegistrationForm extends React.Component {
           last_name: this.state.personData.last_name,
           patronymic: this.state.personData.patronymic,
           gender: gender.man === true ? true : false,
-          birthday: moment(this.state.personData.dateOfBirth).format('YYYY-MM-DD'),
-          document_type: documentToValidate === 'passport' ? 'паспрорт' : 'свидетельство о рождении',
+          // birthday: moment(this.state.personData.dateOfBirth).format('YYYY-MM-DD'),
+          birthday: this.state.personData.dateOfBirth,
+          document_type: documentToValidate === 'passport' ? 'паспорт' : 'свидетельство о рождении',
           document_data: documentData
         },
         seat_number: currentTicketDetails.seatNumber,

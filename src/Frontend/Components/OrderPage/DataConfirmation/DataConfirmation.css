@@ -3,6 +3,13 @@
   border: 1px solid #C4C4C4;
   box-sizing: border-box;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 45px;
+}
+
+.confirmation__inner .ticket-card {
+  box-shadow: none;
+  border: none;
+  margin-bottom: 0;
 }
 
 .confirmation__head {
@@ -14,4 +21,91 @@
   font-size: 20px;
   line-height: 25px;
   color: #292929;
+}
+
+.confirmation__body {
+  display: flex;
+}
+
+.confirmation__content {
+  flex: 1 1 auto;
+  border-right: 1px dashed #E5E5E5;
+}
+
+.confirmation__asside {
+  flex: 0 0 260px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* confirmation__passengers */
+
+.confirmation__passenger {
+  display: flex;
+  padding: 30px;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.confirmation__passenger:last-child {
+  margin-bottom: 60px;
+}
+
+.confirmation__passenger:not(:last-child) {
+  border-bottom: 1px dashed #E5E5E5;
+}
+
+.confirmation__passenger-category {
+  flex: 0 0 100px;
+  color: #292929;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.confirmation__passenger-category::before {
+  content: '';
+  display: block;
+  width: 68px;
+  height: 68px;
+  background: url('./data-confirmation__avatar.svg') no-repeat center/cover;
+  margin: 0 auto 10px auto;
+}
+
+.confirmation__passenger-name {
+  margin-bottom: 10px;
+}
+
+.confirmation__passenger-text {
+  color: #928F94;
+  margin-bottom: 5px;
+}
+
+.confirmation__passengers-total-cost {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 25px;
+}
+
+.confirmation__passengers-span {
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  color: #292929;
+}
+
+.confirmation__passengers-ruble {
+  color: #928F94;
+  font-weight: 300;
+}
+
+.confirmation__payment-type {
+  padding: 30px;
+}
+
+.confirmation__link-wrap {
+  margin-top: 110px;
 }

@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SvgIcon from '../../../../GeneralBlocks/SvgIcon/SvgIcon';
+import SvgIcon from '../../GeneralBlocks/SvgIcon/SvgIcon';
 
 
 export default class Tickets extends React.Component {
   render() {
-    const { data, maxTicketsToShow } = this.props;
+    const { data, maxTicketsToShow, renderFromConfirmation } = this.props;
     console.log(data)
 
     return (
@@ -81,23 +81,26 @@ export default class Tickets extends React.Component {
               <div className="ticket-card__seats-services">
                 {el.departure.have_wifi && <SvgIcon icon='ticket-wifi' className='ticket-card__seats-service' />}
                 {el.departure.is_express && <SvgIcon icon='ticket-express' className='ticket-card__seats-service' />}
-
                 <SvgIcon icon='ticket-food' className='ticket-card__seats-service' />
               </div>
 
               <div className="ticket-card__btn-wrap">
-                <Link className='ticket-card__btn link btn btn_theme_yellow btn_size_small'
-                  to={{
-                    pathname: `/order/${el.departure._id}`,
-                    state: {
-                      date_with_breakdown: [{ name: 'departure', data: el.departure }, { name: 'arrival', data: el.arrival || null }],
-                      full_path_date: el
-                    }
-                  }}>Выбрать места</Link>
+                {!renderFromConfirmation
+
+                  ? <Link className='ticket-card__btn link btn btn_theme_yellow btn_size_small'
+                    to={{
+                      pathname: `/order/${el.departure._id}`,
+                      state: {
+                        date_with_breakdown: [{ name: 'departure', data: el.departure }, { name: 'arrival', data: el.arrival || null }],
+                        full_path_date: el
+                      }
+                    }}>Выбрать места</Link>
+
+                  : <Link to='/order' className='ticket-card__btn link btn btn_theme_white btn_size_small'
+                    onClick={this.props.onLinkClick}>Изменить</Link>}
               </div>
             </div>
-          </div>
-        ))}
+          </div>))}
       </div>
     )
   }

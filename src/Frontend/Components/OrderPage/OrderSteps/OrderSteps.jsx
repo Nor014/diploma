@@ -15,7 +15,9 @@ class OrderSteps extends React.Component {
     const currentLocation = event.target.location.pathname;
     let currentStepIndex;
 
-    if (currentLocation === '/order/payment') {
+    if (currentLocation === '/order/confirmation') {
+      currentStepIndex = 4;
+    } else if (currentLocation === '/order/payment') {
       currentStepIndex = 3;
     } else if (currentLocation === '/order/registration') {
       currentStepIndex = 2;

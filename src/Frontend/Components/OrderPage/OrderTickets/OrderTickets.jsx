@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { sortTickets } from '../../../Redux/actions/actions';
 
-import Tickets from './Components/Tickets/Tickets';
+import Tickets from '../Tickets/Tickets';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 import HoverDropDown from '../../GeneralBlocks/HoverDropDown/HoverDropDown';
 
@@ -80,7 +80,7 @@ class OrderTickets extends React.Component {
                 </>}
             </div>
 
-            <Tickets data={items}
+            <Tickets data={items} fromConfirmation={false}
               maxTicketsToShow={this.state.ticketsToShow.find(el => el.active).value} />
           </>}
       </div>
