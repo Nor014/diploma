@@ -22,7 +22,7 @@ class Payment extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault();
 
-    const { user } = this.props.submitTicketsData;
+    const { user } = this.props.submitTicketsData.data;
     let valid = true, errorMessage = '';
 
     for (let [key, value] of Object.entries(user)) {
@@ -60,7 +60,8 @@ class Payment extends React.Component {
   }
 
   render() {
-    const formState = this.props.submitTicketsData.user;
+    console.log(this.props)
+    const formState = this.props.submitTicketsData.data.user;
 
     return (
       <div className='payment' ref={this.ref}>

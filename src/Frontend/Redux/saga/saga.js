@@ -1,6 +1,6 @@
 import { spawn, take, put, fork, call, takeLatest, delay, race } from 'redux-saga/effects';
-import { setDirectionList, setTicketsData, clearDirectionList, setLastTickets, setSeatsData } from '../actions/actions';
-import { fetchData } from '../fetchFunctions/fetchFunctions';
+import { setDirectionList, setTicketsData, setLastTickets, setSeatsData, setPostResponseMessage, setError } from '../actions/actions';
+import { fetchData, postData } from '../fetchFunctions/fetchFunctions';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 
@@ -11,34 +11,43 @@ function* getDataSaga(action) {
     if (action.type === 'FIND_TICKETS') yield put(showLoading());
 
     if (fromComponent === 'directionInput') { // необходимо для отмены последнего запроса при пустом инпуте выбора города
+
       const { data, cancel } = yield race({
         data: call(fetchData, url),
         cancel: take('CANCEL_FETCH_DATA')
       })
 
-      if (cancel) {
-        console.log('canceled', fromComponent)
-      }
-
       yield put(setDirectionList(data, action.payload.name))
     }
 
-    const data = yield call(fetchData, url);
+    if (action.type === 'POST_SUBMIT_DATA') {
+      const response = yield call(postData, 'https://netology-trainbooking.herokuapp.com/order', action.payload);
 
-    if (fromComponent === 'FindTickets') {
-      yield put(setTicketsData(data))
-    } else if (fromComponent === 'LastTickets') {
-      yield put(setLastTickets(data))
-    } else if (fromComponent === 'OrderSeats') {
-      yield put(setSeatsData(data, action.payload.directionName))
+      response.error
+        ? yield put(setError('error', response.error))
+        : yield put(setPostResponseMessage(response));
     }
 
-  } catch (error) {
+    if (action.type !== 'POST_SUBMIT_DATA') {
+      const data = yield call(fetchData, url);
+
+      if (fromComponent === 'FindTickets') {
+        yield put(setTicketsData(data))
+      } else if (fromComponent === 'LastTickets') {
+        yield put(setLastTickets(data))
+      } else if (fromComponent === 'OrderSeats') {
+        yield put(setSeatsData(data, action.payload.directionName))
+      }
+    }
+
+  } catch (error) { 
+    yield put(setError('error', error.message));
 
   } finally {
 
-    if (action.type === 'FIND_TICKETS') yield put(hideLoading());
-
+    if (action.type === 'FIND_TICKETS') {
+      yield put(hideLoading());
+    }
   }
 }
 
@@ -74,10 +83,18 @@ function* seatsWatcher() {
   }
 }
 
+function* submitDataWatcher() {
+  while (true) {
+    const action = yield take('POST_SUBMIT_DATA')
+    yield fork(getDataSaga, action)
+  }
+}
+
 export default function* saga() {
   yield spawn(getDataWatcher)
   yield spawn(getLocationsWatcher)
   yield spawn(findTicketsWatcher)
   yield spawn(lastTicketsWatcher)
   yield spawn(seatsWatcher)
+  yield spawn(submitDataWatcher)
 }

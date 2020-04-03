@@ -12,12 +12,9 @@
   margin-bottom: 0;
 }
 
-.confirmation__head {
+.confirmation__title {
   padding: 20px;
   border-bottom: 1px solid #928F94;
-}
-
-.confirmation__title {
   font-size: 20px;
   line-height: 25px;
   color: #292929;
@@ -79,7 +76,7 @@
 
 .confirmation__passenger-text {
   color: #928F94;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .confirmation__passengers-total-cost {

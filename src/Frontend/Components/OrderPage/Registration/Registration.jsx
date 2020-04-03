@@ -42,31 +42,22 @@ class Registration extends React.Component {
   }
 
   changePassengersAmountAvailableToRegistration = (category, action = 'subtraction') => {
-    if (action === 'subtraction') {
-      this.setState(prevState => {
-        const newState = { ...prevState[category] };
+    this.setState(prevState => {
+      const newState = { ...prevState[category] };
 
-        newState.availableAmountOfPassengersToRegistrate -= 1;
-        newState.alreadyRegistered += 1;
+      newState.availableAmountOfPassengersToRegistrate = action === 'subtraction'
+        ? newState.availableAmountOfPassengersToRegistrate - 1
+        : newState.availableAmountOfPassengersToRegistrate + 1;
 
-        return { ...prevState, [category]: newState }
-      }, () => console.log(this.state))
-    }
+      newState.alreadyRegistered = action === 'subtraction'
+        ? newState.alreadyRegistered + 1
+        : newState.alreadyRegistered - 1
 
-    if (action === 'add') {
-      this.setState(prevState => {
-        const newState = { ...prevState[category] };
-
-        newState.availableAmountOfPassengersToRegistrate += 1;
-        newState.alreadyRegistered -= 1;
-
-        return { ...prevState, [category]: newState }
-      }, () => console.log(this.state))
-    }
+      return { ...prevState, [category]: newState }
+    }, () => console.log(this.state))
   }
 
   render() {
-    console.log(this.state);
     const amountOfRegistrationFormsToRender = Array(this.state.totalTicketsAmount).fill('');
     const orderPageLinkClass = this.state.adult.availableAmountOfPassengersToRegistrate === 0 && this.state.children.availableAmountOfPassengersToRegistrate === 0
       ? 'order-page__link_active'

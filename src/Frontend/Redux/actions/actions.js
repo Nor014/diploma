@@ -361,3 +361,19 @@ export function removeError() {
     type: 'REMOVE_ERROR'
   }
 }
+
+// DataConfirmation
+
+export function postSubmitData(data) {
+  return {
+    type: 'POST_SUBMIT_DATA',
+    payload: data
+  }
+}
+
+export function setPostResponseMessage(message) {
+  return {
+    type: 'SET_POST_RESPONSE_MESSAGE',
+    payload: message
+  }
+}
