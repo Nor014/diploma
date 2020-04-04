@@ -136,7 +136,7 @@ export default function orderDetailsReducer(state = initState, action) {
     return { ...state, ticketCategories: newState };
   }
 
-  if (action.type === 'CLEAR_ORDER_DETAILS_DATA') {
+  if (action.type === 'CLEAR_ORDER_DETAILS_DATA' || action.type === 'RESET_REDUCERS') {
     // по хорошему нужно было юзать например CloneDeep от Lodash, Immer и т.д. и возвращать initState, так как spred оператор копирует только поверхностно
     return {
       fullPathData: null,

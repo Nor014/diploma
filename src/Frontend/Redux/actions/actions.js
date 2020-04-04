@@ -377,3 +377,11 @@ export function setPostResponseMessage(message) {
     payload: message
   }
 }
+
+// FinalPage
+
+export function resetReducers() {
+  return {
+    type: 'RESET_REDUCERS'
+  }
+}

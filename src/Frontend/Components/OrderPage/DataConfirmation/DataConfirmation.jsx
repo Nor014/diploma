@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { changeOrderStep, postSubmitData } from '../../../Redux/actions/actions';
 
 import moment from 'moment';
@@ -13,7 +13,7 @@ class DataConfirmation extends React.Component {
 
   componentDidUpdate = () => {
     if (this.props.submitTicketsData.post_status) { // если POST запрос успешен редирект на финальную страницу
-      // this.props.history.push('confirmation');
+      // this.props.history.push('http://localhost:3000/order-success');
     }
   }
 
@@ -70,7 +70,19 @@ class DataConfirmation extends React.Component {
       direction.name === 'departure' ? childrenCategoryDepartureCost = result : childrenCategoryArrivalCost = result;
     });
 
+    const totalPrice = adultCategoryDepartureCost + childrenCategoryDepartureCost + adultCategoryArrivalCost + childrenCategoryArrivalCost;
+
     console.log(this.props)
+
+    if (submitTicketsData.post_status) {
+      return <Redirect to={{
+        pathname: '/order-success',
+        state: {
+          name: submitTicketsData.data.user.first_name + ' ' + submitTicketsData.data.user.last_name + ' ' + submitTicketsData.data.user.patronymic,
+          price: totalPrice
+        }
+      }} />
+    }
 
     return (
       <div className='confirmation'>
@@ -104,7 +116,7 @@ class DataConfirmation extends React.Component {
             </div>
 
             <div className="confirmation__asside">
-              <p className="confirmation__passengers-total-cost">Всего <span className='confirmation__passengers-span'>{adultCategoryDepartureCost + childrenCategoryDepartureCost + adultCategoryArrivalCost + childrenCategoryArrivalCost} <span className='confirmation__passengers-ruble'>₽</span></span></p>
+              <p className="confirmation__passengers-total-cost">Всего <span className='confirmation__passengers-span'>{totalPrice} <span className='confirmation__passengers-ruble'>₽</span></span></p>
 
               <Link to='/order/registration' className='link btn btn_theme_white btn_size_small' onClick={() => this.props.changeOrderStep(2)}>Изменить</Link>
             </div>

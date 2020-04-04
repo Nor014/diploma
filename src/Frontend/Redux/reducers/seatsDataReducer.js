@@ -278,7 +278,7 @@ export default function seatsDataReducer(state = initState, action) {
     return { ...state, data: newData }
   }
 
-  if (action.type === 'CLEAR_SEATS_DATA') {
+  if (action.type === 'CLEAR_SEATS_DATA' || action.type === 'RESET_REDUCERS') {
     return {
       data: [
         {

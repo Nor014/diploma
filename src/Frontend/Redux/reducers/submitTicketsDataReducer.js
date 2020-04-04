@@ -20,6 +20,7 @@ const initState = {
   post_status: null
 }
 
+
 export default function submitTicketsDataReducer(state = initState, action) {
   if (action.type === 'SET_ROUTE_DIRECTION_ID') {
     const { direction, id } = action.payload;
@@ -67,7 +68,7 @@ export default function submitTicketsDataReducer(state = initState, action) {
     return { ...state, post_status: action.payload.status }
   }
 
-  if (action.type === 'SUBMIT_DATA_TO_DEFAULT_STATE') {
+  if (action.type === 'SUBMIT_DATA_TO_DEFAULT_STATE' || action.type === 'RESET_REDUCERS') {
     return {
       data: {
         user: {

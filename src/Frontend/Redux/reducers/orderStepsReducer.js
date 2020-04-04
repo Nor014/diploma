@@ -4,25 +4,33 @@ const initState = {
       stepName: 'Билеты',
       stepIndex: 1,
       active: true,
-      bigBlockSize: true
+      bigBlockSize: true,
+      complete: false,
+      path: '/order'
     },
     {
       stepName: 'Пассажиры',
       stepIndex: 2,
       active: false,
-      bigBlockSize: false
+      bigBlockSize: false,
+      complete: false,
+      path: '/order/registration'
     },
     {
       stepName: 'Оплата',
       stepIndex: 3,
       active: false,
-      bigBlockSize: false
+      bigBlockSize: false,
+      complete: false,
+      path: '/order/payment'
     },
     {
       stepName: 'Проверка',
       stepIndex: 4,
       active: false,
-      bigBlockSize: true
+      bigBlockSize: true,
+      complete: false,
+      path: '/order/confirmation'
     },
   ]
 }

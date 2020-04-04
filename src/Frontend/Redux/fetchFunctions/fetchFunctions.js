@@ -9,7 +9,7 @@ export const fetchData = async (url) => {
 }
 
 export const postData = async (url, data) => {
-
+  
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -21,8 +21,6 @@ export const postData = async (url, data) => {
   if (!response.ok) {
     throw new Error(response.statusText);
   }
-
-  console.log(response)
 
   return await response.json();
 }
