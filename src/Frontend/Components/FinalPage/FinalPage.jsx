@@ -6,10 +6,20 @@ import { resetReducers } from '../../Redux/actions/actions';
 import Rating from './Components/Rating/Rating';
 
 class FinalPage extends React.Component {
+  constructor(props) {
+    super(props)
+    this.ref = React.createRef();
+  }
 
   componentDidMount = () => {
     if (this.props.location.state !== undefined) {
       this.props.resetReducers(); // так как заказ билетов успешно осуществлен, очищаем все данные
+
+
+      this.ref.current.scrollIntoView({ // scroll to top
+        behavior: 'smooth',
+        block: 'start',
+      });
     }
   }
 
@@ -22,7 +32,7 @@ class FinalPage extends React.Component {
     const { name, price } = this.props.location.state;
 
     return (
-      <div className="final-page">
+      <div className="final-page" ref={this.ref}>
         <div className="final-page__body">
           <div className="final-page__inner container">
             <h2 className='final-page__title'>Благодарим Вас за заказ!</h2>

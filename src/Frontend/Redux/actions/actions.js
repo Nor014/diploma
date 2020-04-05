@@ -89,12 +89,13 @@ export function setDate(date, paramsName) {
 
 // findTickets
 
-export function findTickets(url, fromComponent) {
+export function findTickets(url, fromComponent, redirectFromMain = false) {
   return {
     type: 'FIND_TICKETS',
     payload: {
       url: url,
-      fromComponent: fromComponent
+      fromComponent: fromComponent,
+      redirectFromMain: redirectFromMain
     }
   }
 }
@@ -126,12 +127,20 @@ export function changeRangeParams(params) {
   }
 }
 
+// OrderPage
+
+export function resetRedirectFromMain() {
+  return {
+    type: 'RESET_REDIRECT_FROM_MAIN'
+  }
+}
+
 // OrderTickets
 
-export function setTicketsData(data) {
+export function setTicketsData(data, redirectFromMain) {
   return {
     type: 'SET_TICKETS_DATA',
-    payload: data
+    payload: { data, redirectFromMain }
   }
 }
 

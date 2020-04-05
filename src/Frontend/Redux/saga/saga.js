@@ -32,7 +32,7 @@ function* getDataSaga(action) {
       const data = yield call(fetchData, url);
 
       if (fromComponent === 'FindTickets') {
-        yield put(setTicketsData(data))
+        yield put(setTicketsData(data, action.payload.redirectFromMain))
       } else if (fromComponent === 'LastTickets') {
         yield put(setLastTickets(data))
       } else if (fromComponent === 'OrderSeats') {

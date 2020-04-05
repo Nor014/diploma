@@ -3,13 +3,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from "react-router-dom";
 import { changeOrderStep, postSubmitData } from '../../../Redux/actions/actions';
-
 import moment from 'moment';
 
 import Tickets from '../Tickets/Tickets';
 
 
 class DataConfirmation extends React.Component {
+  constructor(props) {
+    super(props)
+    this.ref = React.createRef();
+  }
+
+  componentDidMount = () => {
+    this.ref.current.scrollIntoView({ // scroll to top
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
 
   onConfirmationBtn = () => {
     const dateToPost = { ...this.props.submitTicketsData.data };
@@ -82,7 +92,7 @@ class DataConfirmation extends React.Component {
     }
 
     return (
-      <div className='confirmation'>
+      <div className='confirmation' ref={this.ref}>
         <div className="confirmation__inner">
           <h2 className='confirmation__title'>Поезд</h2>
 

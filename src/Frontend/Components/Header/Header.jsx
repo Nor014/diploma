@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from '../GeneralBlocks/Logo/Logo';
+import { Redirect } from "react-router-dom";
 
 export default class Header extends React.Component {
 

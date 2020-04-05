@@ -9,16 +9,27 @@ import Reviews from './Reviews/Reviews';
 
 
 class MainPage extends React.Component {
+  constructor(props) {
+    super(props)
+    this.ref = React.createRef();
+  }
+
+  componentDidMount = () => {
+    this.ref.current.scrollIntoView({ // scroll to top
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
 
   render() {
     const { ticketsData } = this.props;
 
-    if (ticketsData.data.items) {
+    if (ticketsData.redirectFromMainPage) {
       return <Redirect to='/order' />
     }
 
     return (
-      <div className="main-page">
+      <div className="main-page" ref={this.ref}>
         <Welcome />
         <AboutUs />
         <HowItWorks />
@@ -30,6 +41,7 @@ class MainPage extends React.Component {
 
 const mapStateToProps = (state) => {
   const { ticketsData } = state;
+  
   return {
     ticketsData: ticketsData
   }

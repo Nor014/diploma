@@ -1,5 +1,7 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
+import { connect } from 'react-redux';
+import { resetRedirectFromMain } from '../../Redux/actions/actions';
 
 import FindTickets from '../GeneralBlocks/FindTickets/FindTickets';
 import OrderSteps from './OrderSteps/OrderSteps';
@@ -12,10 +14,16 @@ import Payment from './Payment/Payment';
 import DataConfirmation from './DataConfirmation/DataConfirmation';
 
 
-export default class OrderPage extends React.Component {
+class OrderPage extends React.Component {
   constructor() {
     super();
     this.contentRef = React.createRef();
+  }
+
+  componentDidMount = () => {
+    if (this.props.ticketsData.redirectFromMainPage) { // если редирект с главной страницы уже был осуществлен меняем значение на false
+      this.props.resetRedirectFromMain(); 
+    }
   }
 
   render() {
@@ -55,3 +63,20 @@ export default class OrderPage extends React.Component {
     )
   }
 }
+
+
+const mapStateToProps = state => {
+  const { ticketsData } = state;
+
+  return {
+    ticketsData
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    resetRedirectFromMain: () => dispatch(resetRedirectFromMain())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderPage)

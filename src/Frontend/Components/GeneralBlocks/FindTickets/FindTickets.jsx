@@ -4,17 +4,17 @@ import DirectionInput from '../DirectionInput/DirectionInput';
 
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
-import { changeDirectionValues, findTickets } from '../../../Redux/actions/actions';
+import { changeDirectionValues, findTickets, changeOrderStep } from '../../../Redux/actions/actions';
 
 import moment from 'moment';
 
 class FindTickets extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     redirect: false
-  //   }
-  // }  
+  constructor(props) {
+    super(props)
+    this.state = {
+      redirect: false
+    }
+  }
 
   onFindTicketsSubmit = (event) => {
     event.preventDefault();
@@ -37,14 +37,15 @@ class FindTickets extends React.Component {
       url += el.name + '=' + el.value + '&'
     })
 
-    console.log(url)
 
-    this.props.findTickets(url, 'FindTickets');
+    const redirect = this.props.fromComponent === 'Welcome' ? true : false; // нужен ли редирект с главной страницы 
+    this.props.findTickets(url, 'FindTickets', redirect);
 
-    // // редирект если запрос происходит не из главной страницы или страницы билетов
-    // if (this.props.fromComponent === undefined && window.location.pathname !== '/order') {
-    //   this.setState(prevState => ({ ...prevState, redirect: true }))
-    // }
+    // редирект если запрос происходит не из главной страницы или страницы билетов
+    if (!this.props.fromComponent && window.location.pathname !== '/order') {
+      this.props.changeOrderStep(1);
+      this.setState(prevState => ({ ...prevState, redirect: true }))
+    }
 
     // scroll to block
     if (this.props.scrollTo) {
@@ -61,7 +62,8 @@ class FindTickets extends React.Component {
       ? 'find-tickets_direction_column'
       : 'find-tickets_direction_row'}`
 
-    // console.log(this.props)
+    console.log(this.props)
+
     return (
       <>
         <form onSubmit={this.onFindTicketsSubmit} className={componentClass}>
@@ -103,9 +105,7 @@ class FindTickets extends React.Component {
           </div>
         </form>
 
-        {/* {this.state.redirect
-          ? <Redirect to='/order' />
-          : null} */}
+        {this.state.redirect ? <Redirect to='/order' /> : null}
       </>
     )
   }
@@ -121,7 +121,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeDirectionValues: () => dispatch(changeDirectionValues()),
-    findTickets: (url, fromComponent) => dispatch(findTickets(url, fromComponent))
+    findTickets: (url, fromComponent, redirectFromMain) => dispatch(findTickets(url, fromComponent, redirectFromMain)),
+    changeOrderStep: (step) => dispatch(changeOrderStep(step))
   }
 }
 

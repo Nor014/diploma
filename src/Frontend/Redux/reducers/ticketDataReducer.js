@@ -30,7 +30,10 @@ export default function ticketDataReducer(state = initState, action) {
   }
 
   if (action.type === 'SET_TICKETS_DATA') {
-    const data = action.payload;
+    const { data, redirectFromMain } = action.payload;
+
+    console.log(data, redirectFromMain)
+
     const currentFilter = state.filters.find(el => el.active).value;
     const sortedData = sortData(data, currentFilter);
 
@@ -132,7 +135,7 @@ export default function ticketDataReducer(state = initState, action) {
       ticket.departure.classes = classes
     })
 
-    return { ...state, data: sortedData, loading: false, };
+    return { ...state, data: sortedData, loading: false, redirectFromMainPage: redirectFromMain };
   }
 
   if (action.type === 'SORT_TICKETS') {
@@ -148,6 +151,10 @@ export default function ticketDataReducer(state = initState, action) {
       .sort((a, b) => b.active - a.active)
 
     return { ...state, data: sortedData, filters: newFiltersState, loading: false };
+  }
+
+  if (action.type === 'RESET_REDIRECT_FROM_MAIN') {
+    return { ...state, redirectFromMainPage: false }
   }
 
   function sortData(data, filter) {
