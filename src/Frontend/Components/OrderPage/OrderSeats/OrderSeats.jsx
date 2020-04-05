@@ -7,7 +7,7 @@ import Passengers from './Components/Passengers/Passengers';
 import Coach from './Components/Coach/Coach';
 import Preloader from '../../GeneralBlocks/Preloader/Preloader';
 
-import { getSeatsData, setPathDetails, clearOrderDetailsData, clearSeatsData, changeOrderStep, setFullPathData } from '../../../Redux/actions/actions';
+import { getSeatsData, setPathDetails, clearOrderDetailsData, clearSeatsData, changeOrderStep, setFullPathData, orderStepComplete } from '../../../Redux/actions/actions';
 
 class OrderSeats extends React.Component {
   constructor(props) {
@@ -54,6 +54,11 @@ class OrderSeats extends React.Component {
     this.props.clearSeatsData();
   }
 
+  onLinkClick = () => {
+    this.props.changeOrderStep(2);
+    this.props.orderStepComplete('order-seats');
+  }
+
   render() {
     const { data, loading, error } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
@@ -95,7 +100,7 @@ class OrderSeats extends React.Component {
 
         <div className="order-page__link-wrap">
           <Link to='/order/registration' className={`link order-page__link btn btn_theme_yellow btn_size_small ${toRegistrationLinkClass}`}
-            onClick={() => this.props.changeOrderStep(2)}>Далее</Link>
+            onClick={this.onLinkClick}>Далее</Link>
         </div>
       </div >
     )
@@ -119,6 +124,7 @@ const mapDispatchToProps = (dispatch) => {
     clearSeatsData: () => dispatch(clearSeatsData()),
     changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex)),
     setFullPathData: (data) => dispatch(setFullPathData(data)),
+    orderStepComplete: (fromComponent) => dispatch(orderStepComplete(fromComponent))
   }
 }
 

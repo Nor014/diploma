@@ -17,7 +17,9 @@ const initState = {
       seats: []
     }
   },
-  post_status: null
+  post_status: null,
+  registration_step_complete: false,
+  paymant_step_complete: false
 }
 
 
@@ -68,6 +70,14 @@ export default function submitTicketsDataReducer(state = initState, action) {
     return { ...state, post_status: action.payload.status }
   }
 
+  if (action.type === 'ORDER_STEP_COMPLETE_REGISTRATION') {
+    return { ...state, registration_step_complete: true }
+  }
+
+  if (action.type === 'ORDER_STEP_COMPLETE_PAYMENT') {
+    return { ...state, payment_step_complete: true }
+  }
+
   if (action.type === 'SUBMIT_DATA_TO_DEFAULT_STATE' || action.type === 'RESET_REDUCERS') {
     return {
       data: {
@@ -88,7 +98,9 @@ export default function submitTicketsDataReducer(state = initState, action) {
           seats: []
         }
       },
-      post_status: null
+      post_status: null,
+      registration_step_complete: false,
+      paymant_step_complete: false
     }
   }
 

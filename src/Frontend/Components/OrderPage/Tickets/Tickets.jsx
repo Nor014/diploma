@@ -62,14 +62,14 @@ export default class Tickets extends React.Component {
                     <div className="ticket-card__seats-info" key={index}>
                       <p className="ticket-card__seats-name">{coachClass.className}</p>
                       <p className="ticket-card__seats-amount">{coachClass.seatsAmount}</p>
-                      <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span'>{coachClass.seatsPrice}</span> ₽</p>
+                      <p className="ticket-card__seats-cost">от <span className='ticket-card__seats-span price price_with_ruble-icon'>{coachClass.seatsPrice}</span></p>
 
                       <div className="ticket-card__seats-details"> {/* Всплывающая подсказка */}
                         {coachClass.seatsDetails.map((details, index) => {
                           return (
                             <div className="ticket-card__seats-info" key={index}>
                               <p className="ticket-card__seats-name">{details.seatsType}</p>
-                              <p className="ticket-card__seats-cost"><span className='ticket-card__seats-span'>{details.seatsPrice}</span> ₽</p>
+                              <p className="ticket-card__seats-cost"><span className='ticket-card__seats-span price price_with_ruble-icon'>{details.seatsPrice}</span></p>
                             </div>
                           )
                         })}

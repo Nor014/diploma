@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { setUserParams, setError, changeOrderStep } from '../../../Redux/actions/actions';
+import { Redirect } from 'react-router-dom';
+import { setUserParams, setError, changeOrderStep, orderStepComplete } from '../../../Redux/actions/actions';
 import { validateParams } from '../../../index';
 
 import RegistrationInput from '../../GeneralBlocks/RegistrationInput/RegistrationInput';
@@ -13,10 +14,12 @@ class Payment extends React.Component {
   }
 
   componentDidMount = () => {
-    this.ref.current.scrollIntoView({ // scroll to top
-      behavior: 'smooth',
-      block: 'start',
-    });
+    if (this.props.submitTicketsData.registration_step_complete) { // если предыдущий шаг регистрации заказа был пройден
+      this.ref.current.scrollIntoView({ // scroll to top
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
   }
 
   onFormSubmit = (event) => {
@@ -45,6 +48,7 @@ class Payment extends React.Component {
 
     if (valid) {
       this.props.changeOrderStep(4);
+      this.props.orderStepComplete('payment');
       this.props.history.push('confirmation');
     }
   }
@@ -60,8 +64,11 @@ class Payment extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const formState = this.props.submitTicketsData.data.user;
+
+    if (!this.props.submitTicketsData.registration_step_complete) { // если предыдущий шаг оформления заказа не был пройден, редирект на шаг назад
+      return <Redirect to='/order/registration' />
+    }
 
     return (
       <div className='payment' ref={this.ref}>
@@ -182,6 +189,7 @@ const mapDispatchToProps = (dispatch) => {
     setUserParams: (paramsName, value) => dispatch(setUserParams(paramsName, value)),
     setError: (error_type, message) => dispatch(setError(error_type, message)),
     changeOrderStep: (stepIndex) => dispatch(changeOrderStep(stepIndex)),
+    orderStepComplete: (fromComponent) => dispatch(orderStepComplete(fromComponent))
   }
 }
 

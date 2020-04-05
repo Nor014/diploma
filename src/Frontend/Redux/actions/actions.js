@@ -385,3 +385,11 @@ export function resetReducers() {
     type: 'RESET_REDUCERS'
   }
 }
+
+// Для маршрутизации
+
+export function orderStepComplete(fromComponent) {
+  return {
+    type: `ORDER_STEP_COMPLETE_${fromComponent.toUpperCase()}`
+  }
+}

@@ -1,0 +1,10 @@
+.price_with_ruble-icon::after {
+  content: '₽';
+  font-weight: 300;
+  margin-left: 5px;
+  color: #928F94;
+}
+
+.price_icon-theme_white::after {
+  color: #E5E5E5;
+}

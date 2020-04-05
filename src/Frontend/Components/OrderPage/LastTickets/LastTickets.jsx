@@ -41,7 +41,7 @@ class LastTickets extends React.Component {
                       <SvgIcon icon='ticket-food' className='last-tickets__icon' />
                     </div>
 
-                    <p className="last-tickets__cost">от <span className='last-tickets__cost-span'>{ticket.departure.min_price}</span> <span className='last-tickets__ruble'>₽</span></p>
+                    <p className="last-tickets__cost">от <span className='last-tickets__cost-span price price_with_ruble-icon'>{ticket.departure.min_price}</span></p>
                   </div>
                 </div>)}
             </div>

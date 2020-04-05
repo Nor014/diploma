@@ -46,11 +46,19 @@
   color: #3E3C41;
 }
 
+.final-page__order-price {
+  font-size: 25px;
+  line-height: 30px;
+  color: #928F94;
+}
+
 .final-page__order-span {
   font-size: 25px;
   line-height: 30px;
+  font-weight: bold;
   color: #3E3C41;
 }
+
 
 /* content-instructions */
 

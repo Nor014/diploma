@@ -16,12 +16,12 @@ class RegistrationAside extends React.Component {
 
     adultCategory.ticketsData.forEach(direction => {
       const result = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0);
-      direction.name === 'departure' ? adultCategoryDepartureCost = result: adultCategoryArrivalCost = result;
+      direction.name === 'departure' ? adultCategoryDepartureCost = result : adultCategoryArrivalCost = result;
     });
 
     childrenCategory.ticketsData.forEach(direction => {
       const result = direction.data.reduce((acc, ticket) => acc + ticket.totalCost, 0);
-      direction.name === 'departure' ? childrenCategoryDepartureCost = result: childrenCategoryArrivalCost = result;
+      direction.name === 'departure' ? childrenCategoryDepartureCost = result : childrenCategoryArrivalCost = result;
     });
 
     console.log(this.props)
@@ -93,12 +93,12 @@ class RegistrationAside extends React.Component {
               <h2 className="registration-aside__passengers-title">Туда</h2>
               <div className="registration-aside__inner">
                 <p className="registration-aside__label">{adultCategory.currentDepartureAmountOfTickets} Взрослых</p>
-                <p className="registration-aside__cost">{adultCategoryDepartureCost} <span className='registration-aside__ruble'>₽</span></p>
+                <p className="registration-aside__cost price price_with_ruble-icon">{adultCategoryDepartureCost} </p>
               </div>
 
               <div className="registration-aside__inner ">
                 <p className="registration-aside__label">{childrenCategory.currentDepartureAmountOfTickets} Детских</p>
-                <p className="registration-aside__cost">{childrenCategoryDepartureCost} <span className='registration-aside__ruble'>₽</span></p>
+                <p className="registration-aside__cost price price_with_ruble-icon">{childrenCategoryDepartureCost} </p>
               </div>
             </div>
 
@@ -106,12 +106,12 @@ class RegistrationAside extends React.Component {
               <h2 className="registration-aside__passengers-title">Обратно</h2>
               <div className="registration-aside__inner">
                 <p className="registration-aside__label">{adultCategory.currentArrivalAmountOfTickets} Взрослых</p>
-                <p className="registration-aside__cost">{adultCategoryArrivalCost} <span className='registration-aside__ruble'>₽</span></p>
+                <p className="registration-aside__cost price price_with_ruble-icon">{adultCategoryArrivalCost} </p>
               </div>
 
               <div className="registration-aside__inner ">
                 <p className="registration-aside__label">{childrenCategory.currentArrivalAmountOfTickets} Детских</p>
-                <p className="registration-aside__cost">{childrenCategoryArrivalCost} <span className='registration-aside__ruble'>₽</span></p>
+                <p className="registration-aside__cost price price_with_ruble-icon">{childrenCategoryArrivalCost} </p>
               </div>
             </div>
 
@@ -120,8 +120,7 @@ class RegistrationAside extends React.Component {
 
         <div className="registration-aside__total-cost">
           <p className="registration-aside__total-cost-label">Итог</p>
-          <p className="registration-aside__total-cost-value">{adultCategoryDepartureCost + childrenCategoryDepartureCost + adultCategoryArrivalCost + childrenCategoryArrivalCost}
-            <span className='registration-aside__ruble'>₽</span></p>
+          <p className="registration-aside__total-cost-value price price_with_ruble-icon price_icon-theme_white">{adultCategoryDepartureCost + childrenCategoryDepartureCost + adultCategoryArrivalCost + childrenCategoryArrivalCost}</p>
         </div>
       </div >
     )

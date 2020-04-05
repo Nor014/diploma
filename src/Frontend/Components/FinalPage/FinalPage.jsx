@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { resetReducers } from '../../Redux/actions/actions';
 
 import Rating from './Components/Rating/Rating';
@@ -8,13 +8,18 @@ import Rating from './Components/Rating/Rating';
 class FinalPage extends React.Component {
 
   componentDidMount = () => {
-    this.props.resetReducers(); // так как заказ билетов успешно осуществлен, очищаем все данные
+    if (this.props.location.state !== undefined) {
+      this.props.resetReducers(); // так как заказ билетов успешно осуществлен, очищаем все данные
+    }
   }
 
   render() {
-    const { name, price } = this.props.location.state;
 
-    console.log(this.props)
+    if (this.props.location.state === undefined) { // если данные не были переданны со страницы подтвержения, значит заказ не был оформлен
+      return <Redirect to='order/confirmation' />
+    }
+
+    const { name, price } = this.props.location.state;
 
     return (
       <div className="final-page">
@@ -25,7 +30,7 @@ class FinalPage extends React.Component {
             <div className="final-page__content">
               <div className="final-page__header">
                 <p className="final-page__order-number">№Заказа 285АА</p>
-                <p className="final-page__order-price">сумма <span className='final-page__content-order-span'>{price}</span></p>
+                <p className="final-page__order-price">сумма <span className='final-page__order-span price price_with_ruble-icon'>{price}</span></p>
               </div>
 
               <div className="final-page__instructions">
@@ -51,6 +56,7 @@ class FinalPage extends React.Component {
     )
   }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
   return {

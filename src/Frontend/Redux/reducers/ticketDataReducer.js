@@ -3,7 +3,7 @@ import moment from 'moment';
 const initState = {
   data: [],
   loading: false,
-  error: null,
+  redirectFromMainPage: false,
   filters: [
     {
       value: 'time',
@@ -132,7 +132,7 @@ export default function ticketDataReducer(state = initState, action) {
       ticket.departure.classes = classes
     })
 
-    return { ...state, data: sortedData, loading: false };
+    return { ...state, data: sortedData, loading: false, };
   }
 
   if (action.type === 'SORT_TICKETS') {

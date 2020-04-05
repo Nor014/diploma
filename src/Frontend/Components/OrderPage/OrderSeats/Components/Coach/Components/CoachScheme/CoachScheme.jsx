@@ -175,7 +175,7 @@ class CoachScheme extends React.Component {
           <div className="coach-scheme__hint"></div>
         </div>
 
-        <p className="coach-scheme__total-cost">{totalCost} <span className='coach__seats-ruble'>₽</span></p>
+        <p className="coach-scheme__total-cost price price_with_ruble-icon">{totalCost}</p>
       </div >
     )
   }

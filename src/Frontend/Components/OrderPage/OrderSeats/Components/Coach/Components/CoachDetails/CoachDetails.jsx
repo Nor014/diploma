@@ -37,7 +37,7 @@ export default class CoachDetails extends React.Component {
           <div className="coach__details-cost coach__details-item">
             <p className="coach__section-title">Стоимость</p>
             {activeCoach.seatsInfo.map((el, index) => {
-              return <p key={index} className='coach__text coach__cost-value'>{el.cost} <span className='coach__seats-ruble'>₽</span></p>
+              return <p key={index} className='coach__text coach__cost-value price price_with_ruble-icon'>{el.cost}</p>
             })}
           </div>
 

@@ -51,6 +51,7 @@ const initState = {
     },
   ],
   total_cost: 0,
+  ticket_step_complete: false
 }
 
 export default function orderDetailsReducer(state = initState, action) {
@@ -136,6 +137,10 @@ export default function orderDetailsReducer(state = initState, action) {
     return { ...state, ticketCategories: newState };
   }
 
+  if (action.type === 'ORDER_STEP_COMPLETE_ORDER-SEATS') {
+    return { ...state, ticket_step_complete: true }
+  }
+
   if (action.type === 'CLEAR_ORDER_DETAILS_DATA' || action.type === 'RESET_REDUCERS') {
     // по хорошему нужно было юзать например CloneDeep от Lodash, Immer и т.д. и возвращать initState, так как spred оператор копирует только поверхностно
     return {
@@ -191,6 +196,7 @@ export default function orderDetailsReducer(state = initState, action) {
         },
       ],
       total_cost: 0,
+      ticket_step_complete: false
     }
   }
 

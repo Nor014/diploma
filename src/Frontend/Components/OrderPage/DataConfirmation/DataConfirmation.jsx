@@ -11,12 +11,6 @@ import Tickets from '../Tickets/Tickets';
 
 class DataConfirmation extends React.Component {
 
-  componentDidUpdate = () => {
-    if (this.props.submitTicketsData.post_status) { // если POST запрос успешен редирект на финальную страницу
-      // this.props.history.push('http://localhost:3000/order-success');
-    }
-  }
-
   onConfirmationBtn = () => {
     const dateToPost = { ...this.props.submitTicketsData.data };
 
@@ -44,7 +38,6 @@ class DataConfirmation extends React.Component {
       })
     }
 
-    console.log(dateToPost);
     this.props.postSubmitData(dateToPost);
   }
 
@@ -73,6 +66,10 @@ class DataConfirmation extends React.Component {
     const totalPrice = adultCategoryDepartureCost + childrenCategoryDepartureCost + adultCategoryArrivalCost + childrenCategoryArrivalCost;
 
     console.log(this.props)
+
+    if (!this.props.submitTicketsData.payment_step_complete) { // если предыдущий шаг оформления заказа не был пройден, редирект на шаг назад
+      return <Redirect to='/order/payment' />
+    }
 
     if (submitTicketsData.post_status) {
       return <Redirect to={{
@@ -116,7 +113,7 @@ class DataConfirmation extends React.Component {
             </div>
 
             <div className="confirmation__asside">
-              <p className="confirmation__passengers-total-cost">Всего <span className='confirmation__passengers-span'>{totalPrice} <span className='confirmation__passengers-ruble'>₽</span></span></p>
+              <p className="confirmation__passengers-total-cost">Всего <span className='confirmation__passengers-span price price_with_ruble-icon'>{totalPrice}</span></p>
 
               <Link to='/order/registration' className='link btn btn_theme_white btn_size_small' onClick={() => this.props.changeOrderStep(2)}>Изменить</Link>
             </div>
