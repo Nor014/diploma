@@ -28,7 +28,15 @@ function* getDataSaga(action) {
         : yield put(setPostResponseMessage(response));
     }
 
-    if (action.type !== 'POST_SUBMIT_DATA') {
+    if (action.type === 'SUBSCRIBE') {
+      const response = yield call(postData, url, {});
+
+      response.error
+        ? yield put(setError('error', response.error))
+        : yield put(setError('info', 'Подписка успешно оформлена'));
+    }
+
+    if (action.type !== 'POST_SUBMIT_DATA' && action.type !== 'SUBSCRIBE') {
       const data = yield call(fetchData, url);
 
       if (fromComponent === 'FindTickets') {
@@ -40,7 +48,7 @@ function* getDataSaga(action) {
       }
     }
 
-  } catch (error) { 
+  } catch (error) {
     yield put(setError('error', error.message));
 
   } finally {
@@ -90,6 +98,13 @@ function* submitDataWatcher() {
   }
 }
 
+function* subscribeDataWatcher() {
+  while (true) {
+    const action = yield take('SUBSCRIBE')
+    yield fork(getDataSaga, action)
+  }
+}
+
 export default function* saga() {
   yield spawn(getDataWatcher)
   yield spawn(getLocationsWatcher)
@@ -97,4 +112,5 @@ export default function* saga() {
   yield spawn(lastTicketsWatcher)
   yield spawn(seatsWatcher)
   yield spawn(submitDataWatcher)
+  yield spawn(subscribeDataWatcher)
 }

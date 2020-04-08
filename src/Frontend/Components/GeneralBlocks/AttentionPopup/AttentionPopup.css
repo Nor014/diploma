@@ -41,6 +41,10 @@
   background: #FFB59E url('./attentionPopup_icon_error.svg') no-repeat left 35px center;
 }
 
+.popup_type_info::before {
+  background: #FCF8A0 url('./attentionPopup_icon_info.svg') no-repeat left 35px center;
+}
+
 .popup__body {
   padding: 25px 25px 25px 35px;
   border-bottom: 1px dashed #928F94;

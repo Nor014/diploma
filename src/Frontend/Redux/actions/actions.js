@@ -402,3 +402,15 @@ export function orderStepComplete(fromComponent) {
     type: `ORDER_STEP_COMPLETE_${fromComponent.toUpperCase()}`
   }
 }
+
+// Supscription
+
+export function subscribe(fromComponent, url) {
+  return {
+    type: 'SUBSCRIBE',
+    payload: {
+      fromComponent,
+      url
+    }
+  }
+}

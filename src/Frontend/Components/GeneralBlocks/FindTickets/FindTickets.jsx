@@ -62,8 +62,6 @@ class FindTickets extends React.Component {
       ? 'find-tickets_direction_column'
       : 'find-tickets_direction_row'}`
 
-    console.log(this.props)
-
     return (
       <>
         <form onSubmit={this.onFindTicketsSubmit} className={componentClass}>

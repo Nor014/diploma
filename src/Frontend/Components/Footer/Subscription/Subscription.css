@@ -12,10 +12,15 @@
   margin-bottom: 44px;
 }
 
-.subscription__input {
+.subscription__form .registration-input {
   max-width: 450px;
+  flex: 0 0 450px;
   width: 100%;
   margin-right: 33px;
+}
+
+.subscription__form .input {
+  padding: 15px;
 }
 
 .subscription__btn {

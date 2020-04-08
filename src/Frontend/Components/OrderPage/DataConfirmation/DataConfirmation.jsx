@@ -14,11 +14,14 @@ class DataConfirmation extends React.Component {
     this.ref = React.createRef();
   }
 
+
   componentDidMount = () => {
-    this.ref.current.scrollIntoView({ // scroll to top
-      behavior: 'smooth',
-      block: 'start',
-    });
+    if (this.props.submitTicketsData.payment_step_complete) {
+      this.ref.current.scrollIntoView({ // scroll to top
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
   }
 
   onConfirmationBtn = () => {
