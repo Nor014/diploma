@@ -21,7 +21,7 @@ export default class Footer extends React.Component {
         <div className="footer__bottom">
           <div className="footer__bottom-inner container">
             <Logo />
-            <a href='#header' className="link footer__to-header-link"></a>
+            <a href='# ' className="link footer__to-header-link">{null}</a>
             <p className='footer__year'>2020 WEB</p>
           </div>
         </div>

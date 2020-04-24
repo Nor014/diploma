@@ -1,4 +1,4 @@
-import { spawn, take, put, fork, call, takeLatest, delay, race } from 'redux-saga/effects';
+import { spawn, take, put, fork, call, takeLatest, race } from 'redux-saga/effects';
 import { setDirectionList, setTicketsData, setLastTickets, setSeatsData, setPostResponseMessage, setError } from '../actions/actions';
 import { fetchData, postData } from '../fetchFunctions/fetchFunctions';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
@@ -16,6 +16,10 @@ function* getDataSaga(action) {
         data: call(fetchData, url),
         cancel: take('CANCEL_FETCH_DATA')
       })
+
+      if (cancel) {
+        console.log('Запрос был отменен')
+      }
 
       yield put(setDirectionList(data, action.payload.name))
     }

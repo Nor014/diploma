@@ -170,7 +170,11 @@ export default function ticketDataReducer(state = initState, action) {
       if (filter === 'duration') {
         return a.departure.duration - b.departure.duration;
       }
+
+      return 0
     })
+
+    console.log(result)
 
     return { ...data, items: result };
   }

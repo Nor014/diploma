@@ -60,19 +60,19 @@ class Subscription extends React.Component {
 
         <ul className="subscription__list">
           <li className="subscription__list-item">
-            <a href="#" className="link subscription__list-link"><YoutubeIcon className='subscription__icon' /></a>
+            <a href="# " className="link subscription__list-link"><YoutubeIcon className='subscription__icon' /></a>
           </li>
           <li className="subscription__list-item">
-            <a href="#" className="link subscription__list-link"><InIcon className='subscription__icon' /></a>
+            <a href="# " className="link subscription__list-link"><InIcon className='subscription__icon' /></a>
           </li>
           <li className="subscription__list-item">
-            <a href="#" className="link subscription__list-link"><GoogleIcon className='subscription__icon' /></a>
+            <a href="# " className="link subscription__list-link"><GoogleIcon className='subscription__icon' /></a>
           </li>
           <li className="subscription__list-item">
-            <a href="#" className="link subscription__list-link"><FacebookIcon className='subscription__icon' /></a>
+            <a href="# " className="link subscription__list-link"><FacebookIcon className='subscription__icon' /></a>
           </li>
           <li className="subscription__list-item">
-            <a href="#" className="link subscription__list-link"><TwiterIcon className='subscription__icon' /></a>
+            <a href="# " className="link subscription__list-link"><TwiterIcon className='subscription__icon' /></a>
           </li>
         </ul>
       </div>

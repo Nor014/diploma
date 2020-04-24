@@ -73,7 +73,7 @@ class PassengerRegistrationForm extends React.Component {
   changeGender = (event) => {
     const valueToChoose = event.target.dataset.valueToChoose;
     const valueToDisable = event.target.dataset.valueToDisable;
-    const newState = { ... this.state.personData };
+    const newState = { ...this.state.personData };
 
     newState.gender.values[valueToChoose] = true;
     newState.gender.values[valueToDisable] = false;

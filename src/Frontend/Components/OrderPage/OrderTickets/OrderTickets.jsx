@@ -41,10 +41,11 @@ class OrderTickets extends React.Component {
   }
 
   render() {
-    const { data, loading, error, filters } = this.props.ticketsData;
+    const { data, loading, filters } = this.props.ticketsData;
     const filterValue = filters.find(el => el.active).innerText;
     const items = data.items;
-    console.log(data, this.props);
+
+    // console.log(data, this.props);
 
     return (
       <div className="order-tickets">

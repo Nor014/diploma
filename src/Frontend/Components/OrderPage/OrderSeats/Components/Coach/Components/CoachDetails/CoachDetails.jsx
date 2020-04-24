@@ -13,9 +13,11 @@ export default class CoachDetails extends React.Component {
       if (service.available && !service.inTicketCost && service.checked) {
         return service
       }
+
+      return null
     })
 
-    console.log(activeCoach)
+    // console.log(activeCoach)
 
     return (
       <>

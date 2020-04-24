@@ -60,7 +60,7 @@ class OrderSeats extends React.Component {
   }
 
   render() {
-    const { data, loading, error } = this.props.seatsData;
+    const { data, loading } = this.props.seatsData;
     const { ticketCategories } = this.props.orderDetailsData;
 
     const arraivalData = data.find(direction => direction.name === 'arrival').directionSeatsData;

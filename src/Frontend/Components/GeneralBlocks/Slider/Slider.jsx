@@ -5,10 +5,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 
 export default class Slider extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
+ 
   render() {
     const { parentClassName, slideContent } = this.props;
     const sliderClass = parentClassName ? `slider ${parentClassName}` : 'slider';
@@ -21,7 +18,6 @@ export default class Slider extends React.Component {
         showStatus={false}
         className={sliderClass}
         emulateTouch={true}
-        autoPlay={true}
         infiniteLoop={true}>
 
         {parentClassName === 'reviews__slider'
