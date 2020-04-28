@@ -49,7 +49,7 @@ export default class OrderFilters extends React.Component {
             className='drop-down__range-input'
             startMin={13} startMax={22} format='time'
             paramsName={{ forMinValue: 'start_arrival_hour_from', forMaxValue: 'start_arrival_hour_to' }} />
-            
+
         </DropDown>
 
         <DropDown headContent={{ title: 'Обратно', titleClass: 'drop-down_title-type_back' }}
@@ -69,6 +69,9 @@ export default class OrderFilters extends React.Component {
             paramsName={{ forMinValue: 'end_arrival_hour_from', forMaxValue: 'end_arrival_hour_to' }} />
 
         </DropDown>
+
+        <button form='find-tickets-form' className='btn order-filters__btn btn_size_small btn_theme_white'
+          type='submit'>Найти билеты</button>
       </div>
     )
   }
