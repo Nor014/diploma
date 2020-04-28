@@ -41,10 +41,14 @@ class FindTickets extends React.Component {
     const redirect = this.props.fromComponent === 'Welcome' ? true : false; // нужен ли редирект с главной страницы 
     this.props.findTickets(url, 'FindTickets', redirect);
 
+
     // редирект если запрос происходит не из главной страницы или страницы билетов
     if (!this.props.fromComponent && window.location.pathname !== '/order') {
       this.props.changeOrderStep(1);
-      this.setState(prevState => ({ ...prevState, redirect: true }))
+
+      this.setState(prevState => ({ ...prevState, redirect: true }), () => {
+        this.setState(prevState => ({ ...prevState, redirect: false }))
+      })
     }
 
     // scroll to block
@@ -64,7 +68,7 @@ class FindTickets extends React.Component {
 
     return (
       <>
-        <form onSubmit={this.onFindTicketsSubmit} className={componentClass}>
+        <form id='find-tickets-form' onSubmit={this.onFindTicketsSubmit} className={componentClass}>
           <div className='find-tickets__inner'>
             <div className="find-tickets__content">
               <p className="find-tickets__label text text_theme_white text_level_third text_weight_300">Направление</p>

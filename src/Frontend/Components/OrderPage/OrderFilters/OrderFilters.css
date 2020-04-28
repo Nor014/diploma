@@ -35,3 +35,10 @@
   border-bottom: 1px solid #E5E5E5;
 }
 
+.order-filters__btn {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 250px;
+  width: 100%;
+}
+
